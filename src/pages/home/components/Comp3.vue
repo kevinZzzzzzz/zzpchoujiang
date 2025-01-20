@@ -26,6 +26,18 @@
         <p class="comp3_box3_tips">（单Q最多购买1次）</p>
       </li>
     </ul>
+    <div class="comp3_box4">
+      <div class="comp3_box4_table">
+        <div class="comp3_box4_table_th">
+          <p class="comp3_box4_table_th_td">
+            玩家名称
+          </p>
+          <p class="comp3_box4_table_th_td">
+            大区
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -126,6 +138,30 @@ import pic37 from '@/assets/images/10037.png'
       width: 170px;
       height: 42px;
       background-position: -4.5rem -20.3rem !important;
+    }
+  }
+  &_box4 {
+    width: 100%;
+    min-height: 115px;
+    background-size: 100% 100%;
+    margin-top: 10px;
+    padding: 40px 10px 0;
+    background: url('@/assets/images/box8.png') no-repeat;
+    background-size: 100% 100%;
+    &_table {
+      width: 100%;
+      &_th {
+        height: 34px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        &_td {
+          font-size: 12px;
+          color: #fee9d0;
+          display: flex;
+          align-items: center;
+          justify-content: center
+        }
+      }
     }
   }
 }
