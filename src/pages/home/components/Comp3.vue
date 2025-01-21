@@ -5,7 +5,7 @@
       xQ币开通福运卡并直接赠送抽奖钥匙x5，单Q限1<br>
       邀请仍未在本活动开卡的玩家，双方均可获得“金蛇幸运星”x1，（单Q最多邀请6名用户）
     </p>
-    <ul class="comp3_box3" :style="{'background-image': `url(${pic37})`}">
+    <ul class="comp3_box3" :style="{'background-image': `url(${pic01})`}">
       <li>
         <p class="comp3_box3_txt">
           赠送抽奖钥匙x5
@@ -38,6 +38,23 @@
         </div>
       </div>
     </div>
+    <div class="comp3_box5 sp">
+      <p>查看我邀请的用户</p>
+    </div>
+    <div class="comp3_box6">
+      <p class="comp3_box6_txt">
+        当前已累计金蛇幸运星：{{ jinSheLuckyStar }}
+      </p>
+      <ul class="comp3_box6_list">
+        <li v-for="(d, i) in inviteAwardList" :key="i" class="comp3_box6_list_li">
+          <p>{{d.decs}} <span>{{ d.num }}</span> </p>
+          <img :src="d.img" alt="">
+          <div class="comp3_box6_list_li_btn sp1">
+            <p>点击领取</p>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -48,7 +65,44 @@ name: 'Comp3'
 </script>
 <script setup lang='ts'>
 import {ref} from 'vue'
-import pic37 from '@/assets/images/10037.png'
+import pic01 from '@/assets/images/10001.png'
+import pic17 from '@/assets/images/10017.png'
+import pic18 from '@/assets/images/10018.png'
+import pic19 from '@/assets/images/10019.png'
+import pic20 from '@/assets/images/10020.png'
+import pic21 from '@/assets/images/10021.png'
+import pic22 from '@/assets/images/10022.png'
+import pic23 from '@/assets/images/10023.png'
+const jinSheLuckyStar = ref('x')
+const inviteAwardList = ref([{
+  img: pic17,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic18,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic19,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic20,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic21,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic22,
+  decs: '累计获取金蛇幸运星',
+  num: 'x'
+}, {
+  img: pic23,
+  decs: '超过20金蛇幸运星数量',
+  num: 'x'
+}])
 </script>
 
 <style scoped lang="less">
@@ -160,6 +214,77 @@ import pic37 from '@/assets/images/10037.png'
           display: flex;
           align-items: center;
           justify-content: center
+        }
+      }
+    }
+  }
+  &_box5 {
+    width: 170px;
+    height: 50px;
+    margin: 20px auto 0;
+    background-position: 0.1rem -21.6rem !important;
+    p {
+      background-image: linear-gradient(to bottom, #f8d7a1, #fce3c0, #ffecd7);
+      color: transparent;
+      -webkit-background-clip: text;
+      font-size: 14px;
+      text-align: center;
+      line-height: 58px;
+      font-family: "rui";
+    }
+  }
+  &_box6 {
+    // width: 100%;
+    margin: 18px 10px 0;
+    background: url('@/assets/images/box9.png') no-repeat;
+    background-size: 100% 100%;
+    &_txt {
+      width: 100%;
+      text-align: center;
+      font-size: 10px;
+      color: #fee9d0;
+      padding: 10px;
+    }
+    &_list {
+      padding: 10px 10px;
+      display: flex;
+      // grid-template-columns: repeat(3, 1fr);
+      // grid-gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      &_li {
+        width: 30%;
+        margin: 10px 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-size: 8px;
+          color: #fee9d0;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        img {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+        &_btn {
+          width: 100%;
+          height: 36px;
+          background-position: -4.3rem -21.9rem !important;
+          p {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+            display: block;
+            font-family: "rui";
+            background-image: linear-gradient(to bottom, #832707, #993414, #af4220);
+            color: transparent;
+            -webkit-background-clip: text;
+          }
         }
       }
     }
