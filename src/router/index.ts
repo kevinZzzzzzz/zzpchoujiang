@@ -11,22 +11,22 @@ import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-rou
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    redirect: '/home',
+    path: '/home',
+    name: 'Home',
     meta: {
-      title: ''
+      title: '',
+      requireAuth: true // 是否需要登录校验
     },
-    children: [
-      {
-        path: '/home',
-        name: 'Home',
-        meta: {
-          title: '',
-          requireAuth: false // 是否需要登录校验
-        },
-        component: async () => await import(/* webpackChunkName: "home" */ '@/pages/home/index.vue')
-      }
-    ]
+    component: async () => await import(/* webpackChunkName: "home" */ '@/pages/home/index.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    meta: {
+      title: '',
+      requireAuth: false // 是否需要登录校验
+    },
+    component: async () => await import(/* webpackChunkName: "login" */ '@/pages/login/index.vue')
   },
   {
     path: '/:notFoundPath',

@@ -4,7 +4,10 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { manualChunksPlugin } from 'vite-plugin-webpackchunkname'
 import path from 'path'
 import viteImagemin from 'vite-plugin-imagemin'
-import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { VantResolver } from '@vant/auto-import-resolver';
+
 
 
 export default ({mode, command}) => {
@@ -23,19 +26,18 @@ export default ({mode, command}) => {
     plugins: [
       vue(),
       AutoImport({
-        imports:["vue","vue-router"], // 自动引入
-        dts: 'src/type/auto-import.d.ts', // 生成文件的位置
-        eslintrc: { // 开启eslint校验
-          enabled: true,
-        },
+        resolvers: [VantResolver()],
+      }),
+      Components({
+        resolvers: [VantResolver()],
       }),
       manualChunksPlugin(),
-      viteImagemin({ // 压缩图片
-        pngquant: {
-          quality: [0.8, 0.9],
-          speed: 4
-        },
-      }),
+      // viteImagemin({ // 压缩图片
+      //   pngquant: {
+      //     quality: [0.8, 0.9],
+      //     speed: 4
+      //   },
+      // }),
     ].concat(analysPlugins),
     build: {
       emptyOutDir: true,

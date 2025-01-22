@@ -8,7 +8,7 @@
  * @FilePath: \vue-ts-vite\src\layout\default.vue
 -->
 <template>
-  <div class='main'>
+  <div class="main">
     <div class="main__context">
       <slot></slot>
     </div>
@@ -16,7 +16,7 @@
 </template>
 <script lang="ts">
 export default {
-  name: 'default-layout'
+  name: "DefaultLayout"
 }
 </script>
 <script lang="ts" setup>
@@ -26,7 +26,8 @@ import {ref, onMounted, reactive} from 'vue'
 .main {
   width: 100vw;
   height: 100vh;
-  background-color: #ccc;
+  overflow: hidden;
+  // background-color: #ccc;
   &__context {
     height: 100vh;
   }

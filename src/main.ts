@@ -5,6 +5,9 @@ import piniaPluginPersist from 'pinia-plugin-persist'
 import router from './router/index'
 import api from '@/api'
 import App from './App.vue'
+// 2. 引入组件样式
+import 'vant/lib/index.css';
+
 import 'amfe-flexible' // 动态设置 REM 基准值
 
 declare module 'vue' {

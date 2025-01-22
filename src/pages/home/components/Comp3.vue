@@ -16,7 +16,7 @@
       </li>
       <li>
         <p class="comp3_box3_txt">
-          需要先开通福运卡，才能生成邀请码
+          需要先开通福运才能生成邀请码
         </p>
         <div class="comp3_box3_ipt">
           <em>我的邀请码：</em>
@@ -65,7 +65,7 @@ name: 'Comp3'
 </script>
 <script setup lang='ts'>
 import {ref} from 'vue'
-import pic01 from '@/assets/images/10001.png'
+import pic01 from '@/assets/images/10037.png'
 import pic17 from '@/assets/images/10017.png'
 import pic18 from '@/assets/images/10018.png'
 import pic19 from '@/assets/images/10019.png'
