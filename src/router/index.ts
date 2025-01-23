@@ -11,7 +11,7 @@ import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-rou
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     meta: {
       title: '',
