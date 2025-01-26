@@ -26,7 +26,11 @@ export default ({mode, command}) => {
     plugins: [
       vue(),
       AutoImport({
-        resolvers: [VantResolver()],
+        imports:["vue","vue-router"], // 自动引入
+        dts: 'src/type/auto-import.d.ts', // 生成文件的位置
+        eslintrc: { // 开启eslint校验
+          enabled: true,
+        }
       }),
       Components({
         resolvers: [VantResolver()],

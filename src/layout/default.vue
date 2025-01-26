@@ -26,7 +26,7 @@ import {ref, onMounted, reactive} from 'vue'
 .main {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
   // background-color: #ccc;
   &__context {
     height: 100vh;

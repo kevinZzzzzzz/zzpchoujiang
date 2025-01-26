@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <!-- <div class="LoginPage_main_line">
+        <div class="LoginPage_main_line">
           <van-field
             v-model="loginInfo.info.phone"
             left-icon="friends-o"
@@ -75,12 +75,13 @@
           <van-button
             type="primary"
             block
+            size="large"
             color="linear-gradient(90deg, #4dacf0 0%, #7bc2f5 100%)"
             @click="handleLogin"
           >
             登录
           </van-button>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -92,8 +93,10 @@ export default {
 };
 </script>
 <script setup lang="ts">
+import router from "@/router";
 import { useUserStore } from "@/store/user";
-import { reactive, ref } from "vue";
+import { showFailToast, showSuccessToast } from "vant";
+import { reactive, ref,onMounted} from "vue";
 type ILoginWay = "password" | "phone";
 
 const sendMinute = 60;
@@ -103,6 +106,7 @@ const loginWayList = ref([
   { label: "密码登录", value: "password" },
   { label: "验证码登录", value: "phone" },
 ]);
+
 const waitAuthCode = ref(false); // 等待验证码
 const waitAuthTime = ref(sendMinute); // 等待倒计时
 const loginWay = ref<ILoginWay>("password");
@@ -114,33 +118,27 @@ const loginInfo = reactive({
     authCode: "",
   },
 });
+onMounted(() => {
 
+console.log('loginWayList----')
+})
 // 切换登录方式
 const handleChangeLoginWay = (way) => {
   loginWay.value = way;
 };
 const handleLogin = () => {
   if (!loginInfo.info.phone) {
-    // uni.showToast({
-    //   icon: 'none',
-    //   title: '请输入手机号码',
-    // })
+    showFailToast('请输入手机号码')
     return false;
   }
   if (loginWay.value === "phone") {
     if (!loginInfo.info.authCode) {
-      // uni.showToast({
-      //   icon: 'none',
-      //   title: '请输入验证码',
-      // })
+      showFailToast('请输入验证码')
       return false;
     }
   } else if (loginWay.value === "password") {
     if (!loginInfo.info.password) {
-      // uni.showToast({
-      //   icon: 'none',
-      //   title: '请输入密码',
-      // })
+      showFailToast('请输入密码')
       return false;
     }
   }
@@ -161,14 +159,11 @@ const handleLoginAfter = (authInfo) => {
   // const userInfo = authInfo.userInfo
   // userStore.setUserInfo(userInfo)
   userStore.setUserToken(authInfo);
-  // uni.showToast({
-  //   icon: 'success',
-  //   title: '登录成功！',
-  // })
+  showSuccessToast("登录成功！")
   setTimeout(() => {
-    // uni.reLaunch({
-    //   url: '/pages/index/index',
-    // })
+    router.push({
+      path: '/home',
+    })
   }, 1000);
 };
 // 获取验证码
@@ -193,7 +188,10 @@ const getAuthCode = () => {
   background: url("@/assets/images/bgImg.png") no-repeat;
   background-size: cover;
   // background-color: #e1f2fe;
-  padding: 48px 24px 0;
+  padding: 48px 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &_header {
     width: 100%;
     &_title {
@@ -214,8 +212,7 @@ const getAuthCode = () => {
   }
   &_popup {
     width: 100%;
-    margin-top: 48px;
-    padding: 12px 5px;
+    padding: 20px 5px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 12px;
     opacity: 1;
@@ -261,14 +258,17 @@ const getAuthCode = () => {
 
     &_line {
       width: 100%;
-      height: 48px;
+      // height: 48px;
       margin-top: 20px;
       padding: 0 10px;
     }
   }
 }
 
-/deep/ .van-field {
+:deep(.van-field) {
   border-radius: 10px;
+}
+:deep(.van-cell) {
+  min-height: 30px;
 }
 </style>

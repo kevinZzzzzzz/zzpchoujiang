@@ -4,10 +4,10 @@
     <div class="page_content">
       <div class="page_content_topbox">
         <div class="topbox_box1">
-          <a class="topbox_box1_btnMg1 sp" href=""></a>
-          <a class="topbox_box1_btnMg2 sp" href=""></a>
-          <a class="topbox_box1_btnMg3 sp" href=""></a>
-          <a class="topbox_box1_btnMg4 sp" href=""></a>
+          <div class="topbox_box1_btnMg1 sp" href="" @click="buyCoin"></div>
+          <div class="topbox_box1_btnMg2 sp" href=""></div>
+          <div class="topbox_box1_btnMg3 sp" href=""></div>
+          <div class="topbox_box1_btnMg4 sp" href=""></div>
         </div>
         <div class="page_content_topbox_txt">
           <p>道聚城通用代金券最多抵扣9Q币</p>
@@ -147,6 +147,7 @@
       <Comp3 />
     </div>
   </div>
+  <DialogComp ref="dialogRef" :dialog-obj="dialogObj" />
 </template>
 
 
@@ -160,12 +161,40 @@ import {ref} from 'vue'
 import Comp1 from './components/Comp1.vue'
 import Comp2 from './components/Comp2.vue'
 import Comp3 from './components/Comp3.vue'
+import DialogComp from '@/hooks/dialog.vue'
+
+const dialogRef = ref<any>()
+const dialogObj = ref<any>({
+  title: '',
+  content: '',
+  succCb: null,
+  cancelCb: null
+})
+const buyCoin = (e) => {
+  // e.preventDefault()
+  console.log(dialogRef.value, 'buyCoin--')
+  dialogObj.value = {
+    title: '提醒',
+    content: '购买复活币',
+    succCb: () => {
+      console.log('购买复活币成功')
+      dialogRef.value?.handleClose()
+    },
+    cancelCb: () => {
+      console.log('购买复活币取消')
+      dialogRef.value?.handleClose()
+    }
+  }
+  dialogRef.value?.handleShow()
+}
+
 </script>
 
 <style scoped lang="less">
 .page {
   width: 100vw;
   // height: 100vh;
+  overflow: scroll;
   background: url('@/assets/images/bgImg.png') no-repeat;
   background-size: cover;
   padding-bottom: 30px;
