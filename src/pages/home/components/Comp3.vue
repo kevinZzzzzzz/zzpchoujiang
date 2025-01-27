@@ -49,7 +49,7 @@
         <li v-for="(d, i) in inviteAwardList" :key="i" class="comp3_box6_list_li">
           <p>{{d.decs}} <span>{{ d.num }}</span> </p>
           <img :src="d.img" alt="">
-          <div class="comp3_box6_list_li_btn sp1">
+          <div class="comp3_box6_list_li_btn sp1" @click="drawDownFunc($event, i)">
             <p>点击领取</p>
           </div>
         </li>
@@ -103,6 +103,13 @@ const inviteAwardList = ref([{
   decs: '超过20金蛇幸运星数量',
   num: 'x'
 }])
+
+const emit = defineEmits(['drawDownFun']);
+
+const drawDownFunc = (e: Event, type: number) => {
+  e.preventDefault()
+  emit('drawDownFun', type)
+}
 </script>
 
 <style scoped lang="less">

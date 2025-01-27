@@ -5,10 +5,10 @@
         <img :src="u.img" alt="">
         <p>{{ u.decs }}</p>
       </div>
-      <a class="comp1_item_btn sp" href="">
+      <a class="comp1_item_btn sp" href="" @click="exchangeFunc($event, 7)">
         <em>x金蛇卡兑换</em>
       </a>
-      <a class="comp1_item_btn sp" href="">
+      <a class="comp1_item_btn sp" href="" @click="exchangeFunc($event, 8)">
         <em>x王者卡兑换</em>
       </a>
     </div>
@@ -71,6 +71,12 @@ const exchangeList = ref([{
   img: pic12,
   decs: '交易专用钥匙x5'
 }])
+const emit = defineEmits(['exchangeFun']);
+
+const exchangeFunc = (e: Event, type: number) => {
+  e.preventDefault()
+  emit('exchangeFun', type)
+}
 
 </script>
 

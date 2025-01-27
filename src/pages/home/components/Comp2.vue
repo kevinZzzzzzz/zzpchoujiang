@@ -11,10 +11,10 @@
             <em>{{ u.currNum }}</em>
           </p>
           <div class="comp2_list_item_bottom_btnList">
-            <div class="comp2_list_item_bottom_btnList_btn sp">
+            <div class="comp2_list_item_bottom_btnList_btn sp" @click="exchangeFunc($event, 9)">
               <p>消耗1张兑换</p>
             </div>
-            <div class="comp2_list_item_bottom_btnList_btn sp">
+            <div class="comp2_list_item_bottom_btnList_btn sp" @click="exchangeFunc($event, 10)">
               <p>消耗10张兑换</p>
             </div>
           </div>
@@ -61,6 +61,13 @@ const exchangeList = ref([{
   currNum: 'x',
   bottomImg: pic36, 
 }])
+
+const emit = defineEmits(['exchangeFun']);
+
+const exchangeFunc = (e: Event, type: number) => {
+  e.preventDefault()
+  emit('exchangeFun', type)
+}
 </script>
 
 <style scoped lang="less">

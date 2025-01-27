@@ -4,10 +4,10 @@
     <div class="page_content">
       <div class="page_content_topbox">
         <div class="topbox_box1">
-          <div class="topbox_box1_btnMg1 sp" href="" @click="buyCoin"></div>
-          <div class="topbox_box1_btnMg2 sp" href=""></div>
-          <div class="topbox_box1_btnMg3 sp" href=""></div>
-          <div class="topbox_box1_btnMg4 sp" href=""></div>
+          <a class="topbox_box1_btnMg1 sp" href="" @click="buyCoin"></a>
+          <a class="topbox_box1_btnMg2 sp" href="" @click="buyCoin"></a>
+          <a class="topbox_box1_btnMg3 sp" href="" @click="buyCoin"></a>
+          <a class="topbox_box1_btnMg4 sp" href="" @click="buyCoin"></a>
         </div>
         <div class="page_content_topbox_txt">
           <p>道聚城通用代金券最多抵扣9Q币</p>
@@ -16,7 +16,7 @@
         <div class="page_content_topbox_p1box1">
           <p>金蛇福运卡：特惠开卡xQ币</p>
           <span>赠送抽奖钥匙x5</span>
-          <a class="page_content_topbox_p1box1_btnJKf sp" href=""></a>
+          <a class="page_content_topbox_p1box1_btnJKf sp" href="" @click="openLuckyCard"></a>
         </div>
       </div>
       <div class="page_content_part1">
@@ -32,6 +32,10 @@
               剩余钥匙：
               <span>x</span>
             </p>
+          </div>
+          <div class="page_content_part1_lotty_btnBox">
+            <a class="page_content_part1_lotty_btnBox_btn" href="" @click="openPrizeDraw($event, 1)"></a>
+            <a class="page_content_part1_lotty_btnBox_btn" href="" @click="openPrizeDraw($event, 10)"></a>
           </div>
         </div>
         <div class="page_content_part1_box1">
@@ -118,33 +122,33 @@
         <div class="page_content_part3_p3box1">
           <div class="page_content_part3_p3box1_p3btn">
             <!-- href="javascript:popLqSign(1,1,'x张已中签+x张金蛇卡');" onclick="PTTSendClick('btn','btndhs1','兑换');" -->
-            <a class="page_content_part3_p3box1_p3btn_dhss2 sp">
+            <a class="page_content_part3_p3box1_p3btn_dhss2 sp" @click="exchange($event, 1)">
               <p>x张已中签+x张金蛇卡兑换</p>
             </a>
-            <a class="page_content_part3_p3box1_p3btn_dhss2 sp">
+            <a class="page_content_part3_p3box1_p3btn_dhss2 sp" @click="exchange($event, 2)">
               <p>x张已中签+x张传说卡兑换</p>
             </a>
-            <a class="page_content_part3_p3box1_p3btn_dhss3 sp">
+            <a class="page_content_part3_p3box1_p3btn_dhss3 sp" @click="exchange($event, 3)">
               <p>x张未中签+x张金蛇卡兑换</p>
             </a>
-            <a class="page_content_part3_p3box1_p3btn_dhss3 sp">
+            <a class="page_content_part3_p3box1_p3btn_dhss3 sp" @click="exchange($event, 4)">
               <p>x张未中签+x张传说卡兑换</p>
             </a>
           </div>
           <div class="page_content_part3_p3box1_p3btn1">
-            <a class="page_content_part3_p3box1_p3btn1_dhss3 sp">
+            <a class="page_content_part3_p3box1_p3btn1_dhss3 sp" @click="exchange($event, 5)">
               <p>x金蛇卡兑换</p>
             </a>
-            <a class="page_content_part3_p3box1_p3btn1_dhss2 sp">
+            <a class="page_content_part3_p3box1_p3btn1_dhss2 sp" @click="exchange($event, 6)">
               <p>x传说卡兑换</p>
             </a>
           </div>
         </div>
       </div>
       <div class="page_content_part4"></div>
-      <Comp1 />
-      <Comp2 />
-      <Comp3 />
+      <Comp1 @exchangeFun="exchangeFun" />
+      <Comp2 @exchangeFun="exchangeFun" />
+      <Comp3 @drawDownFun="drawDownFun" />
     </div>
   </div>
   <DialogComp ref="dialogRef" :dialog-obj="dialogObj" />
@@ -171,11 +175,10 @@ const dialogObj = ref<any>({
   cancelCb: null
 })
 const buyCoin = (e) => {
-  // e.preventDefault()
-  console.log(dialogRef.value, 'buyCoin--')
+  e.preventDefault()
   dialogObj.value = {
     title: '提醒',
-    content: '购买复活币',
+    content: '是否购买复活币？',
     succCb: () => {
       console.log('购买复活币成功')
       dialogRef.value?.handleClose()
@@ -186,6 +189,74 @@ const buyCoin = (e) => {
     }
   }
   dialogRef.value?.handleShow()
+}
+const openLuckyCard = (e) => {
+  e.preventDefault()
+  dialogObj.value = {
+    title: '提醒',
+    content: '是否花费39.5元开通金福运卡（赠送抽奖钥匙*5）吗？',
+    succCb: () => {
+      console.log('开通成功')
+      dialogRef.value?.handleClose()
+    },
+    cancelCb: () => {
+      console.log('开通取消')
+      dialogRef.value?.handleClose()
+    }
+  }
+  dialogRef.value?.handleShow()
+}
+const openPrizeDraw = (e, num) => {
+  e.preventDefault()
+  dialogObj.value = {
+    title: '提醒',
+    content: `是否确认抽奖${num}次吗？`,
+    succCb: () => {
+      console.log('抽奖成功')
+      dialogRef.value?.handleClose()
+    },
+    cancelCb: () => {
+      console.log('抽奖取消')
+      dialogRef.value?.handleClose()
+    }
+  }
+  dialogRef.value?.handleShow()
+}
+
+const exchange = (e, id) => {
+  e && e.preventDefault()
+  dialogObj.value = {
+    title: '提醒',
+    content: `本次兑换不可逆，无法撤回，请确认是否操作？`,
+    succCb: () => {
+      console.log('兑换成功')
+      dialogRef.value?.handleClose()
+    },
+    cancelCb: () => {
+      console.log('兑换取消')
+      dialogRef.value?.handleClose()
+    }
+  }
+  dialogRef.value?.handleShow()
+}
+const exchangeFun = (id) => {
+  exchange(null, id)
+}
+const drawDownFun = (id) => {
+  dialogObj.value = {
+    title: '提醒',
+    content: `确认领取？`,
+    succCb: () => {
+      console.log('领取成功')
+      dialogRef.value?.handleClose()
+    },
+    cancelCb: () => {
+      console.log('领取取消')
+      dialogRef.value?.handleClose()
+    }
+  }
+  dialogRef.value?.handleShow()
+
 }
 
 </script>
@@ -296,6 +367,16 @@ const buyCoin = (e) => {
             color: #fee9d0;
             text-align: center;
           }
+        }
+        &_btnBox {
+          width: 100%;
+          height: 60px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          background-color: transparent;
         }
       }
       &_box1 {
