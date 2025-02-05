@@ -25,6 +25,15 @@ const routes: RouteRecordRaw[] = [
           requireAuth: false // 是否需要登录校验
         },
         component: async () => await import(/* webpackChunkName: "home" */ '@/pages/home/index.vue')
+      },
+      {
+        path: '/home2',
+        name: 'Home2',
+        meta: {
+          title: '',
+          requireAuth: false // 是否需要登录校验
+        },
+        component: async () => await import(/* webpackChunkName: "home2" */ '@/pages/home2/index.vue')
       }
     ]
   },
