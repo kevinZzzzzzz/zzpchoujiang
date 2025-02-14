@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="gbk">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="webkit" name="renderer">
+    <meta content="all" name="robots">
+    <meta content="Tencent-CP" name="author">
+    <meta content="Tencent" name="Copyright">
+    <meta content="腾讯游戏《穿越火线》下载官方网站。300万人同时在线，三亿鼠标的枪战梦想。《穿越火线》追求的不仅仅是开枪的爽快感，而是来自相互合作及默契带来的战略意义。最新活动尽在CF官方网站。"
+          name="Description">
+    <meta content="穿越火线,穿越火线官网,穿越火线游戏下载,穿越火线下载,穿越火线官方下载,CF官网,CF下载,CF视频,穿越火线官方下载, CF官网下载专区,QQ穿越火线官方网站,穿越火线体验服,穿越火线视频,穿越火线官方网站,CrossFire,FPS网络游戏,RPK,腾讯游戏,免费,黄金AK,百城联赛,WCG,冠军杯,生化模式,幽灵模式,生化幽灵,斯沃特,赛斯,奥摩,猎狐者,保卫者,潜伏者,飞虎队,腾讯,腾讯游戏"
+          name="Keywords">
+    <title>传说幽瞳夺宝-穿越火线官方网站-腾讯游戏</title>
+    <!--<link rel="stylesheet" type="text/css" href="css/pc.css" />-->
+    <link href="//act.daoju.qq.com/act/a20250104csytdb/css/pc.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .cese {
+            background: url(//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/top.png) no-repeat;
+            width: 1920px;
+            height: 198px;
+            position: absolute;
+            z-index: 1;
+            top: 918px;
+            left: -360px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="container">
+        <div class="head">
+            <video autoplay="autoplay" class="head-video1" data-autoplay="" loop="loop" muted=""
+                   src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/vide.mp4"></video>
+            <h1 class="hide"></h1>
+            <a class="logo1" href="//cf.qq.com/main.shtml" onclick="PTTSendClick('link','logo1','穿越火线');"
+               target="_blank" title="穿越火线"></a>
+            <a class="logo2" href="//daoju.qq.com/mall/" onclick="PTTSendClick('link','logo2','道聚城');" target="_blank"
+               title="道聚城"></a>
+            <!--登录 strat-->
+            <div class="login_box">
+                <!--登录前状态 Start-->
+                <div class="login" id="unlogin" style="display: block;">
+                    亲爱的玩家，请：
+                    <a href="javascript:void(0)" id="dologin" title="登录">【登录】</a>
+                </div>
+                <!--登录前状态 End-->
+                <!--登录后状态 Start-->
+                <div class="login" id="logined" style="display: none;  ">
+                    欢迎您，<span id="userinfo"></span>，
+                    <span id="spanNotBind">
+                            <a href="javascript:commitBindArea();">【绑定大区】</a>
+                        </span>
+                    <span id="spanBind" style="display:none">
+							<span id="area_info"></span>
+							<span id="role_info"></span>
+							<a href="javascript:commitBindArea();">【更改绑定】</a>
+							<a href="javascript:amsHistoryList(1);">【礼包记录】</a>
+							</span>
+                    <a href="javascript:void(0)" id="dologout">【注销】</a>
+                </div>
+                <!--登录后状态 End-->
+            </div>
+            <!--登录 end-->
+        </div>
+        <div class="cese"></div>
+        <div class="content">
+            <div class="topbox">
+                <div class="btn_box1">
+                    <a class="btn_mg1 sp" href="javascript:amsBuy(1);"></a>
+                    <a class="btn_mg2 sp" href="javascript:amsBuy(2);"></a>
+                    <a class="btn_mg5 sp" href="javascript:amsBuy(5);"></a>
+                    <a class="btn_mg3 sp" href="javascript:amsBuy(3);"></a>
+                    <a class="btn_mg4 sp" href="javascript:amsBuy(4);"></a>
+                </div>
+                <div class="txt_box3">
+                    <p>道聚城通用代金券最多抵扣9Q币</p>
+                    <p>道聚城通用代金券可抵扣90Q币</p>
+                </div>
+                <div class="p1box1">
+                    <p>金蛇福运卡：特惠开卡39.9Q币</p>
+                    <span>赠送抽奖钥匙x5</span>
+                    <a class="btn_kt sp" href="javascript:TGDialogS('popBuyCard');"></a>
+                    <input class="friendCode friendCode1" name="" placeholder="输入好友邀请码" type="text"/>
+                </div>
+            </div>
+            <div class="part1">
+                <h2 class="sp"></h2>
+                <div class="lotty">
+                    <div class="txt_box1">
+                        <p class="sp">我的代金券：<span class="jf_2327">x</span></p>
+                        <p class="sp">剩余钥匙:<span class="jf_3127">x</span></p>
+                    </div>
+                    <a class="btn_cj1" href="javascript:amsChou(1);"></a>
+                    <a class="btn_cj2" href="javascript:amsChou(10);"></a>
+                    <a class="btn_dj1 sp db" href="javascript:popDjq()">代金券记录</a>
+                </div>
+
+                <div class="box1">
+                    <div class="p1boes1">
+                        <p class="txt2">抽奖获得的可分解道具进入暂存箱,<br/>其余道具直接发往游戏内<em>（具体可点击暂存箱查看）</em></p>
+                        <a class="btn_zc1 sp" href="javascript:amsHistoryList(2);">
+                            <p>点击查看暂存箱</p>
+                        </a>
+                    </div>
+
+                    <div class="p1boes2">
+                        <div id="milo-broadcast">
+                            <ul class="box1ct1" id="milo-broadcast-container">
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <script id="milo-broadcast-tpl" type="text/html">
+                        {@ for(var i = 0; i
+                        < data.length; i++) { @}
+                        <li>
+                            <p>恭喜玩家<span>{{data[i].iUin ? data[i].iUin :'xxxx'}}</span>获得了<span> {{data[i].sPackageName ? data[i].sPackageName : ''}} </span>
+                            </p>
+                        </li>
+                        {@ } @}
+                    </script>
+
+                </div>
+            </div>
+            <div class="part4">
+                <h2 class="tit4 sp db">幸运签</h2>
+                <ul class="p3list">
+                    <li>
+                        <em class="sp">1</em>
+                        <p>每累计获得60张金蛇卡（包含从其他卡兑换的金蛇卡），将自动获得一张【传说幽瞳 无序列号版】幸运签</p>
+                    </li>
+                    <li>
+                        <em class="sp">2</em>
+                        <p>每日18:00刷新中签状态，未中签的签码在活动期间内均有机会中签，每日【传说幽瞳 无序列号版】中签幸运签产出10000张</p>
+                    </li>
+                    <li>
+                        <em class="sp">3</em>
+                        <p>消耗中签的幸运签和相应卡片可进行兑换</p>
+                    </li>
+                    <li>
+                        <em class="sp">4</em>
+                        <p>累计幸运签数达15张，可消耗剩余幸运签以及对应卡片进行兑换（单Q限1）</p>
+                    </li>
+                </ul>
+                <ul class="p3boxs1">
+                    <li>
+                        <p>我的幸运签：<em class="_all_luck_num">x</em></p>
+                    </li>
+                    <li>
+                        <p>累计获得金蛇卡数量：<em class="jf_3129">x</em></p>
+                    </li>
+                    <li>
+                        <p>剩余传说卡：<em class="jf_3133">x</em></p>
+                    </li>
+                    <li>
+                        <p>剩余未中签幸运签数量：<em class="_ret_luck_num">x</em></p>
+                    </li>
+                    <li>
+                        <p>剩余已中签幸运签数量：<em class="_ret_hasluck_num">x</em></p>
+                    </li>
+                </ul>
+                <ul class="p3btnee">
+                    <li>
+                        <a href="javascript:signList(1);">查看我的幸运签</a>
+                    </li>
+                    <li>
+                        <a href="javascript:get_has_signed_list();" onclick="PTTSendClick('btn','btnkte6','幸运签中签公示');">幸运签中签公示</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="part2">
+                <h2 class="tit2 sp db">兑换区</h2>
+                <div class="txt_box2">
+                    <p>我的传说卡：<span class="jf_3133">x</span></p>
+                    <p>我的王者卡：<span class="jf_3134">x</span></p>
+                    <p>我的英雄卡: <span class="jf_3135">x</span></p>
+                    <p>我的道具卡：<span class="jf_3136">x</span></p>
+                    <p>我的金蛇卡：<span class="jf_3128">x</span></p>
+                </div>
+                <div class="p1boes3">
+                    <div class="p3btnbox p3btnbox1">
+                        <!--添加类名 grey 为已兑换-->
+                        <a class="btn_dhss2 sp" href="javascript:popLqSign(1,1,'1张已中签+888张金蛇卡');"
+                           onclick="PTTSendClick('btn','btndhs1','兑换');">
+                            <p>1张已中签+888张金蛇卡兑换</p>
+                        </a>
+                        <a class="btn_dhss2 sp" href="javascript:popLqSign(1,2,'1张已中签+28张传说卡');"
+                           onclick="PTTSendClick('btn','btndhs2','兑换');">
+                            <p>1张已中签+28张传说卡兑换</p>
+                        </a>
+                        <a class="btn_dhss1 sp had_use_no_signed" href="javascript:popLqSign(2,1,'15张未中签+888张金蛇卡');"
+                           onclick="PTTSendClick('btn','btndhs1','兑换');">
+                            <p>15张未中签+888张金蛇卡兑换</p>
+                        </a>
+                        <a class="btn_dhss1 sp had_use_no_signed" href="javascript:popLqSign(2,2,'15张未中签+28张传说卡');"
+                           onclick="PTTSendClick('btn','btndhs2','兑换');">
+                            <p>15张未中签+28张传说卡兑换</p>
+                        </a>
+                    </div>
+                    <div class="p3btnbox p3btnbox2">
+                        <!--添加类名 grey 为已兑换-->
+                        <a class="btn_dhs1 sp" href="javascript:popExchange(1);"
+                           onclick="PTTSendClick('btn','btndhs3','兑换');">
+                            <p>428金蛇卡兑换</p>
+                        </a>
+                        <a class="btn_dhs2 sp" href="javascript:popExchangeCsk(1);"
+                           onclick="PTTSendClick('btn','btndhs4','兑换');">
+                            <p>12传说卡兑换</p>
+                        </a>
+                    </div>
+                </div>
+                <ul class="box7">
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc1.png"/>
+                            <p>非觉醒版 王者雷影</p>
+                        </div>
+                        <!--添加类名 grey 为已兑换-->
+                        <a class="btn_dht1 sp" href="javascript:popExchange(2);"
+                           onclick="PTTSendClick('btn','btndh1','兑换');"><em>148金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeWzk(1);"
+                           onclick="PTTSendClick('btn','btndh2','兑换');"><em>48王者卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc2.png"/>
+                            <p>非觉醒版 王者风势</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(3);"
+                           onclick="PTTSendClick('btn','btndh3','兑换');"><em>128金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeWzk(2);"
+                           onclick="PTTSendClick('btn','btndh4','兑换');"><em>36王者卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc3.png"/>
+                            <p>M14EBR-玄武音效卡</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(4);"
+                           onclick="PTTSendClick('btn','btndh5','兑换');"><em>108金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(1);"
+                           onclick="PTTSendClick('btn','btndh6','兑换');"><em>108道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc4.png"/>
+                            <p>Scar Light-马枪</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(5);"
+                           onclick="PTTSendClick('btn','btndh7','兑换');"><em>78金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(2);"
+                           onclick="PTTSendClick('btn','btndh8','兑换');"><em>78道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc5.png"/>
+                            <p>M4A1-黑龙</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(6);"
+                           onclick="PTTSendClick('btn','btndh9','兑换');"><em>40金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeYxk(1);"
+                           onclick="PTTSendClick('btn','btndh10','兑换');"><em>18英雄卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc6.png"/>
+                            <p>麒麟刺</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(7);"
+                           onclick="PTTSendClick('btn','btndh11','兑换');"><em>28金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeYxk(2);"
+                           onclick="PTTSendClick('btn','btndh12','兑换');"><em>12英雄卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc7.png"/>
+                            <p>沙鹰-天神</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(8);"
+                           onclick="PTTSendClick('btn','btndh13','兑换');"><em>22金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeYxk(3);"
+                           onclick="PTTSendClick('btn','btndh14','兑换');"><em>10英雄卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc8.png"/>
+                            <p>B背包套装-手雷包</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(9);"
+                           onclick="PTTSendClick('btn','btndh15','兑换');"><em>15金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(3);"
+                           onclick="PTTSendClick('btn','btndh16','兑换');"><em>15道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc9.png"/>
+                            <p>30000CF点</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(10);"
+                           onclick="PTTSendClick('btn','btndh17','兑换');"><em>30金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(4);"
+                           onclick="PTTSendClick('btn','btndh18','兑换');"><em>30道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc10.png"/>
+                            <p>3000CF点</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(11);"
+                           onclick="PTTSendClick('btn','btndh19','兑换');"><em>3金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(5);"
+                           onclick="PTTSendClick('btn','btndh20','兑换');"><em>3道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc11.png"/>
+                            <p>属性变更券x5</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(12)"
+                           onclick="PTTSendClick('btn','btndh21','兑换');"><em>2金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(6);"
+                           onclick="PTTSendClick('btn','btndh22','兑换');"><em>2道具卡兑换</em></a>
+                    </li>
+                    <li>
+                        <div class="box7ct1">
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc12.png"/>
+                            <p>交易专用钥匙x5</p>
+                        </div>
+                        <a class="btn_dht1 sp" href="javascript:popExchange(13);"
+                           onclick="PTTSendClick('btn','btndh23','兑换');"><em>2金蛇卡兑换</em></a>
+                        <a class="btn_dht1 sp" href="javascript:popExchangeDjk(7);"
+                           onclick="PTTSendClick('btn','btndh24','兑换');"><em>2道具卡兑换</em></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="part3">
+                <h2 class="tit3 sp db">卡片兑换</h2>
+                <ul class="box6">
+                    <li>
+                        <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc15.png"/>
+                        <!--传说-->
+                        <p class="txt12">单张可兑换<span>30张金蛇卡</span></p>
+                        <div class="box6ct1">
+                            <p class="txt13">当前拥有数：<span class="jf_3133">x</span></p>
+                            <div class="box6btn1">
+                                <!--添加类名 grey 为已兑换-->
+                                <a class="sp" href="javascript:amsExchangeCard(1);"
+                                   onclick="PTTSendClick('btn','btndh25','消耗1张兑换');">消耗1张兑换</a>
+                                <a class="sp" href="javascript:amsExchangeCard(5);"
+                                   onclick="PTTSendClick('btn','btndh26','消耗10张兑换');">消耗10张兑换</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc16.png"/>
+                        <!--王者-->
+                        <p class="txt12">单张可兑换<span>3张金蛇卡</span></p>
+                        <div class="box6ct1 box6ct2">
+                            <p class="txt13">当前拥有数：<span class="jf_3134">x</span></p>
+                            <div class="box6btn1">
+                                <a class="sp" href="javascript:amsExchangeCard(2);"
+                                   onclick="PTTSendClick('btn','btndh27','消耗1张兑换');">消耗1张兑换</a>
+                                <a class="sp" href="javascript:amsExchangeCard(6);"
+                                   onclick="PTTSendClick('btn','btndh28','消耗10张兑换');">消耗10张兑换</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc17.png"/>
+                        <!--英雄-->
+                        <p class="txt12">单张可兑换<span>2张金蛇卡</span></p>
+                        <div class="box6ct1 box6ct3">
+                            <p class="txt13">当前拥有数：<span class="jf_3135">x</span></p>
+                            <div class="box6btn1">
+                                <a class="sp" href="javascript:amsExchangeCard(3);"
+                                   onclick="PTTSendClick('btn','btndh29','消耗1张兑换');">消耗1张兑换</a>
+                                <a class="sp" href="javascript:amsExchangeCard(7);"
+                                   onclick="PTTSendClick('btn','btndh30','消耗10张兑换');">消耗10张兑换</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc18.png"/>
+                        <!--道具-->
+                        <p class="txt12">单张可兑换<span>1张金蛇卡</span></p>
+                        <div class="box6ct1 box6ct4">
+                            <p class="txt13">当前拥有数：<span class="jf_3136">x</span></p>
+                            <div class="box6btn1">
+                                <a class="sp" href="javascript:amsExchangeCard(4);"
+                                   onclick="PTTSendClick('btn','btndh31','消耗1张兑换');">消耗1张兑换</a>
+                                <a class="sp" href="javascript:amsExchangeCard(8);"
+                                   onclick="PTTSendClick('btn','btndh32','消耗10张兑换');">消耗10张兑换</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="part5">
+                <h2 class="tit5 sp db">福运特惠里程碑</h2>
+                <p class="tit_ct1">39.9Q币开通福运卡并直接赠送抽奖钥匙x5，单Q限1<br/>邀请仍未在本活动开卡的玩家，双方均可获得“金蛇幸运星”x1，（单Q最多邀请6名用户）</p>
+                <ul class="box3">
+                    <li>
+                        <p>赠送抽奖钥匙x5</p>
+                        <input class="input_share friendCode friendCode2" name="" placeholder="输入好友邀请码" type="text"/>
+                        <a class="btn_gm1 sp" href="javascript:TGDialogS('popBuyCard');"
+                           onclick="PTTSendClick('btn','btngm1','购买');"></a>
+                        <span>（单Q最多购买1次）</span>
+                    </li>
+                    <li>
+                        <p>需要先开通福运卡，才能生成邀请码</p>
+                        <div class="txt5"><em>我的邀请码：</em>
+                            <input id="my_code" placeholder="xxxx" readonly="readonly" type="text"/>
+                            <input id='inputCopyText' style='opacity:0;position:absolute;' type="text"></p>
+                        </div>
+                        <a class="btn_copy sp db" href="javascript:copy_code();">复制邀请码</a>
+                        <span>（单Q最多邀请6名用户）</span>
+                    </li>
+                </ul>
+                <div class="box4">
+                    <table class="table table_bor1">
+                        <thead>
+                        <tr>
+                            <th style="width: 600px;">玩家名称</th>
+                            <th>大区</th>
+                        </tr>
+                        </thead>
+                        <tbody class="invite_buy">
+                        <!--                        <tr>-->
+                        <!--                            <td></td>-->
+                        <!--                            <td></td>-->
+                        <!--                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+                <a class="btn_ck1 sp" href="javascript:amsHistoryList(3);"
+                   onclick="PTTSendClick('btn','btnckta1','查看我邀请的用户');">
+                    <p>查看我邀请的用户</p>
+                </a>
+                <p class="p2txts">当前已累计金蛇幸运星：<em class="jf_3132">x</em></p>
+                <div class="p2box2">
+                    <em class="icon_1"></em>
+                    <ul class="box2">
+                        <li>
+                            <p>累计获取金蛇幸运星<span>1</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc23.png"/>
+                            <!--添加类名 grey 为已领取 -->
+                            <a class="sp btnsee sumlq sumlq1" href="javascript:amsLqSum(1);"
+                               onclick="PTTSendClick('btn','btnlqy1','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>累计获取金蛇幸运星<span>3</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc24.png"/>
+                            <a class="sp btnsee sumlq sumlq2" href="javascript:amsLqSum(2);"
+                               onclick="PTTSendClick('btn','btnlqy2','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>累计获取金蛇幸运星<span>6</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc25.png"/>
+                            <a class="sp btnsee sumlq sumlq3" href="javascript:amsLqSum(3);"
+                               onclick="PTTSendClick('btn','btnlqy4','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>累计获取金蛇幸运星<span>10</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc26.png"/>
+                            <a class="sp btnsee sumlq sumlq4" href="javascript:amsLqSum(4);"
+                               onclick="PTTSendClick('btn','btnlqy5','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>累计获取金蛇幸运星<span>15</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc27.png"/>
+                            <a class="sp btnsee sumlq sumlq5" href="javascript:amsLqSum(5);"
+                               onclick="PTTSendClick('btn','btnlqy6','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>累计获取金蛇幸运星<span>20</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc28.png"/>
+                            <a class="sp btnsee sumlq sumlq6" href="javascript:amsLqSum(6);"
+                               onclick="PTTSendClick('btn','btnlqy7','点击领取');"><em>点击领取</em></a>
+                        </li>
+                        <li>
+                            <p>超过20金蛇幸运星数量<span class="cur_lq_star_hold">xx</span></p>
+                            <img src="//game.gtimg.cn/images/actdaoju/act/a20250104csytdb/polc29.png"/>
+                            <a class="sp btnsee sum_lq_extra" href="javascript:void(0);"
+                               onclick="PTTSendClick('btn','btnlqy8','点击领取');"><em>点击领取</em></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="part6">
+                <h2 class="tit6 sp db">我有话说</h2>
+                <div class="p6box">
+                    <p>这是关于本活动的体验问卷，完成填写<em>可领取本活动的金蛇卡X1</em>,<br/>您的意见和建议对我们来说非常重要，感谢支持!</p>
+                    <strong>注:仅限【在本次活动付费过】的玩家填写问卷、领取奖励</strong>
+                    <div class="btn_box2">
+                        <a class="btn_tx1 sp btnFeedBack" href="javascript:alert('仅限参与了本次活动的玩家填写问卷');"
+                           onclick="PTTSendClick('btn','btntx1','填写问卷');"><em>填写问卷</em></a>
+                        <!--添加类名 grey 为已领取 -->
+                        <a class="btn_tx2 sp btnLqFeedBack" href="javascript:amsLqFeedBack();"
+                           onclick="PTTSendClick('btn','btntx2','领取奖励');"><em>领取奖励</em><span>（金蛇卡X1）</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="part7">
+                <h2 class="tit7 sp db">活动规则</h2>
+                <dl class="rule">
+                    <dd class="c"><em class="sp">1</em>
+                        <p>活动时间：2025.1.17~2025.2.20 23:59:59<br/>a. 付费购买开始&结束时间：2025.1.17~2025.2.20 23:59:59<br/>b. 抽奖、暂存箱分解、幸运签中签开始&结束时间：2025.1.17~2025.2.20 23:59:59，注：请及时使用抽奖钥匙和进行分解，超过该期限的抽奖钥匙将过期作废；<br/>c. 暂存箱领取、兑换、累计幸运星领取、问卷模块开始&结束时间：2025.1.17~2025.3.6 23:59:59；注：为方便玩家使用剩余积分，延缓了领取&兑换等操作的结束时间，因此2025.2.21~2025.3.6之间仅可暂存箱领取、兑换、累计幸运星领取、问卷模块的参与，无法进行任何购买、暂存箱分解和幸运签中签
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">2</em>
+                        <p>
+                            购买：10Q币购买复活币x1，赠送抽奖钥匙x1；100Q币购买复活币x10，赠送抽奖钥匙x11；500Q币购买复活币x50，赠送抽奖钥匙x55；10Q币购买复活币x1，赠送抽钥匙x1，道聚城通用代金券最多抵扣9Q币；100Q币购买复活币x10，赠送抽钥匙x10，道聚城通用代金券抵扣90Q币；金蛇福运卡：特惠开卡39.9Q币，赠送抽奖钥匙x5，单Q限1。</p>
+                    </dd>
+                    <dd class="c"><em class="sp">3</em>
+                        <p>
+                            抽奖：抽奖获得的可分解道具存放在【暂存箱】中，可选择分解成钥匙或发往游戏仓库，已经领取到仓库的道具无法退换，请慎重；唯一性道具【B背包套装-手雷包】，可重复抽到，但在同一大区内，游戏仓库无法重复到账，请谨慎选择发往仓库的操作；本活动中暂存箱领取，暂存箱分解，积分兑换等操作均有多次确认提示，一经操作将无法撤销，请玩家仔细查看提示，
+                            谨慎操作，以免造成不必要的损失（在参与活动期间请确认好绑定的大区）。
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">4</em>
+                        <p>
+                            兑换：获得的积分可以在兑换区兑换道具，兑换会消耗对应积分，兑换不限次数，唯一性道具【B背包套装-手雷包】，在同一大区内，游戏仓库无法重复到账，请谨慎选择发往仓库的操作；积分将在活动结束后过期，请及时使用。</p>
+                    </dd>
+                    <dd class="c"><em class="sp">5</em>
+                        <p>超过活动期限的抽奖钥匙，幸运签，金蛇卡，传说卡，王者卡，英雄卡，道具卡，金蛇幸运星都将作废，请及时使用。活动使用的通用代金券不会作废，可以用于后续的其他活动。</p>
+                    </dd>
+                    <dd class="c"><em class="sp">6</em>
+                        <p>概率公示：
+                            <a href="javascript:TGDialogS('pop-gl');" onclick="PTTSendClick('btn','btng1','本活动概率公示');">主奖池概率公示</a>；活动概率会在公示概率的区间范围内进行波动，所用‘概率’均是在大样本(大量用户)下的统计数值，与单个玩家的少量测试数据之间可能会存在一定差异。
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">7</em>
+                        <p>幸运签板块：<br/> a、每累计获得60张金蛇卡（包含从其他卡兑换的金蛇卡），将自动获得一张【传说幽瞳 无序列号版】幸运签；<br/>
+                            b、每日18:00刷新中签状态，未中签的签码在活动期间内均有机会中签，每日【传说幽瞳 无序列号版】中签幸运签共计产出10000张；<br/> c、消耗中签的幸运签和相应卡片可进行兑换；
+                            <br/>d、累计幸运签数达15张，可消耗剩余幸运签以及对应卡片进行兑换（单Q限1）。
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">8</em>
+                        <p>福运连连升板块：39.9Q币开通福运卡并直接赠送抽奖钥匙x5，单Q限1；<br/> 邀请仍未在本活动付费过的玩家首次开卡，邀请双方均可获得“金蛇幸运星”x1，单Q限6
+                            <br/> 根据玩家累计获得金蛇幸运星的数量，可以解锁对应里程碑的CF点奖励（活动期间单q限领取1次）；单Q最多成功邀请6人；
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">9</em>
+                        <p>本活动与苹果公司无关。</p>
+                    </dd>
+                    <dd class="c"><em class="sp">10</em>
+                        <p>参与资格、获奖资格的取消<br/>
+                            本活动不鼓励未满18周岁的未成年用户参与。若您为不具备完全民事行为能力的未成年人，您应在监护人的陪同下阅读本规则，并取得您监护人的同意。如您监护人同意您参与本活动，应对您参与本活动期间作出的行为进行正确监督和引导，同时，您行使和履行本活动规则下的权利和义务，均视为已获得您监护人认可。请理性消费。
+                            您若有下列任何一种行为或情况，腾讯有权单方面取消您的参与资格、获奖资格等：
+                            <br/> a、不符合参与资格的；
+                            <br/> b、提供虚假信息的；
+                            <br/> c、虚假交易或恶意破坏活动的；
+                            <br/> d、以任何机器人软件、蜘蛛软件、爬虫软件、刷奖软件或其它任何自动方式、不正当手段等参与本活动的；
+                            <br/> e、有任何违反诚实信用、公序良俗、公平、公正等原则行为的；
+                            <br/> f、其他违反相关法规、本规则行为的。
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">11</em>
+                        <p>纳税义务：腾讯将依法履行个人所得税等相关税费代扣代缴的义务。</p>
+                    </dd>
+                    <dd class="c"><em class="sp">12</em>
+                        <p>免责条款：如因非腾讯原因导致您在本规则约定时间内未参与活动、兑换奖品或领取奖品，或由于您提供的信息不真实不完整等导致奖品无法发放或发放错误的，由您自行承担全部损失。
+                            互联网运行存在诸多不确定性因素，如因不可抗力、网络、通讯线路故障、计算机大规模瘫痪及活动中存在大面积作弊行为等原因致使本活动出现异常情况或难以继续开展的，腾讯有权采取包括但不限于通过各种方式消除异常情况或调整、暂停、取消本活动等合理措施保障腾讯及用户的合法权益，您表示理解，由此给您造成的损失，您同意不追究腾讯的责任。
+                        </p>
+                    </dd>
+                    <dd class="c"><em class="sp">13</em>
+                        <p>
+                            管辖条款：本规则的成立、生效、履行、解释及纠纷解决等相关事宜，均适用中华人民共和国大陆地区法律（不包括冲突法）。若您和腾讯之间发生任何纠纷或争议应将纠纷或争议提交本规则签订地即深圳市南山区有管辖权的人民法院管辖。</p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fc" id="flokf">
+    <a class="btn_gb" href="javascript:$('.fc').remove();" onclick="PTTSendClick('btn','btnl','关闭')"></a>
+<!--    <a class="btn_lx"-->
+<!--       href="https://kf.qq.com/touch/kfgames/A1109/v2/PCweb/conf/index.html?scene_id=CSCE20250116173521FdrcgJbe"-->
+<!--       onclick="PTTSendClick('btn','btnl','联系客服')" target="_blank"></a>-->
+
+    <a class="btn_lx" href="javascript:alert('敬请期待');"
+       onclick="PTTSendClick('btn','btnl','联系客服')"></a>
+</div>
+
+<!--代金券记录S-->
+<div class="pop pop1" id="pop4">
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <div class="fc_boxg1">
+        <!--        <iframe class="iframe1" frameborder="0" height="800px" id="cf_djq"-->
+        <!--                src="//act.daoju.qq.com/act/a20190301yqrh/pop.html?sorce=pc"-->
+        <!--                width="810px"></iframe>-->
+    </div>
+</div>
+<!--代金券记录E-->
+
+<!-- 获奖记录start -->
+<div class="pop pop10" id="showMyGiftContent1">
+    <h3 class="poptit">礼包记录</h3>
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <div class="fc_box1">
+        <table class="table fctable_bor1">
+            <thead>
+            <tr>
+                <th>时间</th>
+                <th>大区</th>
+                <th>道具</th>
+            </tr>
+            </thead>
+            <tbody id="milo-lotteryRecordContainer1">
+            </tbody>
+        </table>
+        <div class="milo-paginator" id="milo-paginator1">
+        </div>
+    </div>
+    <p class="fc_txt2">温馨提示：虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持！</p>
+</div>
+
+<script id="milo-lotteryRecordTpl1" type="text/html">
+    {@ if(data.length == 0){@}
+    <tr>
+        <td colspan="3" align="center">暂未获取更多礼包</td>
+    </tr>
+    {@}else{@} {@ for(var i = 0; i
+    < data.length; i++) { @}
+    <tr>
+        <td>{{ data[i].dtGetPackageTime }}</td>
+
+        {@ if(data[i].sExtend5 == 'buy' || data[i].sExtend5 == 'friend'){@}
+        <td>
+            使用好友【{{data[i].sExtend4.substring(0,2)}}****{{data[i].sExtend4.substr(data[i].sExtend4.length-2,2)}}】邀请码获赠
+        </td>
+        {@}else{@}
+        <td>{{ data[i].sAreaName }}</td>
+        {@ } @} {@ if(data[i].iPackageNum == '1'){@}
+        <td>{{ data[i].sPackageName }}</td>
+        {@}else{@}
+        <td>{{ data[i].sPackageName }}*{{ data[i].iPackageNum }}</td>
+        {@ } @}
+    </tr>
+    {@ } @} {@}@}
+</script>
+<!-- 获奖记录end -->
+
+<!-- 暂存箱start -->
+<div class="pop pop10" id="showMyGiftContent2">
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">道具信息</h3>
+    <div class="fc_box2">
+        <div class="fc_box2ct1">
+            <h4>暂存箱</h4>
+            <table class="table table_bor2">
+                <thead>
+                <tr>
+                    <th>道具名称</th>
+                    <th style="width: 90px;">领取道具</th>
+                    <th style="width: 90px;">分解为钥匙</th>
+                </tr>
+                </thead>
+                <tbody id="milo-lotteryRecordContainer2">
+                </tbody>
+            </table>
+            <div class="milo-paginator" id="milo-paginator2">
+            </div>
+        </div>
+        <div class="fc_box2ct2">
+            <h4>道具分解表</h4>
+            <p class="fc_txt1"><span>道具名称</span><span>分解所获钥匙</span></p>
+            <ul class="fc_box2ct2polc">
+                <li>
+                    <p>传说幽瞳 无序列号版</p>
+                    <p>50</p>
+                </li>
+                <li>
+                    <p>传说幽冥 无序列号版</p>
+                    <p>30</p>
+                </li>
+                <li>
+                    <p>王者雷影</p>
+                    <p>15</p>
+                </li>
+                <li>
+                    <p>王者风势</p>
+                    <p>12</p>
+                </li>
+                <li>
+                    <p>M14EBR-玄武音效卡</p>
+                    <p>8</p>
+                </li>
+                <li>
+                    <p>Scar Light-马枪</p>
+                    <p>6</p>
+                </li>
+                <li>
+                    <p>M4A1-黑龙</p>
+                    <p>4</p>
+                </li>
+                <li>
+                    <p>麒麟刺</p>
+                    <p>3</p>
+                </li>
+                <li>
+                    <p>沙鹰-天神</p>
+                    <p>2</p>
+                </li>
+                <li>
+                    <p>B背包套装-手雷包</p>
+                    <p>1 </p>
+                </li>
+                <li>
+                    <p>属性抽取券x1</p>
+                    <p>1</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p class="fc_txt2">温馨提示：虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持！</p>
+</div>
+
+<script id="milo-lotteryRecordTpl2" type="text/html">
+    {@ if(data.length == 0){@}
+    <tr>
+        <td colspan="3" align="center">暂未获取更多礼包</td>
+    </tr>
+    {@}else{@} {@ for(var i = 0; i
+    < data.length; i++) { @}
+    <tr>
+        <td>{{ data[i].sPackageName }}</td>
+
+        {@ if(data[i].iStatus == "3"){@}
+        <td>
+            <a href="javascript:{{'popZanQu('+data[i].id+',\''+data[i].sPackageName+'\')'}}"
+               style="background-color:red;color:#fff;">[发送仓库]</a>
+        </td>
+        <td>
+            <a href="javascript:{{'popZanFen('+data[i].id+',\''+data[i].sPackageName+'\','+isParams.chouGoods[data[i].iPackageId][0]+')'}}"
+               style="background-color:red;color:#fff;">[分解]</a>
+        </td>
+        {@}else{@} {@ if(data[i].sExtend2 == "1"){@}
+        <td>已发送</td>
+        <td>x</td>
+        {@}else if(data[i].sExtend2 == "2"){@}
+        <td>x</td>
+        <td>已分解</td>
+        {@}else{@}
+        <td>x</td>
+        <td>x</td>
+        {@ } @} {@ } @}
+    </tr>
+    {@ } @} {@}@}
+</script>
+<!--暂存箱end-->
+
+<!--我的幸运签 start-->
+<div class="pop pop10" id="luck">
+    <h3 class="poptit">我的幸运签</h3>
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <div class="fc_box1">
+        <table class="table fctable_bor1">
+            <thead>
+            <tr>
+                <th>道具</th>
+                <th>签码</th>
+                <th>中签状态</th>
+            </tr>
+            </thead>
+            <tbody id="lucky_list"></tbody>
+            <tfoot>
+            <tr class="page" id="sign_list_page">
+                <td colspan="3">
+                    <a class="btn_prev" href="javascript:showSignList(isParams.iCurrPage-1);"
+                       onclick="PTTSendClick('btn','btns1','上一页')">上一页</a>
+                    <span class="page-selnum">1/1</span>
+                    <a class="btn_next" href="javascript:showSignList(isParams.iCurrPage+1);"
+                       onclick="PTTSendClick('btn','btns2','下一页')">下一页</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script id="lucky_item" type="text/html">
+    {for g in lucky_item}
+    <tr>
+        <td class="td1">传说幽瞳 无序列号版</td>
+        <td class="td2">${g.id}</td>
+        <td class="td3">
+            {if g.iStatus=='1'} 已中签 {elseif g.iStatus=='2'} 已使用 {else} 未中签 {/if}
+        </td>
+    </tr>
+    {/for}
+</script>
+<!--我的幸运签 end-->
+
+<!--中奖记录start 单抽-->
+<div class="pop pops1" id="popdc">
+    <a class="close_btn sp1" href="javascript:closeDialog();enter(1000);enter_lucky(1500)"></a>
+    <h3 class="poptit">中奖信息</h3>
+    <p class="fc_txt3 fc_txttds3">抽奖过程中请勿刷新页面或中断,请以实际礼包记录为准。</p>
+    <div class="fc_box4">
+        <p id="jlname">xxxxxxx</p>
+    </div>
+    <p class="fc_txt4">温馨提示:虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持.由于数据量巨大，奖励道具显示将有所延迟，或可存在不展示的情况，请以礼包记录为准。</p>
+</div>
+<!--中奖记录end-->
+
+<!--中奖记录start 10连-->
+<div class="pop pop4" id="popJl">
+    <h3 class="poptit">恭喜获得</h3>
+    <p class="fc_txt3">抽奖过程中请勿刷新页面或中断,请以实际礼包记录为准。</p>
+    <div class="fc_box3">
+        <span>礼包</span>
+        <ul class="fc_boes" id="choulist">
+            <!--            <li>-->
+            <!--                <p>xxxxxx</p>-->
+            <!--            </li>-->
+        </ul>
+    </div>
+    <p class="fc_txt4">温馨提示:虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持.由于数据量巨大，奖励道具显示将有所延迟，或可存在不展示的情况，请以礼包记录为准。</p>
+    <a class="close_btn sp1" href="javascript:closeDialog();enter(1000);enter_lucky(1500)"></a>
+</div>
+<!--中奖记录end-->
+
+<!--概率表start-->
+<div class="pop pop6" id="pop-gl">
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+</div>
+<!--概率表end-->
+
+<!--玩家反馈 start-->
+<div class="pop pop10" id="popfank">
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">活动反馈问卷</h3>
+    <div class="fc_box6">
+        <p class="fc_txt7"><em class="sp1"></em>请问，您对本次活动的满意度为?【单选题】</p>
+        <div class="fc_jd1">
+            <em class="question1_progress" style="width: 0%;"></em>
+        </div>
+        <ul class="fc_box6ct1">
+            <li>
+                <!--添加类名  cur 为选中-->
+                <a class="question1_btn question1_btn_1" href="javascript:select_question1(1,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <!--<p>1分</p>-->
+            </li>
+            <li>
+                <a class="question1_btn question1_btn_2" href="javascript:select_question1(1,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <!--                <p>2分</p>-->
+            </li>
+            <li>
+                <a class="question1_btn question1_btn_3" href="javascript:select_question1(1,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz3','选择')"></a>
+                <!--                <p>3分</p>-->
+            </li>
+            <li>
+                <a class="question1_btn question1_btn_4" href="javascript:select_question1(1,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz4','选择')"></a>
+                <!--                <p>4分</p>-->
+            </li>
+            <li>
+                <a class="question1_btn question1_btn_5" href="javascript:select_question1(1,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz5','选择')"></a>
+                <!--                <p>5分</p>-->
+            </li>
+        </ul>
+        <p class="fc_txt7"><em class="sp1"></em>请问，您认为本次活动的道具是否满意?【单选题】 </p>
+        <ul class="fc_box6ct2">
+            <li>
+                <a class="question2_btn question2_btn_1" href="javascript:select_question2(2,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <p>是</p>
+            </li>
+            <li>
+                <a class="question2_btn question2_btn_-1" href="javascript:select_question2(2,-1);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>否</p>
+            </li>
+        </ul>
+        <p class="fc_txt7"><em class="sp1"></em>请问，本次活动奖池内是否有您想要的道具?【单选题】</p>
+        <ul class="fc_box6ct2">
+            <li>
+                <a class="question3_btn question3_btn_1" href="javascript:select_question2(3,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <p>是</p>
+            </li>
+            <li>
+                <a class="question3_btn question3_btn_-1" href="javascript:select_question2(3,-1);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>否</p>
+            </li>
+        </ul>
+        <p class="fc_txt7"><em class="sp1"></em>请问，您最想要本次活动中哪些道具?（最多选五项）【多选题】</p>
+        <div class="fc_box6ct3">
+            <div class="fc_box6ct3po1 fc_box6ct3po1_1">
+                <a class="question4_btn question4_btn_1" href="javascript:select_question3(1);"></a>
+                <p>传说幽瞳 无序列号版 </p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_2">
+                <a class="question4_btn question4_btn_2" href="javascript:select_question3(2);"></a>
+                <p>传说幽冥 无序列号版</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_3">
+                <a class="question4_btn question4_btn_3" href="javascript:select_question3(3);"></a>
+                <p>王者雷影</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_4">
+                <a class="question4_btn question4_btn_4" href="javascript:select_question3(4);"></a>
+
+                <p>王者风势</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_5">
+                <a class="question4_btn question4_btn_5" href="javascript:select_question3(5);"></a>
+
+                <p>M14EBR-玄武音效卡</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_6">
+                <a class="question4_btn question4_btn_6" href="javascript:select_question3(6);"></a>
+
+                <p>Scar Light-马枪</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_7">
+                <a class="question4_btn question4_btn_7" href="javascript:select_question3(7);"></a>
+
+                <p>M4A1-黑龙</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_8">
+                <a class="question4_btn question4_btn_8" href="javascript:select_question3(8);"></a>
+
+                <p>麒麟刺</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_9">
+                <a class="question4_btn question4_btn_9" href="javascript:select_question3(9);"></a>
+
+                <p>沙鹰-天神</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_10">
+                <a class="question4_btn question4_btn_10" href="javascript:select_question3(10);"></a>
+
+                <p>B背包套装-手雷包</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_11">
+                <a class="question4_btn question4_btn_11" href="javascript:select_question3(11);"></a>
+
+                <p>属性抽取券</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_12">
+                <a class="question4_btn question4_btn_12" href="javascript:select_question3(12);"></a>
+                <p>没有想要的道具</p>
+            </div>
+        </div>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您对本次活动首发的全新道具【传说幽瞳 无序列号版】满意度如何?【单选题】</p>
+        <div class="fc_jd1">
+            <em class="question5_progress" style="width: 0%;"></em>
+        </div>
+        <ul class="fc_box6ct1">
+            <li>
+                <a class="question5_btn question5_btn_1" href="javascript:select_question1(5,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <!--                <p>1分</p>-->
+            </li>
+            <li>
+                <a class="question5_btn question5_btn_2" href="javascript:select_question1(5,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <!--                <p>2分</p>-->
+            </li>
+            <li>
+                <a class="question5_btn question5_btn_3" href="javascript:select_question1(5,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz3','选择')"></a>
+                <!--                <p>3分</p>-->
+            </li>
+            <li>
+                <a class="question5_btn question5_btn_4" href="javascript:select_question1(5,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz4','选择')"></a>
+                <!--                <p>4分</p>-->
+            </li>
+            <li>
+                <a class="question5_btn question5_btn_5" href="javascript:select_question1(5,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz5','选择')"></a>
+                <!--                <p>5分</p>-->
+            </li>
+        </ul>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您对本次活动首发的全新道具【传说幽冥 无序列号版】满意度如何?【单选题】 </p>
+        <div class="fc_jd1">
+            <em class="question6_progress" style="width: 0%;"></em>
+        </div>
+        <ul class="fc_box6ct1">
+            <li>
+                <a class="question6_btn question6_btn_1" href="javascript:select_question1(6,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <!--                <p>1分</p>-->
+            </li>
+            <li>
+                <a class="question6_btn question6_btn_2" href="javascript:select_question1(6,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <!--                <p>2分</p>-->
+            </li>
+            <li>
+                <a class="question6_btn question6_btn_3" href="javascript:select_question1(6,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz3','选择')"></a>
+                <!--                <p>3分</p>-->
+            </li>
+            <li>
+                <a class="question6_btn question6_btn_4" href="javascript:select_question1(6,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz4','选择')"></a>
+                <!--                <p>4分</p>-->
+            </li>
+            <li>
+                <a class="question6_btn question6_btn_5" href="javascript:select_question1(6,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz5','选择')"></a>
+                <!--                <p>5分</p>-->
+            </li>
+        </ul>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您对本次活动首发的全新道具【王者雷影】满意度如何?【单选题】 </p>
+        <div class="fc_jd1">
+            <em class="question7_progress" style="width: 0%;"></em>
+        </div>
+        <ul class="fc_box6ct1">
+            <li>
+                <a class="question7_btn question7_btn_1" href="javascript:select_question1(7,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <!--                <p>1分</p>-->
+            </li>
+            <li>
+                <a class="question7_btn question7_btn_2" href="javascript:select_question1(7,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <!--                <p>2分</p>-->
+            </li>
+            <li>
+                <a class="question7_btn question7_btn_3" href="javascript:select_question1(7,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz3','选择')"></a>
+                <!--                <p>3分</p>-->
+            </li>
+            <li>
+                <a class="question7_btn question7_btn_4" href="javascript:select_question1(7,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz4','选择')"></a>
+                <!--                <p>4分</p>-->
+            </li>
+            <li>
+                <a class="question7_btn question7_btn_5" href="javascript:select_question1(7,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz5','选择')"></a>
+                <!--                <p>5分</p>-->
+            </li>
+        </ul>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您对本次活动首发的全新道具【M14EBR-玄武音效卡】满意度如何?【单选题】 </p>
+        <div class="fc_jd1">
+            <em class="question8_progress" style="width: 0%;"></em>
+        </div>
+        <ul class="fc_box6ct1">
+            <li>
+                <a class="question8_btn question8_btn_1" href="javascript:select_question1(8,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz1','选择')"></a>
+                <p>1分</p>
+            </li>
+            <li>
+                <a class="question8_btn question8_btn_2" href="javascript:select_question1(8,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>2分</p>
+            </li>
+            <li>
+                <a class="question8_btn question8_btn_3" href="javascript:select_question1(8,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz3','选择')"></a>
+                <p>3分</p>
+            </li>
+            <li>
+                <a class="question8_btn question8_btn_4" href="javascript:select_question1(8,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz4','选择')"></a>
+                <p>4分</p>
+            </li>
+            <li>
+                <a class="question8_btn question8_btn_5" href="javascript:select_question1(8,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz5','选择')"></a>
+                <p>5分</p>
+            </li>
+        </ul>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您是从哪里获知本次活动的消息?【单选题】</p>
+        <div class="fc_box6ct4">
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g1">
+                <a class="question9_btn question9_btn_1" href="javascript:select_question2(9,1);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>掌上穿越火线</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g2">
+                <a class="question9_btn question9_btn_2" href="javascript:select_question2(9,2);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>贴吧/论坛/QQ群</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g3">
+                <a class="question9_btn question9_btn_3" href="javascript:select_question2(9,3);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>官网</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g4">
+                <a class="question9_btn question9_btn_4" href="javascript:select_question2(9,4);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>Wegame广告</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g5">
+                <a class="question9_btn question9_btn_5" href="javascript:select_question2(9,5);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>游戏内活动中心</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g6">
+                <a class="question9_btn question9_btn_6" href="javascript:select_question2(9,6);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>视频平台，如B站、抖音、快手</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g7">
+                <a class="question9_btn question9_btn_7" href="javascript:select_question2(9,7);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>官方微信和官方微博</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g8">
+                <a class="question9_btn question9_btn_8" href="javascript:select_question2(9,8);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>朋友分享</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g9">
+                <a class="question9_btn question9_btn_9" href="javascript:select_question2(9,9);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>直播平台，如虎牙、斗鱼</p>
+            </div>
+            <div class="fc_box6ct3po1 fc_box6ct3po1_g10">
+                <a class="question9_btn question9_btn_10" href="javascript:select_question2(9,10);"
+                   onclick="PTTSendClick('btn','fcbtnxz2','选择')"></a>
+                <p>其他</p>
+                <input class="fc_in1" id="question9_text" name="" placeholder="(请填写)" type=""/>
+            </div>
+        </div>
+        <p class="fc_txt8"><em class="sp1"></em>请问，您对本次活动的建议或意见是什么?【填空题】</p>
+        <textarea class="fc_in2" cols="" id="question10_text" name="" rows=""></textarea>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fc_btnt1 sp1" href="javascript:amsFeedBack();" onclick="PTTSendClick('btn','btnq3','确认')"></a>
+        <a class="fcbtn_q2 sp1" href="javascript:closeDialog();" onclick="PTTSendClick('btn','btnq4','取消')"></a>
+    </div>
+</div>
+<!--玩家反馈 end-->
+
+<!-- 我邀请的好友start -->
+<div class="pop pops1" id="showMyGiftContent3">
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">我邀请的用户</h3>
+    <div class="fc_box1">
+        <table class="table fctable_bor1">
+            <thead>
+            <tr>
+                <th>玩家名称</th>
+                <th>大区</th>
+            </tr>
+            </thead>
+            <tbody id="milo-lotteryRecordContainer3">
+            </tbody>
+        </table>
+        <div class="milo-paginator" id="milo-paginator3">
+        </div>
+    </div>
+</div>
+
+<script id="milo-lotteryRecordTpl3" type="text/html">
+    {@ if(data.length == 0){@}
+    <tr>
+        <td colspan="3" align="center">暂无好友邀请记录</td>
+    </tr>
+    {@}else{@} {@ for(var i = 0; i
+    < data.length; i++) { @}
+    <tr>
+        <td>{{ data[i].sRolename }}</td>
+        <td>{{ getAreaName(data[i].sArea) }}</td>
+        <!--        <td>{{ getAreaName(data[i].level) }}</td>-->
+    </tr>
+    {@ } @} {@}@}
+</script>
+<!--我邀请的好友end-->
+
+<!--已中幸运签公示 start-->
+<div class="pop pop10" id="div_has_signed_list">
+    <h3 class="poptit">幸运签中签公示</h3>
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+    <div class="fc_box1">
+        <table class="table fctable_bor1">
+            <thead>
+            <tr>
+                <th>中签QQ号</th>
+                <th>中签日期</th>
+            </tr>
+            </thead>
+            <tbody id="has_signed_list">
+            <!--            <tr>-->
+            <!--                <td>xxxxxxxxxxxxxxxxxx</td>-->
+            <!--                <td>xxxxxx</td>-->
+            <!--            </tr>-->
+            </tbody>
+            <tfoot>
+            <tr id="has_signed_list_page">
+                <td colspan="3">
+                    <a class="btn_prev" href="javascript:get_has_signed_list(isParams.iSignedCurrPage-1);"
+                       onclick="PTTSendClick('btn','btns1','上一页')">上一页</a>
+                    <span class="iSignedCurrPage">1/1</span>
+                    <a class="btn_next xyq_next_page" href="javascript:get_has_signed_list(isParams.iSignedCurrPage+1);"
+                       onclick="PTTSendClick('btn','btns2','下一页')">下一页</a>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<!--已中幸运签公示 end-->
+
+<!-- 购买提醒1 -->
+<div class="pop pops1" id="popNoDjq">
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p>抱歉，您的道聚城通用代金券不足，无法进行抵扣购买。</p>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fcbtn_q1 sp1" href="javascript:closeDialog();" onclick="PTTSendClick('btn','btnq5','确认')"></a>
+    </div>
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+</div>
+
+<!-- 购买提醒2 -->
+<div class="pop pops1" id="popBuyCard">
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p>确定要花费39.9Q币开通金蛇福运卡（赠送抽奖钥匙*5）吗？</p>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fcbtn_q1 sp1" href="javascript:amsBuyCard();" onclick="PTTSendClick('btn','btnq6','确认')"></a>
+    </div>
+    <a class="close_btn sp1" href="javascript:closeDialog();"></a>
+</div>
+
+<!--二次确认弹框/分解-->
+<div class="pop pops1" id="popTimeConfirm">
+    <a class="close_btn sp1 confirm_close_btn" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p><span class="time_confirm_text">您确定xx【xxxxxx】获得【×xx】到【xxxx】下的【xxxxxx】吗？</span><br/>
+            <a href="javascript:closeDialog();commitBindArea();"
+               onclick="PTTSendClick('btn','btnqhdq','切换大区');">切换大区</a>
+        </p>
+    </div>
+
+    <ul class="fc_btntbox1">
+        <li>
+            <p>倒计时：<em class="timeout">x</em></p>
+            <a class="fcbtn_q1 sp1 time_sure_btn" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>
+        </li>
+        <li>
+            <p></p>
+            <a class="fcbtn_q2 sp1 confirm_close_btn" href="javascript:closeDialog();"
+               onclick="PTTSendClick('btn','btnq4','取消')"></a>
+        </li>
+    </ul>
+</div>
+
+<!-- 二次确认弹框/分解无法撤回 -->
+<div class="pop pops1" id="popSecondTimeConfirm">
+    <a class="close_btn sp1 confirm_close_btn" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p class="second_time_confirm_text">本次xx操作不可逆，无法撤回，请确认是否操作？</p>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fcbtn_q1 sp1 second_time_sure_btn" href="javascript:isParams.setClickTimePop();"
+           onclick="PTTSendClick('btn','btnq3','确认')"></a>
+        <a class="fcbtn_q2 sp1 confirm_close_btn" href="javascript:closeDialog();"
+           onclick="PTTSendClick('btn','btnq4','取消')"></a>
+    </div>
+</div>
+
+<!-- 提示 alert-->
+<div class="pop pops1" id="popMsgAlert">
+    <a class="close_btn sp1 m-alert-close" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p class="m-alert-msg">x</p>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fcbtn_q1 sp1 m-alert-close" href="javascript:void(0);" onclick="PTTSendClick('btn','btnq3','确认')"></a>
+    </div>
+</div>
+
+<!-- 提示 confirm-->
+<div class="pop pops1" id="popMsgConfirm">
+    <a class="close_btn sp1 m-confirm-close" href="javascript:closeDialog();"></a>
+    <h3 class="poptit">提醒</h3>
+    <div class="popboxs">
+        <p class="m-confirm-msg">x</p>
+    </div>
+    <div class="fc_btntbox1">
+        <a class="fcbtn_q1 sp1 m-confirm-sure" href="javascript:void(0);"
+           onclick="PTTSendClick('btn','btnq3','确认')"></a>
+        <a class="fcbtn_q2 sp1 m-confirm-close" href="javascript:closeDialog();"
+           onclick="PTTSendClick('btn','btnq4','取消')"></a>
+    </div>
+</div>
+
+<!--&lt;!&ndash;二次确认弹框/兑换&ndash;&gt;-->
+<!--<div class="pop pops1" id="text13">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">提醒</h3>-->
+<!--    <div class="popboxs">-->
+<!--        <p>您确定使用【xx】积分兑换【xxxx】到【xxxx】下的【xxxxxx】吗？<br/>-->
+<!--            <a href="javascript:;" onclick="PTTSendClick('btn','btnqhdq','切换大区');">切换大区</a>-->
+<!--        </p>-->
+<!--    </div>-->
+
+<!--    <ul class="fc_btntbox1">-->
+<!--        <li>-->
+<!--            <p>倒计时：<em>2</em></p>-->
+<!--            <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <p></p>-->
+<!--            <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 二次确认弹框/分解无法撤回 &ndash;&gt;-->
+<!--<div class="pop pops1" id="text14">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">提醒</h3>-->
+<!--    <div class="popboxs">-->
+<!--        <p>本次兑换操作不可逆，无法撤回，请确认是否操作？</p>-->
+<!--    </div>-->
+<!--    <div class="fc_btntbox1">-->
+<!--        <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 确认分解 &ndash;&gt;-->
+<!--<div class="pop pops1" id="text19">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">通知</h3>-->
+<!--    <p class="fc_txtg6"><span>是否确认分解XXXX</span></p>-->
+<!--    <div class="fc_btntbox1">-->
+<!--        <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; 确认领取 &ndash;&gt;-->
+<!--<div class="pop pops1" id="text20">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">通知</h3>-->
+<!--    <p class="fc_txtg6"><span>是否确认领取XXXX</span></p>-->
+<!--    <div class="fc_btntbox1">-->
+<!--        <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;应急弹窗1&ndash;&gt;-->
+<!--<div class="pop pops1" id="text15">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">提醒</h3>-->
+<!--    <div class="popboxs">-->
+<!--        <p>当前活动正在紧急维护，已参与用户的钥匙、积分等数据将会保留，活动重新开启后 可继续使用。</p>-->
+<!--    </div>-->
+<!--    <div class="fc_btntbox1">-->
+<!--        <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;应急弹窗2&ndash;&gt;-->
+<!--<div class="pop pops1" id="text16">-->
+<!--    <a class="close_btn sp1" href="javascript:closeDialog();"></a>-->
+<!--    <h3 class="poptit">提醒</h3>-->
+<!--    <div class="popboxs">-->
+<!--        <p>本次活动抽奖板块将于 XX 月 XX 日 XX 时 XX 分结束，届时抽奖钥匙将过期无法使用; 兑换板块将于 XX 月 XX 日 XX 时 XX 分结束，届时积分将过期无法使用;</p>-->
+<!--    </div>-->
+<!--    <div class="fc_btntbox1">-->
+<!--        <a class="fcbtn_q1 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq3','确认')"></a>-->
+<!--        <a class="fcbtn_q2 sp1" href="javascript:;" onclick="PTTSendClick('btn','btnq4','取消')"></a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
+<script src="//ossweb-img.qq.com/images/js/milo_bundle/milo.js"></script>
+<script src="//game.gtimg.cn/images/js/milo-next/latest/milo.gbk.min.js"></script>
+<script src="//js01.daoju.qq.com/common/js/act/dj_header_v2.js"></script>
+<script src="//game.gtimg.cn/images/js/2018foot/foot.js"></script>
+<script src="//ossweb-img.qq.com/images/ams/atm/reporting.js?action=694468"></script>
+<script src="//ossweb-img.qq.com/images/js/PTT/ping_tcss_tgideas_https_min.js"></script>
+<script src="//gameact.qq.com/comm-htdocs/js/game_area/cf_server_select.js"></script>
+<script src="//act.daoju.qq.com/act/a20220207makewish/js/public.js"></script>
+<script src="//act.daoju.qq.com/act/a20250104csytdb/js/index.js"></script>
+
+<script>
+    window.onscroll = function () {
+        var fixE = document.getElementById("flokf");
+        var score = document.documentElement.scrollTop || document.body.scrollTop;
+
+        if (typeof DJC_ANCHOR != 'undefined' && typeof DJC_ANCHOR.oBaseInfo != 'undefined' && typeof DJC_ANCHOR.oBaseInfo.data != 'undefined' && typeof DJC_ANCHOR.oBaseInfo.data._is_anchor != 'undefined') {
+            if (DJC_ANCHOR.oBaseInfo.data._is_anchor) {
+                var dom = $(".anchor-fixedbar2")
+            } else {
+                var dom = $(".anchor-fixedbar1")
+            }
+        }
+        if (score < 660) {
+            if (typeof fixE != 'undefined' && fixE != null) {
+                fixE.style.display = "none";
+            }
+
+            if (typeof dom != 'undefined') {
+                dom.css('display', 'none')
+            }
+        } else {
+            if (typeof fixE != 'undefined' && fixE != null) {
+                fixE.style.display = "block";
+            }
+
+            if (typeof dom != 'undefined') {
+                dom.css('display', 'block')
+            }
+        }
+    }
+
+
+    if (milo.request('wegame') == 1 || milo.request("debug") == 1) {
+        document.write('\<script id="djc_anchor" src="//act.daoju.qq.com/act/a20200616zbdc/index.js?iModuleId=123"><\/script>');
+    } else {
+        document.write('\<script id="djc_anchor" src="//act.daoju.qq.com/act/a20200616zbdc/index.js?iModuleId=123&loginType=qc"><\/script>');
+    }
+
+
+    setTimeout(function () {
+        var score = $(document).scrollTop();
+        if (score < 1200) {
+            $(".anchor-fixedbar").hide();
+            $("#flokf").hide();
+        }
+    }, 2000)
+</script>
+
+<script>
+    //此段代码不能放到外链JS中，
+    var setSite = { //设置网站属性
+        siteType: "a20250104csytdb", //必填,j9i098u98980909oguihik项:"os"代表是官网，如果不是，则填写actName例如a20160701xxx
+        pageType: "index", //必填项:本页面的定位；按照页面含义填写例如main||list||detail||download||share||page1||pageN,不支持点(.)、下划线(_)
+        pageName: "首页", //必填项:页面中文名
+        project: "other", //选填项:如果是官网模块则是必填;按照模块内容，填写固定的对应值;官网微社区base;同人站doujin;赛事match;故事站story;文化站history;粉丝站fans;爆料站coming;论坛bbs;皮肤skin;默认other;
+        osact: 0 //选填项:默认是0。osact=0表示非官网专题；osact=pc表示pc官网/pc官网专题；osact=m表示移动官网/移动官网专题；osact=ingame表示微社区/微社区专题
+    };
+    if (typeof (pgvMain) == 'function') pgvMain(); //千万不能忘记！
+</script>
+
+
+</body>
+
+</html>
