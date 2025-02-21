@@ -7,11 +7,12 @@ import viteImagemin from 'vite-plugin-imagemin'
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { VantResolver } from '@vant/auto-import-resolver';
-
+import {createHtmlPlugin} from 'vite-plugin-html';
 
 
 export default ({mode, command}) => {
   const env=loadEnv(mode, process.cwd());   // 获取.env文件里定义的环境变量
+  console.log(env)
 
   const analysPlugins: any[] = mode === 'analys' ? [
     visualizer({
@@ -25,6 +26,20 @@ export default ({mode, command}) => {
   return defineConfig({
     plugins: [
       vue(),
+      // createHtmlPlugin({
+      //   minify: true,
+      //   pages: [
+      //     {
+      //       filename: 'register.html',
+      //       template: './register.html',
+      //       injectOptions: {
+      //         data: {
+      //           apiUrl: env.VITE_SERVER_URL,
+      //         }
+      //       }
+      //     }
+      //   ]
+      // }),
       AutoImport({
         imports:["vue","vue-router"], // 自动引入
         dts: 'src/type/auto-import.d.ts', // 生成文件的位置
