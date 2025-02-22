@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>账号注册</title>
-    <link rel="stylesheet" href="http://oss.itqaq.top/index/css/mobile/password.css?v=1.0.0">
+     <link rel="stylesheet" href="./register/password.css?v=1.0.0">
     <style>
         .btn-disabled {
             background-color: grey !important;
@@ -29,7 +29,8 @@
     <div class="box">
         <div class="login" style="height: 40rem;">
             <div class="login_top">
-                <h2>注册付费版账号</h2>
+                <!-- <h2>注册付费版账号</h2> -->
+                <h2>xxx</h2>
             </div>
             <div class="login_bottom">
                 <form action="" method="post" class="form">
@@ -55,18 +56,29 @@
         </div>
     </div>
 
-    <script src="http://oss.itqaq.top/index/plugins/jquery-1.11.3.min.js"></script>
-    <script src="http://oss.itqaq.top/index/plugins/layer/layer.js"></script>
+    <script src="./plugins/jquery-1.11.3.min.js"></script>
+    <script src="./plugins/layer/layer.js"></script>
     <script>
+      const apiUrl = window.location.origin;
         $(document).ready(function () {
             $('form').submit(function (event) {
                 event.preventDefault(); // 阻止表单提交
                 const formData = $(this).serializeArray();
+                let params = {}
                 const loadIndex = layer.load(2);
+                for (let i = 0; i < formData.length; i++) {
+                    if (formData[i].value === '') {
+                        layer.msg('请填写完整信息')
+                        layer.close(loadIndex)
+                        return false;
+                    }
+                    params[formData[i].name] = formData[i].value
+                }
+                // console.log(params,'formData')
                 $.ajax({
-                    url: 'http://cf.itqaq.com/user/register.html',
+                    url: apiUrl + '/user/register',
                     method: 'post',
-                    data: formData,
+                    data: params,
                     success(res) {
                         if (res.code == 200) {
                             layer.alert('恭喜您，账号注册成功', { icon: 1, btn: ['我知道了'] }, function (index) {
@@ -95,8 +107,9 @@
                 referrerId: $('[name="referrerId"]').val(),
             }
             const loadIndex = layer.load(2);
+            console.log(data, loadIndex, 'data-----')
             $.ajax({
-                url: 'http://cf.itqaq.com/sms/register.html',
+                url: apiUrl + '/user/sendRegisterCaptcha',
                 method: 'post',
                 data,
                 success(res) {
@@ -128,7 +141,7 @@
                 title: '注册引导',
                 // skin: 'layui-layer-rim', //加上边框
                 area: ['90%', '96%'], //宽高
-                content: "http://cf.itqaq.com/mobile/instru.html"
+                content: "./instru.html"
             });
         }
         function showDocs() {
@@ -136,7 +149,7 @@
                 type: 2,
                 title: '购买注册码',
                 // skin: 'layui-layer-rim', //加上边框
-                content: "http://cf.itqaq.com/mobile/docs.html",
+                content: "./docs.html",
                 area: ['80%', '280px'], //宽高
             });
         }

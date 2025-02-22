@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册码</title>
+    <style>
+        body {
+            padding-bottom: 20px;
+        }
+
+        div {
+            text-align: center;
+            margin-bottom: .3rem;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+        }
+
+        .contact {
+            margin: 1rem 0;
+            font-size: .8rem;
+        }
+
+        .copy {
+            cursor: pointer;
+        }
+
+        th,
+        td {
+            padding: .4rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact">下面是作者联系方式，请备注：购买注册码</div>
+    <div class="contact">
+        <a href="javascript:;" onclick="window.open('/docs/level.html')">点击查看付费版价格表</a>
+    </div>
+    <table border="1" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>方式</th>
+            <th>账号</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>微信</td>
+            <td id="wechat">ohuang886</td>
+            <td><span class="copy" data-clipboard-target="#wechat" data-clipboard-action="copy">复制</span></td>
+        </tr>
+        <tr>
+            <td>QQ号</td>
+            <td id="qq">848978691</td>
+            <td>
+                <span class="copy" data-clipboard-target="#qq" data-clipboard-action="copy">复制</span>
+            </td>
+        </tr>
+    </table>
+    <script src="./plugins/jquery-1.11.3.min.js"></script>
+    <script src="./plugins/layer/layer.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script>
+        const clipboard = new ClipboardJS('.copy');
+        clipboard.on('success', function (e) {
+            // action: copy|cut
+            // text: 复制的文本
+            // trigger: 点击的dom元素
+            const { action, text, trigger } = e
+            if (text == 'u1s1it') {
+                layer.msg('已将微信号复制到剪切板')
+            } else {
+                layer.msg('已将QQ号复制到剪切板')
+            }
+            // 取消选中
+            e.clearSelection();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.y-shade {
+    background-color: rgb(0, 0, 0);
+    background-color: red;
+    border-top: 1px solid rgb(0, 0, 0);
+    position: absolute;
+    z-index: 9998;
+    width: 100%;
+    height: 7282px;
+    left: 0px;
+    top: 0px;
+    /* opacity: 0.7; */
+}
+
+.po,
+.cur,
+.pointer {
+    cursor: pointer;
+}
+
+.bg-red {
+    color: #fff;
+    cursor: pointer;
+    background-color: red;
+}
+
+

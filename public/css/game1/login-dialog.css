@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+
+.login-dialog {
+    display: none;
+}
+
+.y-login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    z-index: 99999;
+    width: 80%;
+    max-width: 350px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.y-login-close {
+    margin: 20px 0 6px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #909399;
+    text-align: right;
+    padding-right: 20px;
+}
+
+.y-login-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.y-login-account {
+    margin-bottom: 15px;
+}
+
+.y-login-account,
+.y-login-password,
+.y-login-submit {
+    width: 80%;
+    height: 36px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+}
+
+.y-login-submit {
+    border-radius: 4px;
+    background-color: #09F;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+
+}
+
+.y-login-footer {
+    width: 80%;
+    display: flex;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.y-login-footer a,
+.y-login-footer div {
+    flex: 1;
+    color: #000;
+}
+
+.y-login-dotted {
+    display: inline-block;
+    height: 12px;
+    margin: 0 22px;
+    border-left: 1px solid #F5F5F5;
+    vertical-align: middle;
+    color: transparent;
+}
+
+.y-login-error {
+    width: 80%;
+    text-align: left;
+    margin: 10px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.y-login-error-logo {
+    position: absolute;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    background: url('../../images/game1/error_icon.png') no-repeat;
+    background-size: contain;
+}
+
+.y-login-error-message {
+    color: #FF5765;
+    padding-left: 20px;
+    font-weight: 500;
+}
+
+
