@@ -1,171 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>账号注册</title>
-     <link rel="stylesheet" href="./register/password.css?v=1.0.0">
+    <link rel="stylesheet" href="./register/password.css?v=1.0.0" />
     <style>
-        .btn-disabled {
-            background-color: grey !important;
-        }
+      .btn-disabled {
+        background-color: grey !important;
+      }
 
-        .reg-footer {
-            display: flex;
-            width: 17.5rem;
-            margin: 0 auto;
-            text-align: center;
-        }
+      .reg-footer {
+        display: flex;
+        width: 17.5rem;
+        margin: 0 auto;
+        text-align: center;
+      }
 
-        .reg-footer a {
-            flex: 1;
-        }
+      .reg-footer a {
+        flex: 1;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="box">
-        <div class="login" style="height: 40rem;">
-            <div class="login_top">
-                <!-- <h2>注册付费版账号</h2> -->
-                <h2>xxx</h2>
-            </div>
-            <div class="login_bottom">
-                <form action="" method="post" class="form">
-                    <input type="text" name="referrerId" class="input" placeholder="请输入注册码，需要付费购买" autocomplete="off" />
-                    <input type="number" name="mobileNumber" class="input" placeholder="请输入手机号" autocomplete="off" />
-                    <div style="display: flex;width: 18rem;margin: 0 auto;">
-                        <input type="number" name="captcha" class="input" style="margin-right: 0.6rem;"
-                            placeholder="请输入验证码" autocomplete="off" />
-                        <button type="button" class="sendSms" style="margin-top: 1rem !important;">发送验证码</button>
-                    </div>
-                    <!-- <input type="number" name="qq" class="input" placeholder="请输入QQ号" autocomplete="off" /> -->
-                    <input type="text" name="username" class="input" placeholder="请输入用户名" autocomplete="off" />
-                    <input type="password" name="password" class="input" placeholder="请输入登录密码" autocomplete="off" />
-                    <input type="password" name="repassword" class="input" placeholder="请再次输入登录密码" autocomplete="off" />
-                    <button type="submit">立即注册</button>
-                </form>
-                <p class="reg-footer">
-                    <a href="javascript:showInstru();">注册引导</a>
-                    <a href="javascript:showDocs();">购买注册码</a>
-                    <a href="javascript:history.back();">返回上一页</a>
-                </p>
-            </div>
+      <div class="login" style="height: 40rem">
+        <div class="login_top">
+          <h2>注册付费版账号</h2>
+          <!-- <h2>xxx</h2> -->
         </div>
+        <div class="login_bottom">
+          <form action="" method="post" class="form">
+            <input
+              type="text"
+              name="referrerId"
+              class="input"
+              placeholder="请输入注册码，需要付费购买"
+              autocomplete="off"
+            />
+            <input
+              type="number"
+              name="mobileNumber"
+              class="input"
+              placeholder="请输入手机号"
+              autocomplete="off"
+            />
+            <div style="display: flex; width: 18rem; margin: 0 auto">
+              <input
+                type="number"
+                name="captcha"
+                class="input"
+                style="margin-right: 0.6rem"
+                placeholder="请输入验证码"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="sendSms"
+                style="margin-top: 1rem !important"
+              >
+                发送验证码
+              </button>
+            </div>
+            <!-- <input type="number" name="qq" class="input" placeholder="请输入QQ号" autocomplete="off" /> -->
+            <input
+              type="text"
+              name="username"
+              class="input"
+              placeholder="请输入用户名"
+              autocomplete="off"
+            />
+            <input
+              type="password"
+              name="password"
+              class="input"
+              placeholder="请输入登录密码"
+              autocomplete="off"
+            />
+            <input
+              type="password"
+              name="repassword"
+              class="input"
+              placeholder="请再次输入登录密码"
+              autocomplete="off"
+            />
+            <button type="submit">立即注册</button>
+          </form>
+          <p class="reg-footer">
+            <a href="javascript:showInstru();">注册引导</a>
+            <a href="javascript:showDocs();">购买注册码</a>
+            <a href="javascript:history.back();">返回上一页</a>
+          </p>
+        </div>
+      </div>
     </div>
 
     <script src="./plugins/jquery-1.11.3.min.js"></script>
     <script src="./plugins/layer/layer.js"></script>
     <script>
-      const apiUrl = window.location.origin;
-        $(document).ready(function () {
-            $('form').submit(function (event) {
-                event.preventDefault(); // 阻止表单提交
-                const formData = $(this).serializeArray();
-                let params = {}
-                const loadIndex = layer.load(2);
-                for (let i = 0; i < formData.length; i++) {
-                    if (formData[i].value === '') {
-                        layer.msg('请填写完整信息')
-                        layer.close(loadIndex)
-                        return false;
-                    }
-                    params[formData[i].name] = formData[i].value
-                }
-                // console.log(params,'formData')
-                $.ajax({
-                    url: apiUrl + '/user/register',
-                    method: 'post',
-                    data: params,
-                    success(res) {
-                        if (res.code == 200) {
-                            layer.alert('恭喜您，账号注册成功', { icon: 1, btn: ['我知道了'] }, function (index) {
-                                layer.close(index)
-                                location.reload()
-                            })
-                        } else {
-                            layer.msg(res.msg)
-                        }
-                    },
-                    complete() {
-                        layer.close(loadIndex)
-                    }
-                })
-            });
-        });
-        // 刷新验证码
-        function refreshCode() {
-            $('.btn-code').attr('src', "http://cf.itqaq.com/verify_code/forgot.html?v=" + Math.random())
-        }
-        // 发送验证码
-        $('.sendSms').click(function () {
-            const that = this
-            const data = {
-                mobileNumber: $('[name="mobileNumber"]').val(),
-                referrerId: $('[name="referrerId"]').val(),
+      const apiUrl = window.location.origin + "/api";
+      // const apiUrl = 'http://118.190.156.96:8080/api';
+      $(document).ready(function () {
+        $("form").submit(function (event) {
+          event.preventDefault(); // 阻止表单提交
+          const formData = $(this).serializeArray();
+          let params = {};
+          const loadIndex = layer.load(2);
+          for (let i = 0; i < formData.length; i++) {
+            if (formData[i].value === "") {
+              layer.msg("请填写完整信息");
+              layer.close(loadIndex);
+              return false;
             }
-            const loadIndex = layer.load(2);
-            console.log(data, loadIndex, 'data-----')
-            $.ajax({
-                url: apiUrl + '/user/sendRegisterCaptcha',
-                method: 'post',
-                data,
-                success(res) {
-                    layer.msg(res.msg)
-                    if (res.code == 200) {
-                        $(that).prop('disabled', true)
-                        let time = 60
-                        const index = setInterval(() => {
-                            time--;
-                            $(that).prop('disabled', true).addClass('btn-disabled').text(time + '秒后重获')
-                            if (time <= 0) {
-                                clearInterval(index)
-                                $(that).prop('disabled', false).removeClass('btn-disabled').text('发送验证码')
-                            }
-                        }, 1000)
-                    } else {
-                        refreshCode()
-                    }
-                },
-                complete() {
-                    layer.close(loadIndex)
+            params[formData[i].name] = formData[i].value;
+          }
+          if (params.password !== params.repassword) {
+            layer.msg("两次密码输入不一致");
+            layer.close(loadIndex);
+            return false;
+          }
+          // console.log(params,'formData')
+          $.ajax({
+            url: apiUrl + "/user/register",
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
+              mobileNumber: params.mobileNumber,
+              captcha: params.captcha,
+              password: params.password,
+              username: params.username,
+              nickName: params.username,
+              referrerId: params.referrerId,
+            }),
+            success(res) {
+              if (res.code == 200) {
+                layer.alert(
+                  "恭喜您，账号注册成功",
+                  { icon: 1, btn: ["我知道了"] },
+                  function (index) {
+                    layer.close(index);
+                    location.reload();
+                  }
+                );
+              } else {
+                layer.msg(res.msg);
+              }
+            },
+            complete() {
+              layer.close(loadIndex);
+            },
+          });
+        });
+      });
+      // 刷新验证码
+      function refreshCode() {
+        $(".btn-code").attr(
+          "src",
+          "http://cf.itqaq.com/verify_code/forgot.html?v=" + Math.random()
+        );
+      }
+      // 发送验证码
+      $(".sendSms").click(function () {
+        const that = this;
+        const data = {
+          mobileNumber: $('[name="mobileNumber"]').val(),
+          // referrerId: $('[name="referrerId"]').val(),
+        };
+        const loadIndex = layer.load(2);
+        $.ajax({
+          url: apiUrl + "/user/sendRegisterCaptcha",
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(data),
+          success(res) {
+            layer.msg(res.msg);
+            if (res.code == 0) {
+              $(that).prop("disabled", true);
+              let time = 60;
+              const index = setInterval(() => {
+                time--;
+                $(that)
+                  .prop("disabled", true)
+                  .addClass("btn-disabled")
+                  .text(time + "秒后重获");
+                if (time <= 0) {
+                  clearInterval(index);
+                  $(that)
+                    .prop("disabled", false)
+                    .removeClass("btn-disabled")
+                    .text("发送验证码");
                 }
-            })
-        })
+              }, 1000);
+            } else {
+              refreshCode();
+            }
+          },
+          complete() {
+            layer.close(loadIndex);
+          },
+        });
+      });
 
-        function showInstru() {
-            layer.open({
-                type: 2,
-                title: '注册引导',
-                // skin: 'layui-layer-rim', //加上边框
-                area: ['90%', '96%'], //宽高
-                content: "./instru.html"
-            });
-        }
-        function showDocs() {
-            layer.open({
-                type: 2,
-                title: '购买注册码',
-                // skin: 'layui-layer-rim', //加上边框
-                content: "./docs.html",
-                area: ['80%', '280px'], //宽高
-            });
-        }
+      function showInstru() {
+        layer.open({
+          type: 2,
+          title: "注册引导",
+          // skin: 'layui-layer-rim', //加上边框
+          area: ["90%", "96%"], //宽高
+          content: "./instru.html",
+        });
+      }
+      function showDocs() {
+        layer.open({
+          type: 2,
+          title: "购买注册码",
+          // skin: 'layui-layer-rim', //加上边框
+          content: "./docs.html",
+          area: ["80%", "280px"], //宽高
+        });
+      }
 
-        function getParamsFromURL() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var result = {};
-            urlParams.forEach(function (value, key) {
-                result[key] = value;
-            });
-            return result;
-        }
-        // 示例使用方法：
-        const params = getParamsFromURL();
-        if (params.code) $('[name="referrerId"]').val(params.code)
+      function getParamsFromURL() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var result = {};
+        urlParams.forEach(function (value, key) {
+          result[key] = value;
+        });
+        return result;
+      }
+      // 示例使用方法：
+      const params = getParamsFromURL();
+      if (params.code) $('[name="referrerId"]').val(params.code);
     </script>
-</body>
-
+  </body>
 </html>

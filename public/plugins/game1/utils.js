@@ -8,6 +8,7 @@ const bindAreaApi = '/user/bindArea'; // 绑定大区
 const getServerOptionsApi = '/user/getServerOptions'; // 根据大区获取服务器下拉选项
 const getNicknameByAreaApi = '/user/getNicknameByArea';// 根据大区和服务器获取角色昵称
 
+const apiUrl = window.location.origin + "/api";
 // 进入立即检测用户状态
 // 如果没有登录就显示登录窗口，如果已登录但是没绑定大区，显示绑定大区窗口
 isLogin() ? (isRole() || showRegionDialog()) : showLoginDialog();
@@ -89,9 +90,12 @@ function request(api, type = 'get', data = {}, isShowLoading = true) {
     const index = isShowLoading ? showLoading() : ''
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: api,
+            url: apiUrl + api,
             type,
-            data,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: JSON.stringify(data),
             success(res) {
                 // 登录状态过期时刷新页面
                 if (res.code == 403) {
@@ -184,9 +188,11 @@ function login() {
     if (password === '') {
         return showLoginErrorTips('你还没有输入密码！');
     }
-    request(loginApi, 'post', { account, password }).then(res => {
-        if (res.code == 200) {
-            location.reload()
+    request(loginApi, 'post', { mobileNumber: account, password, loginType: 1 }).then(res => {
+      console.log(res, 123)
+        if (+res.code == 0) {
+          $("input[name='is_login']").val(1)
+            // location.reload()
         } else {
             return showLoginErrorTips(res.msg);
             // return showLoginErrorTips('登录失败，账号或密码错误！');
