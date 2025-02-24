@@ -1,3 +1,4 @@
+window.isDev = true; // 是否是开发环境
 const ctrlName = 'shine2502'
 const getInfoApi = `/y2025.${ctrlName}/getInfo` // 活动信息
 const buyKeysApi = `/y2025.${ctrlName}/buyKeys` // 购买钥匙
@@ -5,7 +6,7 @@ const drawLotteryApi = `/y2025.${ctrlName}/drawLottery` // 抽奖接口
 const getTankListsApi = `/y2025.${ctrlName}/getTankLists`; // 暂存箱
 const tankHandleApi = `/y2025.${ctrlName}/tankHandle`; // 暂存箱操作
 const getPackListApi = `/y2025.${ctrlName}/getPackList`; // 礼包记录
-const getAwardListsApi = `/y2025.${ctrlName}/getAwardLists`; // 获奖名单
+const getAwardListsApi = `/json/getAwardLists.json`; // 获奖名单
 const exchangeApi = `/y2025.${ctrlName}/exchange`; // 道具兑换
 const feedbackApi = `/y2025.${ctrlName}/feedback`; // 填写体验问卷
 const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
@@ -917,7 +918,7 @@ getInfo()
 
 // 中奖名单
 function getAwardLists() {
-    request(getAwardListsApi, 'get', {}, false).then(res => {
+    request(getAwardListsApi, 'get', null, false).then(res => {
         if (res.code == 200) {
             let html = ''
             res.data.forEach(item => {
