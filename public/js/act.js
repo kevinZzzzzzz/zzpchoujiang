@@ -1,8 +1,7 @@
-window.isDev = true; // 是否是开发环境
 const ctrlName = 'shine2502'
 const getInfoApi = `/y2025.${ctrlName}/getInfo` // 活动信息
-const buyKeysApi = `/y2025.${ctrlName}/buyKeys` // 购买钥匙
-const drawLotteryApi = `/y2025.${ctrlName}/drawLottery` // 抽奖接口
+const buyKeysApi = window.isDev ? `/api/event/addConsumableRecord` : `/event/addConsumableRecord` // 购买钥匙
+const drawLotteryApi = window.isDev ? `/api/event/gachaItem` : `/event/gachaItem` // 抽奖接口
 const getTankListsApi = `/y2025.${ctrlName}/getTankLists`; // 暂存箱
 const tankHandleApi = `/y2025.${ctrlName}/tankHandle`; // 暂存箱操作
 const getPackListApi = `/y2025.${ctrlName}/getPackList`; // 礼包记录
@@ -116,7 +115,7 @@ var totalPage = 0;
 milo.ready(function () {
     //页面，弹窗使用
     window.alert = function (msg, callback, callback1) {
-        $('#poptips3 .msg').text(msg);
+        // $('#poptips3 .msg').text(msg);
 
         window.alert_call = function () {
             closeDialog();
@@ -124,18 +123,18 @@ milo.ready(function () {
         }
 
         $('#poptips3 .btn_pqd').attr("href", "javascript:window.alert_call();");
-        TGDialogS('poptips3');
+        // TGDialogS('poptips3');
 
-        // need("util.modalDialog", function (Dialog) {
-        //     Dialog.alert(msg, {
-        //         onConfirm: function () {
-        //             typeof callback == "function" ? callback() : console.log("no callback")
-        //         },
-        //         onClose: function () {
-        //             typeof callback1 == "function" ? callback1() : console.log("no callback1")
-        //         }
-        //     });
-        // })
+        need("util.modalDialog", function (Dialog) {
+            Dialog.alert(msg, {
+                onConfirm: function () {
+                    typeof callback == "function" ? callback() : console.log("no callback")
+                },
+                onClose: function () {
+                    typeof callback1 == "function" ? callback1() : console.log("no callback1")
+                }
+            });
+        })
     };
     window.confirm = function (msg, callback, ishow = false, cancelCallback) {
         if (!ishow) {
@@ -511,12 +510,44 @@ var ACT = {
 
     // 购买钥匙
     amsBuy(type) {
+      const arr = [{
+        name: '钥匙',
+        quantity: 1,
+        operationName: "购买钥匙",
+        countType: 1
+      }, {
+        name: '钥匙',
+        quantity: 10,
+        operationName: "购买钥匙",
+        countType: 2
+      }, {
+        name: '钥匙',
+        quantity: 50,
+        operationName: "购买钥匙",
+        countType: 1
+      }, {
+        name: '钥匙',
+        quantity: 1,
+        operationName: "购买钥匙",
+        countType: 1
+      }, {
+        name: '钥匙',
+        quantity: 10,
+        operationName: "购买钥匙",
+        countType: 1
+      }]
         // 检测用户状态
         if (!checkUserStatus()) return false;
         const index = parseInt(type) - 1
-        if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
-        request(buyKeysApi, 'get', { index }).then(res => {
-            if (res.code == 200) getInfo();
+        // if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
+        console.log(type, index)
+        const params = {
+          eventId: '1890742580912619522',
+          ...arr[index]
+        }
+        console.log(buyKeysApi, params)
+        request(buyKeysApi, 'post', params).then(res => {
+            // if (res.code == 200) getInfo();
             alert(res.msg)
         })
     },
@@ -524,21 +555,28 @@ var ACT = {
     amsChou(num) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        request(drawLotteryApi, 'get', { num }).then(res => {
-            if (res.code == 200) {
-                getInfo()
-                const arr = res.data
-                if (arr.length == 1) {
-                    $('#poplot2 .p_txt2').empty().text(res.data[0].name)
-                    TGDialogS('poplot2')
-                } else {
-                    var sHtml = '';
-                    $.each(arr, function (k, v) {
-                        sHtml += '<p>' + v.name + '</p>'
-                    })
-                    $('#poplot1 .multi-lot-result').html(sHtml);
-                    TGDialogS('poplot1')
-                }
+        request(drawLotteryApi, 'post', {
+          eventId: 1890742580912619500,
+          pool: "主奖池",
+          gachaCount: num,
+          consumableName: "钥匙",
+          consumableQuantity: num
+        }).then(res => {
+          console.log(res, 12313)
+            if (res.code == 0) {
+                // getInfo()
+                // const arr = res.data
+                // if (arr.length == 1) {
+                //     $('#poplot2 .p_txt2').empty().text(res.data[0].name)
+                //     TGDialogS('poplot2')
+                // } else {
+                //     var sHtml = '';
+                //     $.each(arr, function (k, v) {
+                //         sHtml += '<p>' + v.name + '</p>'
+                //     })
+                //     $('#poplot1 .multi-lot-result').html(sHtml);
+                //     TGDialogS('poplot1')
+                // }
             } else {
                 alert(res.msg)
             }
@@ -884,10 +922,6 @@ function tenResult(iPackageIdCnt, sPackageName) {
     return obj;
 }
 
-// +----------------------------------------------------------------------
-// | CF 抽奖活动模拟器: 713634572【QQ群】
-// +----------------------------------------------------------------------
-
 function notSupported(msg = '抱歉，模拟器不支持该功能') {
     alert(msg)
 }
@@ -896,24 +930,26 @@ function notSupported(msg = '抱歉，模拟器不支持该功能') {
 function getInfo() {
     // 检测用户状态
     if (!checkUserStatus()) return false;
-    request(getInfoApi, 'get', {}, false).then(res => {
-        if (res.code == 200) {
-            const data = res.data
-            // 我的星辰币
-            $('.dhNum').text(data.points)
-            // 星耀宝箱
-            $('.cdBoxNum').text(data.box_num)
-            // 抽奖钥匙
-            $('._chou_num').text(data.keys_num)
-            if (data.is_fill == 1) {
-                $(".btnFeedBack").attr("href", "javascript:alert('已反馈过了');").addClass("gray");
-            }
-            if (data.is_reward == 1) {
-                $(".btn_getFkGfit").addClass("gray");
-            }
-        }
-    })
+    // request(getInfoApi, 'get', {}, false).then(res => {
+    //     if (res.code == 200) {
+    //         const data = res.data
+    //         // 我的星辰币
+    //         $('.dhNum').text(data.points)
+    //         // 星耀宝箱
+    //         $('.cdBoxNum').text(data.box_num)
+    //         // 抽奖钥匙
+    //         $('._chou_num').text(data.keys_num)
+    //         if (data.is_fill == 1) {
+    //             $(".btnFeedBack").attr("href", "javascript:alert('已反馈过了');").addClass("gray");
+    //         }
+    //         if (data.is_reward == 1) {
+    //             $(".btn_getFkGfit").addClass("gray");
+    //         }
+    //     }
+    // })
+    return JSON.parse(sessionStorage.getItem('login'))
 }
+console.log(getInfo())
 getInfo()
 
 // 中奖名单

@@ -1,6 +1,7 @@
 // +----------------------------------------------------------------------
 // | 接口定义
 // +----------------------------------------------------------------------
+console.log("isDev", window.isDev);
 const loginApi = window.isDev ? "/api/user/login" : "/user/login"; // 用户登录
 const logoutApi = window.isDev ? "/api/user/logout" : "/user/logout"; // 退出登录
 const bindAreaApi = window.isDev ? "/api/user/bindArea" : "/user/bindArea"; // 绑定大区
@@ -10,7 +11,8 @@ const getNicknameByAreaApi = window.isDev ? "/api/user/getNicknameByArea" : "/us
 const apiUrl = window.location.origin;
 // 进入立即检测用户状态
 // 如果没有登录就显示登录窗口，如果已登录但是没绑定大区，显示绑定大区窗口
-isLogin() ? isRole() || showRegionDialog() : showLoginDialog();
+// isLogin() ? isRole() || showRegionDialog() : showLoginDialog();
+!isLogin() && showLoginDialog();
 
 // +----------------------------------------------------------------------
 // | 加载动画
@@ -174,10 +176,10 @@ function checkUserStatus() {
     return false;
   }
   // 如果没有绑定大区，提示用户绑定
-  if (!isRole()) {
-    alert("亲亲，请先绑定大区再来操作嗷~");
-    return false;
-  }
+  // if (!isRole()) {
+  //   alert("亲亲，请先绑定大区再来操作嗷~");
+  //   return false;
+  // }
   // 检测通过
   return true;
 }
