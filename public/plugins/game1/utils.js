@@ -104,6 +104,16 @@ function request(api, type = "get", data = {}, isShowLoading = true) {
         }
         resolve(res);
       },
+      error(err) {
+        const {responseJSON} = err
+        if (responseJSON.code == -1) {
+          alert(responseJSON.msg, () => {
+            sessionStorage.removeItem('isLogin')
+            sessionStorage.removeItem('login')
+            checkUserStatus()
+          });
+        }
+      },
       complete() {
         isShowLoading ? hideLoading(index) : "";
       },

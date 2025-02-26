@@ -2,15 +2,17 @@ const ctrlName = 'shine2502'
 const getInfoApi = `/y2025.${ctrlName}/getInfo` // 活动信息
 const buyKeysApi = window.isDev ? `/api/event/addConsumableRecord` : `/event/addConsumableRecord` // 购买钥匙
 const drawLotteryApi = window.isDev ? `/api/event/gachaItem` : `/event/gachaItem` // 抽奖接口
-const getTankListsApi = `/y2025.${ctrlName}/getTankLists`; // 暂存箱
+const getTankListsApi = window.isDev ? '/api/event/getTemporaryBoxRecord'  : `/event/getTemporaryBoxRecord`; // 暂存箱
 const tankHandleApi = `/y2025.${ctrlName}/tankHandle`; // 暂存箱操作
 const getPackListApi = `/y2025.${ctrlName}/getPackList`; // 礼包记录
 const getAwardListsApi = `/json/getAwardLists.json`; // 获奖名单
-const exchangeApi = `/y2025.${ctrlName}/exchange`; // 道具兑换
+const exchangeApi = window.isDev ? `/api/event/redeemEventItem` : `/event/redeemEventItem`; // 道具兑换
 const feedbackApi = `/y2025.${ctrlName}/feedback`; // 填写体验问卷
 const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
+const getConsumableQuantityApi = window.isDev ? `/api/event/getConsumableQuantity` : `/event/getConsumableQuantity`; // 查询剩余积分或者钥匙数量
 
 var pointData = {}
+const eventId = '1890742580912619522'
 var isPay = false
 isParam = {
     bizCode: 'cf',
@@ -115,7 +117,7 @@ var totalPage = 0;
 milo.ready(function () {
     //页面，弹窗使用
     window.alert = function (msg, callback, callback1) {
-        // $('#poptips3 .msg').text(msg);
+        $('#poptips3 .msg').text(msg);
 
         window.alert_call = function () {
             closeDialog();
@@ -123,18 +125,18 @@ milo.ready(function () {
         }
 
         $('#poptips3 .btn_pqd').attr("href", "javascript:window.alert_call();");
-        // TGDialogS('poptips3');
+        TGDialogS('poptips3');
 
-        need("util.modalDialog", function (Dialog) {
-            Dialog.alert(msg, {
-                onConfirm: function () {
-                    typeof callback == "function" ? callback() : console.log("no callback")
-                },
-                onClose: function () {
-                    typeof callback1 == "function" ? callback1() : console.log("no callback1")
-                }
-            });
-        })
+        // need("util.modalDialog", function (Dialog) {
+        //     Dialog.alert(msg, {
+        //         onConfirm: function () {
+        //             typeof callback == "function" ? callback() : console.log("no callback")
+        //         },
+        //         onClose: function () {
+        //             typeof callback1 == "function" ? callback1() : console.log("no callback1")
+        //         }
+        //     });
+        // })
     };
     window.confirm = function (msg, callback, ishow = false, cancelCallback) {
         if (!ishow) {
@@ -542,7 +544,7 @@ var ACT = {
         // if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
         console.log(type, index)
         const params = {
-          eventId: '1890742580912619522',
+          eventId: eventId,
           ...arr[index]
         }
         console.log(buyKeysApi, params)
@@ -556,27 +558,27 @@ var ACT = {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         request(drawLotteryApi, 'post', {
-          eventId: 1890742580912619500,
+          eventId: eventId,
           pool: "主奖池",
           gachaCount: num,
           consumableName: "钥匙",
           consumableQuantity: num
         }).then(res => {
-          console.log(res, 12313)
             if (res.code == 0) {
                 // getInfo()
-                // const arr = res.data
-                // if (arr.length == 1) {
-                //     $('#poplot2 .p_txt2').empty().text(res.data[0].name)
-                //     TGDialogS('poplot2')
-                // } else {
-                //     var sHtml = '';
-                //     $.each(arr, function (k, v) {
-                //         sHtml += '<p>' + v.name + '</p>'
-                //     })
-                //     $('#poplot1 .multi-lot-result').html(sHtml);
-                //     TGDialogS('poplot1')
-                // }
+                const arr = res.data
+                if (arr.length == 1) {
+                    $('#poplot2 .p_txt2').empty().html(`<p style="letter-spacing: 1px">${res.data[0].name}${res.data[0].quantity > 1 ? 'x' + res.data[0].quantity : ''}</p>`)
+                    TGDialogS('poplot2')
+                } else {
+                    var sHtml = '';
+                    $.each(arr, function (k, v) {
+                        sHtml += '<p style="letter-spacing: 1px">' + v.name + `${v.quantity > 1 ? 'x' + v.quantity : ''}` + '</p>'
+                    })
+                    $('#poplot1 .multi-lot-result').html(sHtml);
+                    TGDialogS('poplot1')
+                }
+            getInfo()
             } else {
                 alert(res.msg)
             }
@@ -595,10 +597,11 @@ var ACT = {
         }
         if (item == 2) {
             // 暂存箱
-            request(getTankListsApi, 'get', { page: pageIndex, limit: 7 }, pageIndex != 1).then(res => {
-                if (res.code == 200) {
-                    const { lists, totalPages } = res.data
-                    totalPage = totalPages;
+            request(`${getTankListsApi}/${eventId}`, 'get', null, pageIndex != 1).then(res => {
+                if (res.code == 0) {
+                    // const { lists, totalPages } = res.data
+                    const lists = res.data || []
+                    const totalPage = res.data.length;
                     if (totalPage == 0) {
                         pageIndex = 0;
                     }
@@ -606,7 +609,7 @@ var ACT = {
                     $('.total_page').text(totalPage);
                     // 渲染数据
                     let html = ''
-                    if (totalPages == 0) {
+                    if (res.data.length == 0) {
                         html += `<tr><td colspan="3" style="text-align: center;">您尚未获取任何礼包</td></tr>`;
                     } else {
                         lists.forEach(item => {
@@ -646,8 +649,10 @@ var ACT = {
         } else {
             // 礼包记录
             request(getPackListApi, 'get', { page: pageIndex, limit: 8 }, pageIndex != 1).then(res => {
-                if (res.code == 200) {
-                    const { lists, totalPages } = res.data
+                if (res.code == 0) {
+                    // const { lists, totalPages } = res.data
+                    const lists = res.data || []
+                    const totalPage = res.data.length;
                     totalPage = totalPages;
                     if (totalPage == 0) {
                         pageIndex = 0;
@@ -681,14 +686,14 @@ var ACT = {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         var dhConfig = isParam.dhMap[groupId];
-        const [count, name] = dhConfig
+        const [consumableNum, consumableName] = dhConfig
         var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】到【" + isParam.userInfo.areaName + "】吗？"
         confirm('本次兑换操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(exchangeApi, 'post', { count, name }).then(res => {
-                    if (res.code == 200) {
+                request(exchangeApi, 'post', { eventId, consumableNum, consumableName }).then(res => {
+                    if (res.code == 0) {
                         getInfo()
-                        alert("恭喜您获得了礼包：" + name + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
+                        alert("恭喜您获得了礼包：" + consumableName + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
                     } else {
                         alert(res.msg)
                     }
@@ -882,6 +887,16 @@ function getManySelect(order, diffItem) {
     isParam.question[order] = arr.join('|');
 }
 
+// 查询剩余积分或者钥匙数量
+function queryConsumableQuantity(name, ele) {
+  request(getConsumableQuantityApi, 'post', {eventId, name}).then(res => {
+    if (res.code == 0) {
+      // 抽奖钥匙
+      ele.text(res.data)
+    }
+    // alert(res.msg)
+})
+}
 
 //============================================= fun ==================================================
 //道聚城app判断
@@ -930,6 +945,9 @@ function notSupported(msg = '抱歉，模拟器不支持该功能') {
 function getInfo() {
     // 检测用户状态
     if (!checkUserStatus()) return false;
+    queryConsumableQuantity('钥匙', $('._chou_num'))
+    queryConsumableQuantity('星辰币', $('.dhNum'))
+    queryConsumableQuantity('星耀宝箱', $('.cdBoxNum'))
     // request(getInfoApi, 'get', {}, false).then(res => {
     //     if (res.code == 200) {
     //         const data = res.data
