@@ -12,5 +12,13 @@ export default {
   */
   async xxx (data: any = {}): Promise<AxiosResponse<any, any>> {
     return await http.post(setProxy('/xxx'), { data }, true, true)
+  },
+  /**
+   * 活动列表
+   * @param data 
+   * @returns 
+   */
+  async getEventList (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.get(setProxy('/event/list'), true, true)
   }
 }

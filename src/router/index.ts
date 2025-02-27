@@ -7,16 +7,25 @@
  * @Description: 路由配置
  * @FilePath: \vue-ts-vite\src\router\index.ts
  */
-import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/home',
+    redirect: '/homePage',
     meta: {
       title: ''
     },
     children: [
+      {
+        path: '/homePage',
+        name: 'HomePage',
+        meta: {
+          title: '',
+          requireAuth: false // 是否需要登录校验
+        },
+        component: async () => await import(/* webpackChunkName: "homePage" */ '@/pages/homePage/index.vue')
+      },
       {
         path: '/home',
         name: 'Home',
@@ -60,7 +69,7 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 const router = createRouter({
-  history: createWebHashHistory(''),
+  history: createWebHistory(),
   routes
 })
 
