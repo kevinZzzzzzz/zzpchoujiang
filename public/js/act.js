@@ -12,7 +12,7 @@ const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
 const getConsumableQuantityApi = window.isDev ? `/api/event/getConsumableQuantity` : `/event/getConsumableQuantity`; // 查询剩余积分或者钥匙数量
 
 var pointData = {}
-const eventId = '1890742580912619522'
+const eventId = '1894775959430959106'
 var isPay = false
 isParam = {
     bizCode: 'cf',
@@ -521,7 +521,7 @@ var ACT = {
         name: '钥匙',
         quantity: 10,
         operationName: "购买钥匙",
-        countType: 2
+        countType: 1
       }, {
         name: '钥匙',
         quantity: 50,
@@ -549,7 +549,7 @@ var ACT = {
         }
         console.log(buyKeysApi, params)
         request(buyKeysApi, 'post', params).then(res => {
-            // if (res.code == 200) getInfo();
+            if (res.code == 200) getInfo();
             alert(res.msg)
         })
     },

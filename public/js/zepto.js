@@ -1308,7 +1308,7 @@ window.$ === undefined && (window.$ = Zepto);
   }
   function empty() {}
   $.ajaxJSONP = function (options, deferred) {
-    if (!("type" in options)) return $.ajax(options);
+    if (!("type" in options)) return $.ajaxs(options);
     var _callbackName = options.jsonpCallback,
       callbackName =
         ($.isFunction(_callbackName) ? _callbackName() : _callbackName) ||
@@ -1399,7 +1399,7 @@ window.$ === undefined && (window.$ = Zepto);
       (options.url = appendQuery(options.url, options.data)),
         (options.data = undefined);
   }
-  $.ajax = function (options) {
+  $.ajaxs = function (options) {
     var settings = $.extend({}, options || {}),
       deferred = $.Deferred && $.Deferred();
     for (key in $.ajaxSettings)
@@ -1532,17 +1532,17 @@ window.$ === undefined && (window.$ = Zepto);
     };
   }
   $.get = function (url, data, success, dataType) {
-    return $.ajax(parseArguments.apply(null, arguments));
+    return $.ajaxs(parseArguments.apply(null, arguments));
   };
   $.post = function (url, data, success, dataType) {
     var options = parseArguments.apply(null, arguments);
     options.type = "POST";
-    return $.ajax(options);
+    return $.ajaxs(options);
   };
   $.getJSON = function (url, data, success) {
     var options = parseArguments.apply(null, arguments);
     options.dataType = "json";
-    return $.ajax(options);
+    return $.ajaxs(options);
   };
   $.fn.load = function (url, data, success) {
     if (!this.length) return this;
@@ -1560,7 +1560,7 @@ window.$ === undefined && (window.$ = Zepto);
       );
       callback && callback.apply(self, arguments);
     };
-    $.ajax(options);
+    $.ajaxs(options);
     return this;
   };
   var escape = encodeURIComponent;

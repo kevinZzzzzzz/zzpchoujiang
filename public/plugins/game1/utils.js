@@ -90,7 +90,7 @@ function slides(element, speed = 2.5, clear = true, isStyle = true) {
 function request(api, type = "get", data = {}, isShowLoading = true) {
   const index = isShowLoading ? showLoading() : "";
   return new Promise((resolve, reject) => {
-    $.ajax({
+    $.ajaxs({
       url: apiUrl + api,
       type,
       headers: {

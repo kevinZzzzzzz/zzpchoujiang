@@ -119,16 +119,16 @@ addLoadEvent(function() {
           tunlogin.style.display = "none";
           tlogined.style.display = "none";
       };
-      need(['biz.login'], function(LoginManager) {
-          LoginManager.checkLogin(function(login) {
-              var uin = LoginManager.getUserUin();
-              var tunlogin = document.getElementById("tunlogin");
-              var tlogined = document.getElementById("tlogined");
-              tunlogin.style.display = "none";
-              tlogined.style.display = "block";
-              document.getElementById("tlogin_qq_span").innerHTML = uin;
-          })
-      })
+    //   need(['biz.login'], function(LoginManager) {
+    //       LoginManager.checkLogin(function(login) {
+    //           var uin = LoginManager.getUserUin();
+    //           var tunlogin = document.getElementById("tunlogin");
+    //           var tlogined = document.getElementById("tlogined");
+    //           tunlogin.style.display = "none";
+    //           tlogined.style.display = "block";
+    //           document.getElementById("tlogin_qq_span").innerHTML = uin;
+    //       })
+    //   })
   }
 });
 //GPM广告位
@@ -231,7 +231,7 @@ dj_header_img_script[dj_header_img_script_evnet] = function() {
 };
 document.getElementsByTagName('head')[0].appendChild(dj_header_img_script);
 
-document.domain = "qq.com";
+// document.domain = "qq.com";
 
 
 

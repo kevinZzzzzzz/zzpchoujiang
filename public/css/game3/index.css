@@ -1,0 +1,315 @@
+/*reset*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-weight:normal;font-style:normal;}
+ol,ul{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;font-size:100%;}
+q:before,q:after{content:'';}
+fieldset,img,abbr,acronym{border:0;}
+a {text-decoration:none;}
+/*a:hover {text-decoration:none;}*/
+/*footer*/
+#afooter{background:#000000;text-align:center}
+#afooter .wrap_ieg{width:1240px;margin:0 auto;padding:20px 0}
+#afooter p{color:#6e6e6e;line-height:24px;font-size:14px}
+#afooter a{color:#6e6e6e;font-size:14px}
+
+body{padding-top:42px; background-color:#4176bd;font: 12px/1.5 'font1',tahoma,sans-serif;}
+.c:before,.c:after {content:"";display:table;}
+.c:after {clear:both;}
+.c {zoom:1;}
+:focus{outline: none;}
+img{display: block;margin: 0 auto;width: 100%;}
+body,#actTitleWrap,.blacktop-wrap,.wrap,#footer_ied {min-width:1240px !important;width:100% !important;}
+.container{width:1240px;margin:0 auto;position: relative;height: 100%;box-sizing: border-box;padding: 60px 0 0;}
+.pr{position:relative;}
+.pa{position:absolute;}
+.hide {display:block;width:0;height:0;overflow:hidden;}
+.db{display:block;text-indent:-9999em;}
+.fl{float: left;}
+.fr{float: right;}
+.last{margin-right: 0 !important;}
+a:hover{filter: brightness(1.04);}
+.sp{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/sp.png) no-repeat;}
+.gray{filter: grayscale(1) !important;}
+@font-face {
+	font-family:'font1';
+	src: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/font1.ttf);
+}
+@font-face {
+	font-family:'font2';
+	src: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/font2.ttf);
+}
+.wrap{max-width: 1920px;margin: 0 auto;overflow: hidden;}
+.head{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/hd.jpg) no-repeat 50% 0;width: 100%;height: 1154px;position: relative;z-index: 2;}
+.video_box{width: 1920px;position: absolute;top: 0;left: 50%;transform: translateX(-50%);}
+.video_box video{display: block;width: 100%;}
+.content{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/ct.jpg) no-repeat 50% 0;width: 100%;padding-bottom: 100px;}
+
+.logo_box{position: absolute;top:10px;left: 44px;display: flex;justify-content: flex-start;align-items: flex-start;}
+.logocf{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/logo1.png) no-repeat 50% 0;width: 328px;height: 117px;}
+.logodjc{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/logo3.png) no-repeat 50% 0;width: 237px;height: 105px;}
+.logocd{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/logo2.png) no-repeat 50% 0;width: 217px;height: 124px;margin: 0 -40px;}
+
+.login_box{position: absolute;left: 50%;width: 1200px;margin-left: -600px;font-size: 18px;color: #fff1e8;text-align: center;line-height: 28px;bottom: 116px;}
+.login_box a{color: #ffe983;}
+
+.tab_btn{position: absolute;width: 100%;background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/top_bg1.png) no-repeat 50% 0;left: 0;bottom: 0;height: 105px;}
+.tab_btnct{display: flex;justify-content: center;align-items: center;width: 994px;height: 126px;margin: 0 auto;}
+.tab_btnct0{background-position: -99px 0;}
+.tab_btnct1{background-position: -115px -160px;}
+.tab_btnct a{display: block;width: 50%;height: 100%;}
+
+.s1_btn{display: flex;justify-content: space-between;align-items: flex-start;margin: 0 auto;width: 1210px;}
+.s1_btn a{overflow: visible;background-position: -5px -327px;width: 283px;height: 89px;;position: relative;box-sizing: border-box;padding-left: 125px;font-size: 20px;color: #725006;line-height: 22px;text-align: left;padding-top: 28px;}
+.s1_btn a em{display: block;font-size: 16px;color: #725006;}
+.btn_s1qb i{background-position: -382px -354px;width: 75px;height: 42px;position: absolute;top: 27px;left: 38px;}
+
+.btn_s1qb1 i{background-position: -635px -355px;width: 97px;height: 42px;position: absolute;top: 27px;left: 22px;}
+
+.s1_btn a.btn_s1qb1 em{color: #f5750c;}
+
+.s1_btn p{position: absolute;width: 100%;left: 0;bottom: -34px;font-size: 16px;color: #9fd8ff;text-align: center;line-height: 26px;}
+
+
+.part1{padding-top: 78px;height: 1684px;}
+.tit1{background-position:  0 -491px;width: 1200px;height: 71px;margin: 0 auto;}
+
+.s1_cjbox{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/cj.png) no-repeat 50% 0;width: 1208px;height: 1012px;margin: 32px auto 0;position: relative;}
+.s1_cjbtn{display: flex;justify-content: center;align-items: center;position: absolute;top: 428px;left: 0;width: 100%;}
+.s1_cjbtn div{margin: 0 20px;}
+.s1_cjbtn p{background-position: -775px -581px;width: 280px;height: 51px;font-size: 20px;color: #cfecff;text-align: center;line-height: 48px;margin: 0 auto;}
+.s1_cjbtn p span{color: #fffabf;}
+.btn_s1cj1{background-position: -70px -580px;width: 297px;height: 103px;margin: 12px auto 0;}
+.btn_s1cj2{background-position:  -394px -580px;width: 297px;height: 103px;margin: 12px auto 0;}
+.btn_s1jl{background-position: -743px -640px;width: 280px;height: 51px;position: absolute;top: 620px;left: 50%;transform: translateX(-50%);}
+
+.s1_box{margin: 14px auto 0;width: 1208px;display: flex;justify-content: space-between;align-items: flex-start;}
+.s1_zcx{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/bg1.png) no-repeat 50% 0;width: 458px;height: 405px;box-sizing: border-box;padding-top: 74px;}
+.s1_pic{display: block;width:170px;margin: 0 auto;}
+.s1_ztxt1{font-size: 18px;color: #2f5cb5;text-align: center;line-height: 24px;margin:0 auto;}
+.s1_ztxt1 span{display: block;font-size: 18px;color: #51a1f5;margin: 6px auto 0;}
+.btn_s1zcx{background-position: -11px -818px;width: 244px;height: 91px;font-size: 26px;color: #def5ff;text-align: center;line-height: 90px;font-family: 'font2';text-shadow: 0 2px #146bd3;display: block;margin: 4px auto 0;}
+
+.s1_md{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/bg2.png) no-repeat 50% 0;width: 744px;height: 405px;box-sizing: border-box;padding-top: 84px;}
+
+.scorll-tips{width: 670px;margin: 0 auto;height: 290px;overflow-y: auto;}
+.scorll-tips ul{width: 100%;}
+.scorll-tips::-webkit-scrollbar {
+    width: 0;
+}
+.scorll-tips p{font-size: 20px;height: 32px;line-height: 32px;text-align: center;display: flex;justify-content: space-between;align-items: center;color: #2f5cb5;}
+.scorll-tips p span{width: 50%;text-align: center;}
+
+.part2{height: 1134px;margin: 0 auto;position: relative;}
+.tit2{background-position: -1px -724px;width: 1200px;height: 70px;margin: 0 auto;}
+.s2dh_num{background-position:  -310px -838px;width: 297px;height: 51px;font-size: 20px;color: #2f5cb5;text-align: center;line-height: 48px;margin: 16px auto 0;}
+.s2dh_num span{color: #f5750c;}
+.list_s2dh{display: flex;justify-content: space-between;align-items: flex-start;width: 1220px;margin: 10px auto 0;flex-wrap: wrap;}
+.s2dh_box1,.s2dh_box2{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/djbg1.png) no-repeat 50% 0;width: 297px;height: 166px;position: relative;margin: 0 auto;}
+.s2dh_box2{background-image: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/djbg2.png);width: 239px;}
+.s2dh_box1 img,.s2dh_box2 img{display: block;width: 100%;}
+.s2dh_box1 p,.s2dh_box2 p{font-size: 18px;color: #2f5cb5;text-align: center;line-height: 28px;width: 100%;position: absolute;left: 0;bottom: 12px;}
+.btn_s2dh1,.btn_s2dh2{background-position: -664px -810px;width: 304px;height: 92px;display: block;margin: 4px auto 20px;font-family: 'font2';font-size: 28px;color: #def5ff;text-align: center;line-height: 92px;text-shadow: 0 2px #146bd3;}
+.btn_s2dh2{background-position: -775px -1401px;width: 244px;height: 91px;}
+
+.part3{height: 2100px;margin: 0 auto;position: relative;}
+.tit3{background-position: -2px -1079px;width: 1200px;height: 70px;margin: 0 auto;}
+.s3_box{width: 1200px;margin: 30px auto 0;display: flex;justify-content: space-between;align-items: flex-start;}
+.s3_fl{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/bg3.png) no-repeat 50% 0;width: 580px;height: 790px;box-sizing: border-box;padding-top: 40px;}
+.s3_sub1{background-position: -297px -946px;width: 278px;height: 42px;margin: 0 auto;}
+.s3_sub2{background-position: -609px -946px;width: 272px;height: 42px;margin: 0 auto;}
+.s3_txt1{font-size: 20px;color: #d8edff;text-align: center;line-height: 30px;margin: 40px auto 0;}
+.s3_txt1 span{color: #fffabf;}
+.list_s3{display: flex;justify-content: center;align-items: center;flex-wrap: wrap;margin: 22px auto 0;}
+.list_s3 li{width: 256px;margin-bottom: 14px;height: 290px;}
+.s3_djpic{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/djbg3.png) no-repeat 50% 0;width: 240px;height: 166px;margin: 0 auto;position: relative;}
+.s3_djpic img{display: block;width: auto;height: 100%;}
+.s3_djpic span{font-size: 18px;color: #2f5cb5;text-align: center;line-height: 28px;position: absolute;left: 0;bottom: 14px;width: 100%;}
+.btn_s3lq{background-position: -10px -917px;width: 246px;height: 93px;display: block;margin: 4px auto 0;font-family: 'font2';font-size: 28px;color: #744004;text-align: center;line-height: 88px;text-shadow: 0 2px #fff298;}
+.s3_txt2{font-size: 18px;color: #cfecff;text-align: center;line-height: 28px;}
+.s3_txt2 span{color: #fffabf;}
+.s3_box1{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/bg4.png) no-repeat 50% 0;width: 1200px;height: 1002px;margin: 34px auto 0;box-sizing: border-box;padding-top: 34px;}
+.s3_sub3{background-position:  -977px -816px;width: 196px;height: 41px;margin: 0 auto;}
+.s3_txt3{font-size: 20px;color: #d8edff;text-align: center;line-height: 26px;margin: 42px auto 0;position: relative;}
+.btn_s3sel{background-position: -989px -863px;width: 141px;height: 30px;position: absolute;top: 20px;right: 50px;}
+.s3_box1 .list_s3 {margin: 10px auto 0;}
+.s3_box1 .list_s3 li{width: 290px;margin-bottom: 8px;height: auto;}
+
+.part4{height: 466px;position: relative;margin: 0 auto;}
+.tit4{background-position: 0 -1194px;width: 1202px;height: 70px;margin: 0 auto;}
+
+.part5{height: 678px;position: relative;margin: 0 auto;}
+.tit5{background-position: -1px -1298px;width: 1200px;height: 71px;margin: 0 auto;}
+.s5_box{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/bg5.png) no-repeat 50% 0;width: 1200px;height: 374px;margin: 33px auto 0;}
+.s5_txt1{font-size: 20px;color: #2f5cb5;text-align: center;line-height: 36px;padding-top: 56px;font-weight: bold;letter-spacing: 1px;}
+.s5_txt1 span{color: #f5750c;}
+.s5_txt2{font-size: 20px;color: #2f5cb5;text-align: center;line-height: 40px;margin: 10px auto 0;}
+
+.s5_btnbox{display: flex;justify-content: center;align-items: center;margin: 40px auto 0;}
+.s5_btnbox a{width: 296px;height: 104px;margin: 0 20px;font-size: 34px;font-family: 'font2';text-align: center;line-height: 104px;}
+.btn_s5wj{background-position: -10px -1403px;color: #def5ff;text-shadow: 0 2px #146bd3;}
+.btn_s5jf{background-position: -329px -1403px;color: #744004;text-shadow: 0 1px #fff298;}
+.btn_s5jf p{font-family: 'font1';font-size: 18px;color: #f5750c;line-height: 20px;text-shadow: none;}
+
+.tit6{background-position: -2px -1527px;width: 1200px;height: 70px;margin: 0 auto;}
+.list_rule{width: 1200px;margin: 46px auto 0;}
+.list_rule li{font-size: 18px;color: #e6f5ff;line-height: 24px;margin-bottom: 16px;}
+.list_rule li em{float: left;background-position: -673px -1415px;width: 32px;height: 31px;font-size: 18px;color: #e3f4ff;text-align: center;line-height: 31px;margin-top: -4px;box-sizing: border-box;padding-right: 2px;}
+.list_rule li p{padding-left: 40px;}
+.list_rule li a{color: #fff443;}
+
+.psp{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/psp.png) no-repeat;background-size: 602px auto;}
+.pop{display: none;position: relative;box-sizing: border-box;}
+.pop1{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop1.png) no-repeat 50% 0;width: 710px;height: 780px;}
+.pop_close{background-position: -380px 0;width: 38px;height: 31px;position: absolute;top: 26px;right: 30px;}
+.pop_tit{height: 90px;display: flex;justify-content: center;align-items: center;font-size: 34px;color: #cfe7fa;text-align: center;line-height: 40px;letter-spacing: 2px;font-family: 'font2';}
+.pop_tit i{width: 53px;height: 12px;}
+.pop_tit span{padding: 0 15px;}
+.icol{background-position: -10px -9px;}
+.icor{background-position: -221px -9px;}
+
+.table_con{width: 642px;margin: 20px auto 0;}
+.pop_iframe{width: 850px;height: 834px;background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop4.png) no-repeat 50% 0;background-size: 100% auto;box-sizing: border-box;}
+.table_iframe{height: 770px;width: 804px;}
+.table_iframe iframe{width: 100%;height: 100%;border: 0;display: block;}
+
+.table_con table{width: 100%;background-color: #dff2ff;color: #254b97;text-align: center;line-height: 26px;font-size: 18px;}
+.table_con table th{background-color: #a5daff;border: 1px solid #88cbfb;text-align: center;height: 45px;font-size: 22px;}
+.table_con table td{border: 1px solid #88cbfb;height: 44px;}
+
+.table_con a,.page_num{color: #254b97;display: inline-block;vertical-align: middle;margin: 0 40px;}
+.table_con a{color: #f5750c;}
+.tip1{font-size: 20px;color: #254b97;text-align: center;line-height: 28px;width: 600px;margin: 24px auto 0;}
+
+.pop_box1{display: flex;justify-content: center;align-items: flex-start;margin: 14px auto 0;}
+.pop_l,.pop_r{width: 318px;margin: 0 6px;}
+.p_sub1{font-family: 'font2';margin: 0 auto;font-size: 28px;color: #456bbb;line-height: 38px;text-align: center;}
+.table_con1{width: 314px;margin: 4px auto 0;}
+.table_con1 table th{font-size: 20px;}
+.table_con1 a,.table_con1 .page_num{margin: 0 8px;}
+
+
+.pop_l .table_con1 table td:nth-child(1){width: 150px;}
+.pop_l .table_con1 table td:nth-child(2),.pop_l .table_con1 table td:nth-child(3){width: 60px;padding: 0 4px;white-space: nowrap;}
+
+
+.pop2{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop3.png) no-repeat 50% 0;width: 710px;height: 450px;}
+.p_txt1,.p_txt3{font-size: 20px;color: #254b97;text-align: center;line-height: 30px;margin: 66px auto 0;}
+.p_txt2{width: 525px;height: 45px;background-color: #dff2ff;border: 1px solid #88cbfb;margin: 16px auto 0;font-size: 24px;color: #254b97;text-align: center;display: block;outline: none;line-height: 45px;}
+.p_txt3{width: 525px;margin: 18px auto 0;}
+
+.pop3{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop2.png) no-repeat 50% 0;width: 710px;height: 880px;}
+.table_con2{margin: 20px auto 0;}
+.table_con2 table td{height: 40px;width: 60%;}
+
+.pop4{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop3.png) no-repeat 50% 0;width: 710px;height: 450px;}
+.pop_close1{background-position: -380px 0; width: 38px; height: 31px; position: absolute; top: 26px; right: 30px;}
+
+.p_txt4{width: 560px;height: 295px;display: flex;justify-content: center;align-items: center;font-size: 20px;color: #254b97;text-align: center;line-height: 28px;box-sizing: border-box;padding-top: 18px;margin: 0 auto;}
+
+.kf_box{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/kf_bg.png) no-repeat 50% 0;width: 318px;height: 366px;box-sizing: border-box;padding-top: 58px;display: none;position: fixed;right: 0;top: 50%;z-index: 999;}
+.pop_close2{background-position: -327px 0;width: 38px;height: 31px;position: absolute;top: 20px;right: 20px;}
+.code{display: block;width: 166px;margin: 0 auto;}
+.kf_txt{font-size: 20px;color: #254b97;text-align: center;line-height: 28px;margin: 8px auto 0;}
+.btn_pkf{background-position: -106px -56px;width: 237px;height: 86px;display: block;margin: 20px auto 0;font-family: 'font2';font-size: 26px;color: #694b04;text-align: center;line-height: 86px;text-shadow: 0 1px #ffffff;}
+
+.pop7{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pop3.png) no-repeat 50% 0;width: 710px;height: 450px;}
+
+.p_txt5{width:580px;margin: 0 auto;height: 206px;font-size: 20px;line-height: 30px;padding-top: 30px;}
+.p_txt5 a{color: #f5750c;}
+
+.p_time{font-size: 20px;color: #254b97;text-align: center;line-height: 28px;width: 430px;}
+
+.pbtn_box{margin: 0 auto;display: flex;justify-content: center;align-items: center;}
+.pbtn_box a{width: 237px;height: 86px;margin: 0 20px;font-size: 27px;text-align: center;line-height: 86px;font-family: 'font2';}
+.btn_pqd{background-position:-106px -56px;color: #694b04;text-shadow: 0 1px #dddcd4;}
+.btn_pqx{background-position: -365px -56px;color: #e7faff;}
+
+.p_cjtxt1{margin: 20px auto 0;}
+
+.table_con3{width: 600px;margin: 10px auto 0;}
+.table_con3 table{width: 600px;}
+.table_con3 table td{height: 44px;}
+
+.pop_wj{width: 630px;margin: 20px auto 0;height: 530px;overflow-y: auto;}
+.wj_item{margin: 0 auto 12px;}
+.wj_txt{display: flex;justify-content: flex-start;align-items: flex-start;font-size: 18px;color: #254b97;line-height: 26px;}
+.wj_txt i{background-position: -81px 0;width: 24px;height: 23px;margin-right: 12px;}
+
+.wj_answer1,.wj_answer2{padding-left: 40px;}
+.wj_bar{width: 350px;height: 8px;border-radius: 8px;background-color: #a5daff;}
+.wj_bar i{display: block;height: 100%;border-radius: 8px;background-color: #254b97;max-width: 100%;}
+.answer_box1{width: 350px;display: flex;justify-content: space-between;align-items: center;}
+.answer_box1 a{background-position: -44px -38px;width: 27px;height: 26px;}
+.answer_box1 a.on{background-position: -6px -37px;width: 29px;height: 27px;}
+ ::-webkit-scrollbar-track-piece{background-color:#a5daff;}
+ ::-webkit-scrollbar{width:6px;}
+ ::-webkit-scrollbar-thumb{background:#254b97;border-radius: 10px}
+
+.wj_answer2{display: flex;justify-content: flex-start;align-items: center;flex-wrap: wrap;}
+.wj_answer2 a{font-size: 18px;color: #254b97;line-height: 28px;margin-right: 14px;}
+.wj_answer2 a i{display: inline-block;vertical-align: middle;background-position: -47px -133px;width: 21px;height: 21px;margin-right: 4px;}
+.wj_answer2 a.on i{background-position: -10px -134px;}
+.wj_answer3 a{min-width: 250px;}
+
+.wj_bar2{width: 428px;}
+.wj_answer4{width: 428px;display: flex;justify-content:space-between;align-items: center;}
+.wj_answer4 a{background-position: -48px -80px;width: 38px;height: 36px;}
+.wj_answer4 a.on{background-position: 0 -81px;}
+
+.wj_answer5 a{min-width: 180px;}
+.wj_answer5 a input{width: 162px;height: 24px;background-color: #dff2ff;border: 0;outline: none;box-sizing: border-box;padding: 0 10px;font-size: 18px;color: #254b97;}
+
+.wj_answer6{padding-left: 40px;}
+.wj_answer6 textarea{resize: none;width: 460px;height: 150px;background-color: #dff2ff;box-sizing: border-box;padding: 10px;font-size: 18px;color: #254b97;line-height: 24px;border: 0;font-family: 'font1';}
+
+
+.pbtn_box1{justify-content:flex-start;margin: 20px auto 0;width: 80%;}
+.pbtn_box1 a{margin-left: 0;margin-right: 40px;}
+
+.list_pdj{width: 582px;display: flex;justify-content: space-between;align-items: flex-start;margin: 78px auto 0;}
+.list_pdj li{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/p_bg1.png) no-repeat 50% 0;width: 180px;height: 168px;position: relative;}
+.list_pdj li img{display: block;width: 100%;}
+.list_pdj li p{position: absolute;left: 0;bottom: 10px;width: 100%;font-size: 18px;color: #254b97;text-align: center;line-height: 28px;}
+
+.nq_wrap{width: 1240px;margin: 0;max-width: 1240px;}
+
+/*.wrap0 .head{background-image: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/hd1.jpg);}*/
+.wrap1 .content{background-image: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/ct1.jpg);}
+
+.tab1_p1{position: relative;height: 950px;width: 1200px;box-sizing: border-box;padding-top: 34px;margin: 0 auto;z-index: 2;}
+.p1_pic{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/t1_pic1.png) no-repeat 50% 0;width: 1200px;height: 371px;margin: 0 auto;}
+.gun_box{position: absolute;top:-10px;left: 50%;width: 1920px;height: 980px;margin-left: -960px;}
+.gun_box video{display: block;width: 100%;}
+.gif_box{width: 332px;height: 188px;position: absolute;bottom: 212px;right: 0;}
+.gif_box:after{content: '';position: absolute;width: 414px;height: 244px;top: 0;left: 50%;transform: translateX(-49%);background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/gif_mask.png) no-repeat 50% 0;}
+.p1_btn{display: flex;justify-content: space-between;align-items: flex-start;width: 680px;position: absolute;bottom: 48px;left: 50%;transform: translateX(-50%);}
+.btn_a1lq1{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/btn1.png) no-repeat 50% 0;width: 301px;height: 84px;background-size: 100% auto;display: block;margin: 0 auto;}
+.btn_a1lq2{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/btn2.png) no-repeat 50% 0;width: 301px;height: 84px;background-size: 100% auto;display: block;margin: 0 auto;}
+.btn_a1lq1.gray,.btn_a1lq2.gray{filter: none !important;background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/btn6.png) no-repeat 50% 0;width: 301px;height: 84px;margin: 0 auto;}
+.p1_num1{    background-position: -760px -581px; width: 310px; height: 51px; font-size: 20px; color: #cfecff; text-align: center; line-height: 48px; margin: 0 auto;white-space: nowrap;}
+.p1_num1 em{display: block;line-height: 30px;}
+
+
+.tab1_p2{height: 580px;position: relative;background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/t1_bg1.png) no-repeat 50% 0;width: 1199px;margin: 0 auto;box-sizing: border-box;padding-top: 30px;}
+.p2_time1{font-size: 20px;color: #b9dbf7;text-align: center;line-height: 30px;}
+.p2_txt1{font-size: 20px;color: #cfecff;text-align: center;line-height: 30px;}
+.p2_txt1 span{color: #fffec0;}
+.p2_txt1 em{color: #9fd8ff;}
+
+.list_p2{margin: 20px auto 0;display: flex;justify-content:center;align-items: center;width: 1146px;}
+.list_p2 li{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/t1_bg2.png) no-repeat 50% 0;width: 290px;height: 230px;box-sizing: border-box;padding-top: 150px;position: relative;margin: 0 40px;}
+.list_p2 li img{display: block;position: absolute;top: 0;left: 0;width: 100%;pointer-events: none;}
+.p2_txt2{font-size: 20px;color: #2f5cb5;text-align: center;line-height: 25px;height: 50px;}
+.p2_txt2_1{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/p2_bg2.png) no-repeat 50% 50%;width: 233px;margin: 0 auto;line-height: 50px;}
+.p2_txt2_2{line-height: 50px;}
+.btn_p2lq{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/p2_btn1.png) no-repeat 50% 0;width: 271px;height: 76px;font-family: 'font2';font-size: 32px;color: #276aa4;text-align: center;line-height: 76px;display: block;margin:26px auto 0;text-shadow: 0 1px #c3faff;}
+.p2_txt3{font-size: 18px;color: #cfecff;text-align: center;line-height: 28px;margin: 4px auto 0;}
+
+.part_cp{height: 960px;}
+.cp_pic{background: url(//game.gtimg.cn/images/actdaoju/cp/a20250108cfsilverwings/pic1.png) no-repeat 50% 0;width: 1200px;height: 782px;margin: 0 auto;}
+.btn_cp{display: block;margin: 10px auto 0;    width: 296px; height: 104px;    font-size: 34px; font-family: 'font2'; text-align: center; line-height: 104px;}
+
+

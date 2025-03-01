@@ -122,7 +122,7 @@
             return false;
           }
           // console.log(params,'formData')
-          $.ajax({
+          $.ajaxs({
             url: apiUrl + "/user/register",
             method: "post",
             headers: {
@@ -171,7 +171,7 @@
           // referrerId: $('[name="referrerId"]').val(),
         };
         const loadIndex = layer.load(2);
-        $.ajax({
+        $.ajaxs({
           url: apiUrl + "/user/sendRegisterCaptcha",
           method: "post",
           headers: {
