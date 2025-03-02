@@ -106,6 +106,7 @@ function request(api, type = "get", data = {}, isShowLoading = true) {
       },
       error(err) {
         const {responseJSON} = err
+        console.log(responseJSON, "err")
         if (responseJSON.code + '' == '-1') {
           alert(responseJSON.msg, () => {
             sessionStorage.removeItem('isLogin')

@@ -1,0 +1,215 @@
+{
+  "code": 200,
+  "msg": "获奖名单",
+  "data": [{
+    "dtGetPackageTime": "2025-02-20 23:57:54",
+    "iPackageNum": "1",
+    "iUin": "113043**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "345",
+    "sUin": "113043**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:57:59",
+    "iPackageNum": "1",
+    "iUin": "3262331**",
+    "sPackageName": "QBZ191-\u94f6\u7ffc",
+    "sRoleArea": "355",
+    "sUin": "3262331**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:07",
+    "iPackageNum": "1",
+    "iUin": "1239254**",
+    "sPackageName": "\u91d1\u8272\u8537\u8587-\u91cf\u5b50\u8537\u8587 \u76ae\u80a4",
+    "sRoleArea": "333",
+    "sUin": "1239254**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:07",
+    "iPackageNum": "1",
+    "iUin": "1239254**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "333",
+    "sUin": "1239254**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:16",
+    "iPackageNum": "1",
+    "iUin": "496142**",
+    "sPackageName": "AK47-\u65e0\u5f71",
+    "sRoleArea": "330",
+    "sUin": "496142**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:26",
+    "iPackageNum": "1",
+    "iUin": "1239254**",
+    "sPackageName": "M4A1-\u96f7\u795e\u97f3\u6548\u5361",
+    "sRoleArea": "333",
+    "sUin": "1239254**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:26",
+    "iPackageNum": "1",
+    "iUin": "1239254**",
+    "sPackageName": "AA-12-\u96f7\u9706",
+    "sRoleArea": "333",
+    "sUin": "1239254**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:30",
+    "iPackageNum": "1",
+    "iUin": "1763905**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "345",
+    "sUin": "1763905**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:31",
+    "iPackageNum": "1",
+    "iUin": "1174995**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "320",
+    "sUin": "1174995**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:31",
+    "iPackageNum": "1",
+    "iUin": "664197**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "326",
+    "sUin": "664197**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:33",
+    "iPackageNum": "1",
+    "iUin": "1063903**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "353",
+    "sUin": "1063903**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:35",
+    "iPackageNum": "1",
+    "iUin": "1174995**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "320",
+    "sUin": "1174995**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:42",
+    "iPackageNum": "1",
+    "iUin": "2763438**",
+    "sPackageName": "AK47-\u65e0\u5f71",
+    "sRoleArea": "318",
+    "sUin": "2763438**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:42",
+    "iPackageNum": "1",
+    "iUin": "2763438**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "318",
+    "sUin": "2763438**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:46",
+    "iPackageNum": "1",
+    "iUin": "1583006**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "353",
+    "sUin": "1583006**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:50",
+    "iPackageNum": "1",
+    "iUin": "2251037**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "353",
+    "sUin": "2251037**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:58:58",
+    "iPackageNum": "1",
+    "iUin": "529927**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "355",
+    "sUin": "529927**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:02",
+    "iPackageNum": "1",
+    "iUin": "496142**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "330",
+    "sUin": "496142**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:12",
+    "iPackageNum": "1",
+    "iUin": "664197**",
+    "sPackageName": "AA-12-\u96f7\u9706",
+    "sRoleArea": "326",
+    "sUin": "664197**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:14",
+    "iPackageNum": "1",
+    "iUin": "1763905**",
+    "sPackageName": "\u6708\u5154\u7279\u5de5",
+    "sRoleArea": "345",
+    "sUin": "1763905**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:21",
+    "iPackageNum": "1",
+    "iUin": "1583006**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "353",
+    "sUin": "1583006**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:24",
+    "iPackageNum": "1",
+    "iUin": "2763438**",
+    "sPackageName": "AA-12-\u96f7\u9706",
+    "sRoleArea": "318",
+    "sUin": "2763438**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:27",
+    "iPackageNum": "1",
+    "iUin": "82511**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "320",
+    "sUin": "82511**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:38",
+    "iPackageNum": "1",
+    "iUin": "82511**",
+    "sPackageName": "AK47-\u65e0\u5f71",
+    "sRoleArea": "320",
+    "sUin": "82511**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:39",
+    "iPackageNum": "1",
+    "iUin": "1239254**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "333",
+    "sUin": "1239254**"
+}, {
+    "dtGetPackageTime": "2025-02-20 23:59:57",
+    "iPackageNum": "1",
+    "iUin": "627472**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "318",
+    "sUin": "627472**"
+}, {
+    "dtGetPackageTime": "2025-02-21 00:00:05",
+    "iPackageNum": "1",
+    "iUin": "496142**",
+    "sPackageName": "Barrett-\u6697\u6708\u4f20\u8bf4",
+    "sRoleArea": "330",
+    "sUin": "496142**"
+}, {
+    "dtGetPackageTime": "2025-02-21 00:00:11",
+    "iPackageNum": "1",
+    "iUin": "528412**",
+    "sPackageName": "\u6708\u5154\u7279\u5de5",
+    "sRoleArea": "344",
+    "sUin": "528412**"
+}, {
+    "dtGetPackageTime": "2025-02-21 00:00:11",
+    "iPackageNum": "1",
+    "iUin": "496142**",
+    "sPackageName": "M4A1-\u96f7\u795e",
+    "sRoleArea": "330",
+    "sUin": "496142**"
+}, {
+    "dtGetPackageTime": "2025-02-21 00:00:11",
+    "iPackageNum": "1",
+    "iUin": "496142**",
+    "sPackageName": "\u767d\u94f6\u672b\u65e5\u673a\u7532\u73a9\u5076",
+    "sRoleArea": "330",
+    "sUin": "496142**"
+}]
+}

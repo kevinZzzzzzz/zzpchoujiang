@@ -12,8 +12,8 @@
         <div class="main_eventList_item_main">
           <p>{{ item.gameName }} {{ item.title }}</p>
           <ul>
-            <li style="background-color: #1d6e04;">免费</li>
-            <li style="background-color: #c34cb2;">付费</li>
+            <li style="background-color: #1d6e04;" @click="goUrl(item.freeUrl, null)">免费</li>
+            <li style="background-color: #c34cb2;" @click="goUrl(item.url, item.id)">付费</li>
             <li style="background-color: #06f;">活动重置</li>
           </ul>
         </div>
@@ -39,11 +39,18 @@ const eventList = ref<any>([]);
 const eventMap = {
   "银翼出击": {
     img: '/images/game3/advpic.png',
-    url: '/game3.html'
+    url: '/game3.html',
+    freeUrl: '',
   },
   "星辰所向": {
     img: '/images/game1/advpic.png',
-    url: '/game1.html'
+    url: '/game1.html',
+    freeUrl: '/game1-free.html',
+  },
+  "荣耀世冠白鲨": {
+    img: '/images/game4/advpic.png',
+    url: '/game4.html',
+    freeUrl:  '/game4-free.html',
   }
 };
 onMounted(() => {
@@ -61,6 +68,11 @@ onMounted(() => {
     }
   });
 });
+
+const goUrl = (url, eventId) => {
+  if (!url) return;
+  window.location.href = eventId ? `${url}?eventId=${eventId}`  :url;
+}
 </script>
 
 <style scoped lang="less">

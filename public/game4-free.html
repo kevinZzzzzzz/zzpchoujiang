@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>抽奖模拟器（含暂存箱、道具兑换、套数兑换、记录分页）</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+    /* 不同颜色按钮示例 */
+    .blue-btn {
+      background: #007BFF; /* 购买钥匙按钮 */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 14px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .blue-btn:hover {
+      opacity: 0.9;
+    }
+    .pink-btn {
+      background: #ff44cc; /* 积分兑换按钮 */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 14px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .pink-btn:hover {
+      opacity: 0.9;
+    }
+    .green-btn {
+      background: #dd7a2a; /* 抽奖、套数兑换、合成按钮 */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 14px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .green-btn:hover {
+      opacity: 0.9;
+    }
+    .red-btn {
+      background: #ff0000; /* 暂存箱领取/分解按钮 */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin: 0 2px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .red-btn:hover {
+      opacity: 0.9;
+    }
+    /* 小翻页按钮 */
+    .small-btn {
+      padding: 4px 8px;
+      margin: 0 5px;
+      font-size: 14px;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .stats {
+      margin-top: 20px;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .stats span {
+      font-weight: bold;
+    }
+
+    /* 主奖池表格：4×4 */
+    .lottery-table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    .lottery-table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      width: 25%;
+    }
+
+    /* 暂存箱区域 */
+    .stash-container {
+      width: 80%;
+      margin: 20px auto;
+      text-align: center;
+    }
+    .stash-container h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    /* 让按钮与下方表格留出额外间距 */
+    .stash-container .buttons {
+      margin-bottom: 15px;
+    }
+    .stash-table {
+      width: 80%;
+      margin: 0 auto;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+    /* 指定列宽 */
+    .stash-table colgroup col:nth-child(1) {
+      width: 300px; /* 道具名称更宽 */
+    }
+    .stash-table colgroup col:nth-child(2) {
+      width: 100px;  /* 变为钥匙更窄 */
+    }
+    .stash-table colgroup col:nth-child(3),
+    .stash-table colgroup col:nth-child(4) {
+      width: 100px;
+    }
+    .stash-table th,
+    .stash-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stash-table th {
+      background: #f5f5f5;
+    }
+    .stash-pagination {
+      margin: 10px;
+    }
+
+    /* 道具兑换区域（无外边框） */
+    .exchange-container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 15px;
+      text-align: center;
+    }
+    .exchange-container h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .exchange-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .exchange-item {
+      position: relative;
+      width: 205px;
+      min-height: 50px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .label-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+      margin: 2px;
+    }
+    .item-label {
+      background: #007BFF;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .item-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* 世冠集卡区域 */
+    .card-section {
+      margin: 20px auto;
+      padding: 15px;
+      text-align: center;
+    }
+    .card-section h2 {
+      margin-bottom: 10px;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 20px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+    .card-box {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      width: 120px;
+      flex: 0 0 auto;
+    }
+
+    /* 套数兑换区域 */
+    .set-exchange-section {
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 15px;
+      text-align: center;
+    }
+    .set-exchange-section h3 {
+      margin-bottom: 10px;
+    }
+    .set-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .set-item {
+      width: 220px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .set-item h4 {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+    .set-item p {
+      margin: 5px 0;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+/* 礼包记录区域（分页） */
+    .history-section {
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+    .history-section h3 {
+      margin-bottom: 10px;
+    }
+    .history-table {
+      width: 80%;
+      margin: 0 auto;
+      table-layout: fixed; /* 固定布局 */
+      border-collapse: collapse;
+    }
+    /* 指定列宽：时间、大区、道具 */
+    .history-table colgroup col:nth-child(1) {
+      width: 150px; /* 时间列 */
+    }
+    .history-table colgroup col:nth-child(2) {
+      width: 80px;  /* 大区列 */
+    }
+    .history-table colgroup col:nth-child(3) {
+      width: 300px; /* 道具列更宽 */
+    }
+    .history-table th,
+    .history-table td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-table th {
+      background: #f5f5f5;
+    }
+    .history-pagination {
+      margin: 10px;
+    }
+
+    /* 通用弹窗样式 */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 20px;
+      text-align: center;
+    }
+    .modal-header {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .modal-content {
+      font-size: 16px;
+      line-height: 1.8;
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+    .prize-card-line {
+      white-space: nowrap;
+      margin: 6px 0;
+      text-align: center;
+    }
+    .highlight {
+      color: red;
+      font-weight: bold;
+    }
+    .modal-footer {
+      margin-top: 10px;
+    }
+    .modal-footer button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    /* 兑换确认弹窗 */
+    .confirm-modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+    .confirm-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 20px;
+    }
+    .confirm-modal-header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .confirm-modal-content {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .confirm-modal-footer button {
+      margin: 0 5px;
+    }
+    /* 兑换结果弹窗 */
+    .result-modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1999;
+    }
+    .result-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      padding: 20px;
+    }
+    .result-modal-header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .result-modal-content {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+  .stats {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f0f8ff;
+    border: 2px solid #007BFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    color: #333;
+  }
+  .stats span {
+    margin: 0 10px;
+  }
+  .stats strong {
+    color: #007BFF;
+    font-size: 20px;
+  }
+  </style>
+</head>
+<body>
+
+<h2>荣耀世冠白鲨2023</h2>
+
+<!-- 购买钥匙区域 -->
+<div class="buttons">
+  <button class="blue-btn" onclick="buyKeys(1, 10)">10元购买1个钥匙</button>
+  <button class="blue-btn" onclick="buyKeys(11, 100)">100元购买11个钥匙</button>
+  <button class="blue-btn" onclick="buyKeys(55, 500)">500元购买55个钥匙</button>
+  <button class="blue-btn" onclick="buyKeys(220, 2000)">2000元购买220个钥匙</button>
+</div>
+
+<!-- 主奖池：4行×4列 -->
+<table class="lottery-table">
+  <tr>
+    <td>幻神-荣耀世冠白鲨2023</td>
+    <td>柯尔特-荣耀世冠白鲨2023</td>
+    <td>炎芒蝶刃-荣耀世冠白鲨2023</td>
+    <td>烟雾弹-荣耀世冠白鲨2023</td>
+  </tr>
+  <tr>
+    <td>雷神-白鲨-CFPLS14冠军</td>
+    <td>BS战队炫彩背包</td>
+    <td>COP-白鲨</td>
+    <td>BS战队击杀图标</td>
+  </tr>
+  <tr>
+    <td>AWM-天龙-传奇白鲨</td>
+    <td>白鲨战队对讲机</td>
+    <td>积分x88</td>
+    <td>积分x66</td>
+  </tr>
+  <tr>
+    <td>积分x23</td>
+    <td>积分x20</td>
+    <td>积分x12</td>
+    <td>积分x10</td>
+  </tr>
+</table>
+
+<!-- 抽奖按钮(绿色) -->
+<div class="buttons">
+  <button class="green-btn" onclick="draw(1)">抽1次</button>
+  <button class="green-btn" onclick="draw(10)">抽10次</button>
+  <button class="green-btn" onclick="draw(50)">抽50次</button>
+  <button class="green-btn" onclick="draw(100)">抽100次</button>
+  <button class="green-btn" onclick="draw(500)">抽500次</button>
+</div>
+
+<!-- 统计信息 -->
+<div class="stats">
+  <span>消费金额: <strong id="totalMoney">0</strong></span>
+  <span>抽奖钥匙: <strong id="totalKeys">0</strong></span>
+  <span>我的积分: <strong id="totalPoints">0</strong></span>
+  <span>已抽次数: <strong id="totalDraws">0</strong></span>
+</div>
+
+<!-- 暂存箱 -->
+<div class="stash-container">
+  <h3>暂存箱 <span style="font-size:14px; margin-left:20px;">(抽到的指定道具会自动放入此处)</span></h3>
+  <!-- 批量按钮，增加 margin-bottom -->
+  <div class="buttons" style="margin-bottom:15px;">
+    <button class="red-btn" onclick="batchReceiveCurrentPage()">批量领取(当前页)</button>
+    <button class="red-btn" onclick="batchDecomposeCurrentPage()">批量分解(当前页)</button>
+    <button class="red-btn" onclick="batchReceiveAll()">全部领取(暂存箱)</button>
+    <button class="red-btn" onclick="batchDecomposeAll()">全部分解(暂存箱)</button>
+  </div>
+  <table class="stash-table">
+    <colgroup>
+      <col><!-- 道具名称更宽 -->
+      <col><!-- 变为钥匙更窄 -->
+      <col>
+      <col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th>道具名称</th>
+        <th>变为钥匙</th>
+        <th>领取道具</th>
+        <th>分解道具</th>
+      </tr>
+    </thead>
+    <tbody id="stashTableBody"></tbody>
+  </table>
+  <div class="stash-pagination">
+    <button class="small-btn" onclick="stashPrevPage()">上一页</button>
+    <span id="stashPageInfo">1/1</span>
+    <button class="small-btn" onclick="stashNextPage()">下一页</button>
+  </div>
+</div>
+
+<!-- 道具兑换区域(粉色按钮) -->
+<div class="exchange-container">
+  <h3>道具兑换 <span style="font-size:16px; margin-left:20px;">我的积分：<strong id="myPointsDisplay">0</strong></span></h3>
+  <div class="exchange-grid" id="exchangeGrid">
+    <!-- 由JS动态渲染15个道具 -->
+  </div>
+</div>
+
+<!-- 世冠集卡区域 -->
+<div class="card-section">
+  <h2>世冠集卡</h2>
+  <p>已合成：<span id="totalSets">0</span> 套</p>
+  <div class="card-container">
+    <div class="card-box">
+      <div>出征卡</div>
+      <div>库存: <span id="chuzhengCount">0</span></div>
+    </div>
+    <div class="card-box">
+      <div>地点卡</div>
+      <div>库存: <span id="didianCount">0</span></div>
+    </div>
+    <div class="card-box">
+      <div>外景卡</div>
+      <div>库存: <span id="waijingCount">0</span></div>
+    </div>
+    <div class="card-box">
+      <div>地图卡</div>
+      <div>库存: <span id="dituCount">0</span></div>
+    </div>
+    <div class="card-box">
+      <div>冠军卡</div>
+      <div>库存: <span id="guanjunCount">0</span></div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="green-btn" onclick="composeOneSet()">合成1套</button>
+    <button class="green-btn" onclick="composeFiveSets()">合成5套</button>
+    <button class="green-btn" onclick="composeAllSets()">全部合成</button>
+  </div>
+</div>
+
+<!-- 套数兑换区域 -->
+<div class="set-exchange-section">
+  <h3>套数兑换</h3>
+  <div class="set-list">
+    <div class="set-item">
+      <h4>1套卡牌兑换</h4>
+      <p>BS战队击杀图标（兑换券）</p>
+      <button class="green-btn" onclick="redeemBySet(1, 'BS战队击杀图标（兑换券）')">兑换</button>
+    </div>
+    <div class="set-item">
+      <h4>2套卡牌兑换</h4>
+      <p>COP-白鲨（兑换券）</p>
+      <button class="green-btn" onclick="redeemBySet(2, 'COP-白鲨（兑换券）')">兑换</button>
+    </div>
+    <div class="set-item">
+      <h4>5套卡牌兑换</h4>
+      <p>麒麟刺-荣耀世冠白鲨（兑换券）</p>
+      <button class="green-btn" onclick="redeemBySet(5, '麒麟刺-荣耀世冠白鲨（兑换券）')">兑换</button>
+    </div>
+    <div class="set-item">
+      <h4>10套卡牌兑换</h4>
+      <p>QBZ03-荣耀世冠白鲨（兑换券）</p>
+      <button class="green-btn" onclick="redeemBySet(10, 'QBZ03-荣耀世冠白鲨（兑换券）')">兑换</button>
+    </div>
+    <div class="set-item">
+      <h4>18套卡牌兑换</h4>
+      <p>M200-幻神-荣耀世冠白鲨（兑换券）</p>
+      <button class="green-btn" onclick="redeemBySet(18, 'M200-幻神-荣耀世冠白鲨（兑换券）')">兑换</button>
+    </div>
+  </div>
+</div>
+
+<!-- 礼包记录区域（分页） -->
+<div class="history-section">
+  <h3>礼包记录</h3>
+  <table class="history-table">
+    <colgroup>
+      <col> <!-- 时间 -->
+      <col> <!-- 大区 -->
+      <col> <!-- 道具列更宽 -->
+    </colgroup>
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>大区</th>
+        <th>道具</th>
+      </tr>
+    </thead>
+    <tbody id="historyTableBody"></tbody>
+  </table>
+  <div class="history-pagination">
+    <button class="small-btn" onclick="prevPage()">上一页</button>
+    <span id="pageInfo">1/1</span>
+    <button class="small-btn" onclick="nextPage()">下一页</button>
+  </div>
+</div>
+
+<!-- 抽奖结果弹窗 -->
+<div class="modal-bg" id="modalBg"></div>
+<div class="modal" id="modal">
+  <div class="modal-header">中奖信息</div>
+  <div class="modal-content" id="modalContent"></div>
+  <div class="modal-footer">
+    <button onclick="closeModal()">确定</button>
+  </div>
+</div>
+
+<!-- 兑换确认弹窗 -->
+<div class="confirm-modal-bg" id="confirmModalBg"></div>
+<div class="confirm-modal" id="confirmModal">
+  <div class="confirm-modal-header">提示</div>
+  <div class="confirm-modal-content" id="confirmModalContent"></div>
+  <div class="confirm-modal-footer">
+    <button id="confirmYesBtn">确定</button>
+    <button id="confirmNoBtn">取消</button>
+  </div>
+</div>
+
+<!-- 兑换结果弹窗 -->
+<div class="result-modal-bg" id="resultModalBg"></div>
+<div class="result-modal" id="resultModal">
+  <div class="result-modal-header" id="resultModalHeader"></div>
+  <div class="result-modal-content" id="resultModalContent"></div>
+  <button onclick="closeResultModal()">确定</button>
+</div>
+
+<!-- 底部的两个按钮 -->
+<div style="margin-top: 30px; text-align: center;">
+  <button class="blue-btn" onclick="openPrizePoolModal()">奖池概率</button>
+  <button class="blue-btn" onclick="openCardProbabilityModal()">卡牌概率</button>
+</div>
+
+<!-- 奖池/卡牌概率通用弹窗 -->
+<div class="modal-bg" id="probabilityModalBg" style="display:none;"></div>
+<div class="modal" id="probabilityModal" style="display:none;">
+  <div class="modal-header">信息</div>
+  <div class="modal-content" id="probabilityModalContent">
+    <!-- 动态插入表格内容 -->
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeProbabilityModal()">关闭</button>
+  </div>
+</div>
+
+<!-- 模拟器相关法律提醒 -->
+<div style="margin-top: 30px; padding: 10px; text-align: center; color: #fa0101; font-size: 14px; border-top: 1px solid #ccc;">
+  <p>
+    本工具仅供玩家娱乐体验与测试用途，不包含真实游戏数据推送。<br>
+    请合理安排游戏时间，理性消费。如有侵权联系即删~
+  </p>
+</div>
+
+<script>
+/*****************************************
+ *       全局 & 配置数据                 *
+ *****************************************/
+let moneySpent = 0;
+let totalKeys = 0;
+let totalPoints = 0;
+let totalDraws = 0;
+let totalSets = 0; // 合成的套数
+
+// 卡牌库存
+let cardCollection = {
+  "出征卡": 0,
+  "地点卡": 0,
+  "外景卡": 0,
+  "地图卡": 0,
+  "冠军卡": 0
+};
+
+// 主奖池概率（16个）
+const prizes = [
+  { name: "幻神-荣耀世冠白鲨2023", prob: 0.15 },
+  { name: "柯尔特-荣耀世冠白鲨2023", prob: 0.25 },
+  { name: "炽芒蝶刃-荣耀世冠白鲨2023", prob: 0.30 },
+  { name: "烟雾弹-荣耀世冠白鲨2023", prob: 1.00 },
+  { name: "雷神-白鲨-CFPLS14冠军", prob: 0.50 },
+  { name: "BS战队炫彩背包", prob: 0.60 },
+  { name: "COP-白鲨", prob: 0.60 },
+  { name: "BS战队击杀图标", prob: 1.00 },
+  { name: "AWM-天龙-传奇白鲨", prob: 1.00 },
+  { name: "白鲨战队对讲机", prob: 1.00 },
+  { name: "积分x88", prob: 2.00 },
+  { name: "积分x66", prob: 3.00 },
+  { name: "积分x23", prob: 6.00 },
+  { name: "积分x20", prob: 9.00 },
+  { name: "积分x12", prob: 35.00 },
+  { name: "积分x10", prob: 38.60 }
+];
+
+// 卡牌及概率
+const cards = [
+  { name: "出征卡", prob: 24.75 },
+  { name: "地点卡", prob: 24.75 },
+  { name: "外景卡", prob: 24.75 },
+  { name: "地图卡", prob: 24.75 },
+  { name: "冠军卡", prob: 1.00 }
+];
+
+// 道具兑换数据（15个）
+const exchangeItems = [
+      { name: "幻神-荣耀世冠白鲨2023", cost: 2550 },
+      { name: "柯尔特-荣耀世冠白鲨2023", cost: 1700 },
+      { name: "炽芒蝶刃-荣耀世冠白鲨2023", cost: 1360 },
+      { name: "烟雾弹-荣耀世冠白鲨2023", cost: 150 },
+      { name: "M200-幻神-荣耀世冠白鲨", cost: 2550 },
+      { name: "QBZ03-荣耀世冠白鲨", cost: 1700 },
+      { name: "麒麟刺-荣耀世冠白鲨单", cost: 880 },
+      { name: "雷神-白鲨-CFPLS14冠军", cost: 600 },
+      { name: "BS战队炫彩背包", cost: 480 },
+      { name: "COP-白鲨", cost: 480 },
+      { name: "BS战队击杀图标", cost: 150 },
+      { name: "AWM-天龙-传奇白鲨", cost: 150 },
+      { name: "白鲨战队对讲机", cost: 150 },
+      { name: "交易专用钥匙x1", cost: 10 },
+      { name: "属性变更券x5", cost: 50 }
+    ];
+
+// 暂存箱分解映射
+const decomposeMap = {
+  "幻神-荣耀世冠白鲨2023": 15,
+  "柯尔特-荣耀世冠白鲨2023": 10,
+  "炽芒蝶刃-荣耀世冠白鲨2023": 8,
+  "雷神-白鲨-CFPLS14冠军": 4,
+  "BS战队炫彩背包": 3,
+  "COP-白鲨": 3,
+  "烟雾弹-荣耀世冠白鲨2023": 1,
+  "BS战队击杀图标": 1,
+  "AWM-天龙-传奇白鲨": 1,
+  "白鲨战队对讲机": 1
+};
+function isStashable(itemName) {
+  return decomposeMap.hasOwnProperty(itemName);
+}
+
+/*****************************************
+ *        暂存箱数据 & 分页逻辑          *
+ *****************************************/
+let stashRecords = []; // { name, keyValue, status: normal|received|decomposed }
+let stashPage = 1;
+const stashPageSize = 10;
+
+function stashAdd(itemName) {
+  if (!isStashable(itemName)) return;
+  stashRecords.unshift({
+    name: itemName,
+    keyValue: decomposeMap[itemName] || 0,
+    status: "normal"
+  });
+  renderStash();
+}
+
+function renderStash() {
+  const total = stashRecords.length;
+  const totalPages = Math.ceil(total / stashPageSize) || 1;
+  if (stashPage < 1) stashPage = 1;
+  if (stashPage > totalPages) stashPage = totalPages;
+  const startIndex = (stashPage - 1) * stashPageSize;
+  const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
+
+  const tbody = document.getElementById("stashTableBody");
+  tbody.innerHTML = pageData.map((item, idx) => {
+    const globalIndex = startIndex + idx;
+    const itemNameTd = `<td>${item.name}</td>`;
+    const keyValueTd = `<td>${item.keyValue}</td>`;
+
+    let receiveTd, decomposeTd;
+    if (item.status === "normal") {
+      receiveTd = `<button class="red-btn" onclick="stashReceive(${globalIndex})">领取</button>`;
+      decomposeTd = `<button class="red-btn" onclick="stashDecompose(${globalIndex})">分解</button>`;
+    } else if (item.status === "received") {
+      receiveTd = `已领取`;
+      decomposeTd = `x`;
+    } else {
+      // decomposed
+      receiveTd = `x`;
+      decomposeTd = `已分解`;
+    }
+
+    return `<tr>
+      ${itemNameTd}
+      ${keyValueTd}
+      <td>${receiveTd}</td>
+      <td>${decomposeTd}</td>
+    </tr>`;
+  }).join("");
+
+  document.getElementById("stashPageInfo").textContent = `${stashPage}/${totalPages}`;
+}
+
+function stashPrevPage() {
+  stashPage--;
+  renderStash();
+}
+function stashNextPage() {
+  stashPage++;
+  renderStash();
+}
+
+/** 单个领取 */
+function stashReceive(index) {
+  const item = stashRecords[index];
+  if (!item || item.status !== "normal") return;
+  if (!confirm(`确认将 ${item.name} 发送到仓库吗？`)) return;
+  item.status = "received";
+  openResultModal("领取成功", `恭喜您获得了礼包：${item.name}<br>请注意：游戏虚拟道具奖品将会在24小时内到账`);
+  renderStash();
+}
+
+/** 单个分解 */
+function stashDecompose(index) {
+  const item = stashRecords[index];
+  if (!item || item.status !== "normal") return;
+  if (!confirm(`确认将 ${item.name} 分解成 ${item.keyValue}个钥匙 吗？`)) return;
+
+  item.status = "decomposed";
+  totalKeys += item.keyValue;
+  updateStats();
+  openResultModal("分解成功", `共1个道具，获得 <span style="color:red;font-weight:bold">${item.keyValue}个钥匙</span>`);
+  renderStash();
+}
+
+/** 批量领取(当前页) */
+function batchReceiveCurrentPage() {
+  const total = stashRecords.length;
+  const totalPages = Math.ceil(total / stashPageSize) || 1;
+  if (stashPage < 1) stashPage = 1;
+  if (stashPage > totalPages) stashPage = totalPages;
+  const startIndex = (stashPage - 1) * stashPageSize;
+  const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
+
+  const canReceive = pageData.filter(i => i.status === "normal");
+  if (canReceive.length === 0) {
+    alert("当前页没有可领取的道具");
+    return;
+  }
+  if (!confirm(`确认批量领取(当前页) ${canReceive.length}个道具？`)) return;
+
+  canReceive.forEach(item => {
+    item.status = "received";
+  });
+  openResultModal("领取成功", `已领取：共${canReceive.length}个道具`);
+  renderStash();
+}
+
+/** 批量分解(当前页) */
+function batchDecomposeCurrentPage() {
+  const total = stashRecords.length;
+  const totalPages = Math.ceil(total / stashPageSize) || 1;
+  if (stashPage < 1) stashPage = 1;
+  if (stashPage > totalPages) stashPage = totalPages;
+  const startIndex = (stashPage - 1) * stashPageSize;
+  const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
+
+  const canDecompose = pageData.filter(i => i.status === "normal");
+  if (canDecompose.length === 0) {
+    alert("当前页没有可分解的道具");
+    return;
+  }
+  if (!confirm(`确认批量分解(当前页) ${canDecompose.length}个道具？`)) return;
+
+  let totalGained = 0;
+  canDecompose.forEach(item => {
+    item.status = "decomposed";
+    totalGained += item.keyValue;
+  });
+  totalKeys += totalGained;
+  updateStats();
+  openResultModal("分解成功", `共${canDecompose.length}个道具，获得 <span style="color:red;font-weight:bold">${totalGained}个钥匙</span>`);
+  renderStash();
+}
+
+/** 全部领取(暂存箱) */
+function batchReceiveAll() {
+  const canReceive = stashRecords.filter(i => i.status === "normal");
+  if (canReceive.length === 0) {
+    alert("暂存箱没有可领取的道具");
+    return;
+  }
+  if (!confirm(`确认全部领取(暂存箱) ${canReceive.length}个道具？`)) return;
+
+  canReceive.forEach(item => {
+    item.status = "received";
+  });
+  openResultModal("领取成功", `已领取：共${canReceive.length}个道具`);
+  renderStash();
+}
+
+/** 全部分解(暂存箱) */
+function batchDecomposeAll() {
+  const canDecompose = stashRecords.filter(i => i.status === "normal");
+  if (canDecompose.length === 0) {
+    alert("暂存箱没有可分解的道具");
+    return;
+  }
+  if (!confirm(`确认全部分解(暂存箱) ${canDecompose.length}个道具？`)) return;
+
+  let totalGained = 0;
+  canDecompose.forEach(item => {
+    item.status = "decomposed";
+    totalGained += item.keyValue;
+  });
+  totalKeys += totalGained;
+  updateStats();
+  openResultModal("分解成功", `共${canDecompose.length}个道具，获得 <span style="color:red;font-weight:bold">${totalGained}个钥匙</span>`);
+  renderStash();
+}
+
+/*****************************************
+ *       礼包记录(分页)相关逻辑           *
+ *****************************************/
+let records = [];
+let currentPage = 1;
+const pageSize = 10;
+
+/** 添加一条记录到礼包记录(最新在最前) */
+function addRecord(itemName, isExchange = false) {
+  const now = new Date();
+  const timeStr = now.getFullYear() + "-" +
+    String(now.getMonth()+1).padStart(2,"0") + "-" +
+    String(now.getDate()).padStart(2,"0") + " " +
+    String(now.getHours()).padStart(2,"0") + ":" +
+    String(now.getMinutes()).padStart(2,"0") + ":" +
+    String(now.getSeconds()).padStart(2,"0");
+  const region = "北方大区";
+  const itemStr = isExchange ? itemName + "【兑换】" : itemName;
+  records.unshift({ time: timeStr, region: region, item: itemStr });
+  renderRecords();
+}
+
+function renderRecords() {
+  const totalRecords = records.length;
+  const totalPages = Math.ceil(totalRecords / pageSize) || 1;
+  if (currentPage < 1) currentPage = 1;
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const pageData = records.slice(startIndex, startIndex + pageSize);
+
+  const tbody = document.getElementById("historyTableBody");
+  tbody.innerHTML = pageData.map(r => `
+    <tr>
+      <td>${r.time}</td>
+      <td>${r.region}</td>
+      <td>${r.item}</td>
+    </tr>
+  `).join("");
+  document.getElementById("pageInfo").textContent = `${currentPage}/${totalPages}`;
+}
+function prevPage() {
+  currentPage--;
+  renderRecords();
+}
+function nextPage() {
+  currentPage++;
+  renderRecords();
+}
+
+/*****************************************
+ *         页面初始化 & 事件绑定         *
+ *****************************************/
+document.addEventListener("DOMContentLoaded", function() {
+  renderExchangeItems(); // 渲染道具兑换
+  updateStats();
+  renderRecords();       // 初始化记录分页
+});
+
+/*****************************************
+ *         道具兑换区域逻辑            *
+ *****************************************/
+function renderExchangeItems() {
+  const grid = document.getElementById("exchangeGrid");
+  grid.innerHTML = "";
+  exchangeItems.forEach(item => {
+    const labels = getLabels(item.name);
+    const div = document.createElement("div");
+    div.className = "exchange-item";
+
+    let labelHTML = "";
+    if (labels.length > 0) {
+      labelHTML = `<div class="label-container">
+        ${labels.map(lb => `<div class="item-label">${lb}</div>`).join("")}
+      </div>`;
+    }
+
+    div.innerHTML = `
+      ${labelHTML}
+      <div class="item-name">${item.name}</div>
+      <button class="pink-btn" onclick="openConfirmExchange('${item.name}', ${item.cost})">${item.cost}积分兑换</button>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+function getLabels(name) {
+  const labels = [];
+  if (name.includes("荣耀世冠")) labels.push("皮肤");
+  if (name.includes("传奇白鲨")) labels.push("皮肤");
+  if (name.includes("荣耀世冠2023")) labels.push("全新首发");
+  if (name.includes("柯尔特-荣耀世冠白鲨")) labels.push("VVIP武器");
+  if (name.includes("战队")) labels.push("唯一性道具");
+  if (name.includes("COP-白鲨")) labels.push("掌上武器");
+  return labels;
+}
+
+/*****************************************
+ *      积分兑换确认 & 结果弹窗逻辑       *
+ *****************************************/
+let currentExchangeItem = null;
+
+function openConfirmExchange(itemName, cost) {
+  currentExchangeItem = { name: itemName, cost: cost };
+  document.getElementById("confirmModalContent").innerText =
+    `确定使用【${cost}】个积分兑换【${itemName}】吗？`;
+  document.getElementById("confirmModalBg").style.display = "block";
+  document.getElementById("confirmModal").style.display = "block";
+}
+
+function closeConfirmExchange() {
+  document.getElementById("confirmModalBg").style.display = "none";
+  document.getElementById("confirmModal").style.display = "none";
+  currentExchangeItem = null;
+}
+
+function openResultModal(title, htmlContent) {
+  document.getElementById("resultModalHeader").innerText = title;
+  document.getElementById("resultModalContent").innerHTML = htmlContent;
+  document.getElementById("resultModalBg").style.display = "block";
+  document.getElementById("resultModal").style.display = "block";
+}
+
+function closeResultModal() {
+  document.getElementById("resultModalBg").style.display = "none";
+  document.getElementById("resultModal").style.display = "none";
+}
+
+/** 积分兑换确认按钮 */
+document.getElementById("confirmYesBtn").onclick = function() {
+  if (!currentExchangeItem) return;
+  const { name, cost } = currentExchangeItem;
+  closeConfirmExchange();
+  if (totalPoints >= cost) {
+    totalPoints -= cost;
+    addRecord(name, true);
+    openResultModal("兑换成功", `恭喜您获得了礼包：${name}<br>请注意：游戏虚拟道具奖品将在24小时内到账`);
+  } else {
+    openResultModal("兑换失败", "抱歉，您的积分不足~");
+  }
+  updateStats();
+};
+/** 积分兑换取消按钮 */
+document.getElementById("confirmNoBtn").onclick = function() {
+  closeConfirmExchange();
+};
+
+/*****************************************
+ *         抽奖、卡牌合成、套数兑换       *
+ *****************************************/
+
+/** 购买钥匙 */
+function buyKeys(keys, price) {
+  moneySpent += price;
+  totalKeys += keys;
+  updateStats();
+  // 增加提示
+  alert(`消费 ${price} 元，获得 ${keys} 个钥匙`);
+}
+
+/** 抽奖 times 次 */
+function draw(times) {
+  if (totalKeys < times) {
+    alert("钥匙不足，请先购买！");
+    return;
+  }
+  totalKeys -= times;
+  totalDraws += times;
+  let results = []; // 保存每次抽奖结果 { prize, card }
+  for (let i = 0; i < times; i++) {
+    const prize = pickRandomPrize();
+    const card = pickRandomCard();
+    results.push({ prize, card });
+    // 处理奖品
+    if (prize.startsWith("积分")) {
+      const num = parseInt(prize.replace("积分x", ""));
+      totalPoints += num;
+      addRecord(prize, false);
+    } else {
+      addRecord(prize, false);
+      stashAdd(prize);
+    }
+    // 卡牌
+    cardCollection[card]++;
+  }
+  let resultsHtml = "";
+  if (times <= 10) {
+      resultsHtml = results.map(r => {
+        let prizeText = r.prize;
+        if (!r.prize.startsWith("积分") && r.prize) {
+          prizeText = `<span class="highlight">${r.prize}</span>`;
+        }
+        let cardText = r.card;
+        if (r.card === "冠军卡") {
+          cardText = `<span class="highlight">${r.card}</span>`;
+        }
+        return `<div class="prize-card-line">${prizeText}, ${cardText}</div>`;
+      }).join("");
+    } else {
+      // 奖品统计：每项单独一行（最多10行）
+      let prizeSummary = {};
+      let cardSummary = {};
+      results.forEach(r => {
+        prizeSummary[r.prize] = (prizeSummary[r.prize] || 0) + 1;
+        cardSummary[r.card] = (cardSummary[r.card] || 0) + 1;
+      });
+      let prizeEntries = Object.entries(prizeSummary).sort((a, b) => b[1] - a[1]);
+      if (prizeEntries.length > 10) prizeEntries = prizeEntries.slice(0, 10);
+      let prizeHtml = "";
+      prizeEntries.forEach(entry => {
+        let text = entry[0];
+        if (text && !text.startsWith("积分")) {
+          text = `<span class="highlight">${text}</span>`;
+        }
+        prizeHtml += `<div class="prize-card-line">${text} x ${entry[1]}</div>`;
+      });
+      // 卡片统计：横向展示一行（最多5项）
+      let cardEntries = Object.entries(cardSummary).sort((a, b) => b[1] - a[1]);
+      if (cardEntries.length > 5) cardEntries = cardEntries.slice(0, 5);
+      let cardHtml = "<div style='text-align:center; margin-top:5px;'><strong>卡片统计：</strong> ";
+      cardEntries.forEach(entry => {
+        let text = entry[0];
+        if (text === "冠军卡") {
+          text = `<span class="highlight">${text}</span>`;
+        }
+        cardHtml += `<span style="margin: 0 5px;">${text} x ${entry[1]}</span>`;
+      });
+      cardHtml += "</div>";
+      resultsHtml = prizeHtml + cardHtml;
+    }
+    showModal(resultsHtml);
+    updateStats();
+    updateCardUI();
+  }
+
+function pickRandomPrize() {
+  let rand = Math.random() * 100;
+  let cumulative = 0;
+  for (let item of prizes) {
+    cumulative += item.prob;
+    if (rand < cumulative) return item.name;
+  }
+  return prizes[prizes.length - 1].name;
+}
+
+function pickRandomCard() {
+  let rand = Math.random() * 100;
+  let cumulative = 0;
+  for (let item of cards) {
+    cumulative += item.prob;
+    if (rand < cumulative) return item.name;
+  }
+  return cards[cards.length - 1].name;
+}
+
+/** 卡牌合成1套 */
+function composeOneSet() {
+  if (checkSetEnough(1)) {
+    cardCollection["出征卡"]--;
+    cardCollection["地点卡"]--;
+    cardCollection["外景卡"]--;
+    cardCollection["地图卡"]--;
+    cardCollection["冠军卡"]--;
+    totalSets++;
+    updateCardUI();
+    alert("成功合成 1 套！");
+  } else {
+    alert("合成失败：需集齐5种卡牌各≥1才能合成1套。");
+  }
+}
+
+/** 卡牌合成5套 */
+function composeFiveSets() {
+  for (let i = 0; i < 5; i++) {
+    if (!checkSetEnough(5)) {
+      alert("合成失败：需集齐5种卡牌各≥5才能合成5套。");
+      return;
+    }
+  }
+  cardCollection["出征卡"]  -= 5;
+  cardCollection["地点卡"]  -= 5;
+  cardCollection["外景卡"]  -= 5;
+  cardCollection["地图卡"]  -= 5;
+  cardCollection["冠军卡"]  -= 5;
+  totalSets += 5;
+  updateCardUI();
+  alert("成功合成 5 套！");
+}
+
+/** 卡牌合成全部 */
+function composeAllSets() {
+  const canMake = Math.min(
+    cardCollection["出征卡"],
+    cardCollection["地点卡"],
+    cardCollection["外景卡"],
+    cardCollection["地图卡"],
+    cardCollection["冠军卡"]
+  );
+  if (canMake > 0) {
+    cardCollection["出征卡"]  -= canMake;
+    cardCollection["地点卡"]  -= canMake;
+    cardCollection["外景卡"]  -= canMake;
+    cardCollection["地图卡"]  -= canMake;
+    cardCollection["冠军卡"]  -= canMake;
+    totalSets += canMake;
+    updateCardUI();
+    alert(`合成成功：共 ${canMake} 套！`);
+  } else {
+    alert("合成失败：需集齐5种卡牌各≥1才能合成。");
+  }
+}
+
+function checkSetEnough(count) {
+  return (
+    cardCollection["出征卡"] >= count &&
+    cardCollection["地点卡"] >= count &&
+    cardCollection["外景卡"] >= count &&
+    cardCollection["地图卡"] >= count &&
+    cardCollection["冠军卡"] >= count
+  );
+}
+
+function updateCardUI() {
+  document.getElementById("chuzhengCount").textContent = cardCollection["出征卡"];
+  document.getElementById("didianCount").textContent   = cardCollection["地点卡"];
+  document.getElementById("waijingCount").textContent  = cardCollection["外景卡"];
+  document.getElementById("dituCount").textContent     = cardCollection["地图卡"];
+  document.getElementById("guanjunCount").textContent  = cardCollection["冠军卡"];
+  document.getElementById("totalSets").textContent     = totalSets;
+}
+
+/** 套数兑换 */
+function redeemBySet(requiredSets, itemName) {
+  if (totalSets >= requiredSets) {
+    totalSets -= requiredSets;
+    updateCardUI();
+    addRecord(itemName, true);
+    alert(`兑换成功：获得 ${itemName}`);
+  } else {
+    alert("抱歉，卡牌不足。");
+  }
+}
+
+/*****************************************
+ *           更新统计信息                *
+ *****************************************/
+function updateStats() {
+  document.getElementById("totalMoney").textContent  = moneySpent;
+  document.getElementById("totalKeys").textContent   = totalKeys;
+  document.getElementById("totalPoints").textContent = totalPoints;
+  document.getElementById("totalDraws").textContent  = totalDraws;
+  document.getElementById("myPointsDisplay").textContent = totalPoints;
+}
+
+/*****************************************
+ *     抽奖结果弹窗 & 关闭函数           *
+ *****************************************/
+function showModal(content) {
+  document.getElementById("modalContent").innerHTML = content;
+  document.getElementById("modalBg").style.display = "block";
+  document.getElementById("modal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("modalBg").style.display = "none";
+  document.getElementById("modal").style.display = "none";
+}
+
+/* 点击“奖池概率”时，弹出对应表格内容 */
+function openPrizePoolModal() {
+  const tableHTML = `
+    <table border="1" style="margin: 0 auto; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="padding: 8px;">道具名称</th>
+          <th style="padding: 8px;">奖池概率</th>
+          <th style="padding: 8px;">分解所获钥匙</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>幻神-荣耀世冠白鲨2023 皮肤</td>
+          <td>0.15%</td>
+          <td>15</td>
+        </tr>
+        <tr>
+          <td>柯尔特-荣耀世冠白鲨2023 皮肤</td>
+          <td>0.25%</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>炽芒蝶刃-荣耀世冠白鲨2023 皮肤</td>
+          <td>0.30%</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>雷神-白鲨 CFPLS14冠军 皮肤</td>
+          <td>0.50%</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>BS战队炫彩背包</td>
+          <td>0.60%</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>COP-白鲨</td>
+          <td>0.60%</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>烟雾弹-荣耀世冠白鲨2023 皮肤</td>
+          <td>1.00%</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>AWM-天龙-传奇白鲨 皮肤</td>
+          <td>1.00%</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>白鲨战队对讲机</td>
+          <td>1.00%</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>积分x88</td>
+          <td>2.00%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>积分x66</td>
+          <td>3.00%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>积分x23</td>
+          <td>6.00%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>积分x20</td>
+          <td>9.00%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>积分x12</td>
+          <td>35.00%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>积分x10</td>
+          <td>38.60%</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+  document.getElementById("probabilityModalContent").innerHTML = tableHTML;
+  document.getElementById("probabilityModalBg").style.display = "block";
+  document.getElementById("probabilityModal").style.display = "block";
+}
+
+/* 点击“卡牌概率”时，弹出对应表格内容 */
+function openCardProbabilityModal() {
+  const tableHTML = `
+    <table border="1" style="margin: 0 auto; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="padding: 8px;">卡牌名称</th>
+          <th style="padding: 8px;">奖池概率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>出征卡</td>
+          <td>24.75%</td>
+        </tr>
+        <tr>
+          <td>地点卡</td>
+          <td>24.75%</td>
+        </tr>
+        <tr>
+          <td>外景卡</td>
+          <td>24.75%</td>
+        </tr>
+        <tr>
+          <td>地图卡</td>
+          <td>24.75%</td>
+        </tr>
+        <tr>
+          <td>冠军卡</td>
+          <td>1.00%</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+  document.getElementById("probabilityModalContent").innerHTML = tableHTML;
+  document.getElementById("probabilityModalBg").style.display = "block";
+  document.getElementById("probabilityModal").style.display = "block";
+}
+
+/* 关闭通用弹窗 */
+function closeProbabilityModal() {
+  document.getElementById("probabilityModalBg").style.display = "none";
+  document.getElementById("probabilityModal").style.display = "none";
+}
+</script>
+</body>
+</html>

@@ -406,23 +406,27 @@ var ACT = {
     },
     //绑定大区
     bind: function (call) {
-        if (milo.request('code') != 0) {
-            if (isParam.userInfo.sArea > 0) {
-                $.isFunction(call) && call();
-            } else {
-                alert("请先绑定角色~", function () {
-                    Hx.bindRole()
-                })
-            }
-        } else {
-            ACT.dologin(function () {
-                if (isParam.userInfo.sArea > 0) {
-                    $.isFunction(call) && call();
-                } else {
-                    queryBindArea();
-                }
-            });
+        if (checkUserStatus()) {
+            $.isFunction(call) && call();
+            return;
         }
+        // if (milo.request('code') != 0) {
+        //     if (isParam.userInfo.sArea > 0) {
+        //         $.isFunction(call) && call();
+        //     } else {
+        //         alert("请先绑定角色~", function () {
+        //             Hx.bindRole()
+        //         })
+        //     }
+        // } else {
+        //     ACT.dologin(function () {
+        //         if (isParam.userInfo.sArea > 0) {
+        //             $.isFunction(call) && call();
+        //         } else {
+        //             queryBindArea();
+        //         }
+        //     });
+        // }
 
     },
     //初始化查询
@@ -646,7 +650,7 @@ var ACT = {
         }
         console.log(buyKeysApi, params)
         request(buyKeysApi, 'post', params).then(res => {
-            if (res.code == 200) getInfo();
+            if (res.code == 0) getInfo();
             alert(res.msg)
         })
 
@@ -743,7 +747,6 @@ var ACT = {
         if(_str == ''){
             return
         }
-
         ACT.bind(function () {
             var flow_1017608 = {
                 actId: isParam._ams_id,
@@ -791,6 +794,7 @@ var ACT = {
             }
     
             flow_1017608.sData.iPageNow = pageIndex;
+            console.log(flow_1017608, pageIndex, 123123)
             if(item == 1){
                 if (isParam.isH5) {
                     flow_1017608.sData.iPageSize = 10;//礼包记录个数
@@ -807,6 +811,8 @@ var ACT = {
 
             Milo.emit(flow_1017608);
         });
+        // const cb = 
+        // cb()
     },
     // 积分兑换
     amsExchange: function (groupId) {
@@ -1138,6 +1144,7 @@ var ACT = {
                 console.log('查询轮播fail', res);
             }
         };
+        console.log('轮播初始化', flow_1017569);
         Milo.emit(flow_1017569);
     },
 

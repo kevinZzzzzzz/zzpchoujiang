@@ -12,7 +12,7 @@ const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
 const getConsumableQuantityApi = window.isDev ? `/api/event/getConsumableQuantity` : `/event/getConsumableQuantity`; // 查询剩余积分或者钥匙数量
 
 var pointData = {}
-const eventId = '1894775959430959106'
+const eventId = getEventIdFromUrl(window.location.href) || '1894775959430959106'
 var isPay = false
 isParam = {
     bizCode: 'cf',
@@ -549,7 +549,7 @@ var ACT = {
         }
         console.log(buyKeysApi, params)
         request(buyKeysApi, 'post', params).then(res => {
-            if (res.code == 200) getInfo();
+            if (res.code == 0) getInfo();
             alert(res.msg)
         })
     },
@@ -565,7 +565,6 @@ var ACT = {
           consumableQuantity: num
         }).then(res => {
             if (res.code == 0) {
-                // getInfo()
                 const arr = res.data
                 if (arr.length == 1) {
                     $('#poplot2 .p_txt2').empty().html(`<p style="letter-spacing: 1px">${res.data[0].name}${res.data[0].quantity > 1 ? 'x' + res.data[0].quantity : ''}</p>`)
@@ -967,7 +966,7 @@ function getInfo() {
     // })
     return JSON.parse(sessionStorage.getItem('login'))
 }
-console.log(getInfo())
+// console.log(getInfo())
 getInfo()
 
 // 中奖名单
@@ -1010,3 +1009,15 @@ function question() {
 }
 
 if (!isMobile()) location.href = `/${ctrlName}/index`;
+function getEventIdFromUrl(url) {
+    try {
+        // 使用 URL 对象解析 URL
+        const urlObj = new URL(url);
+        // 获取查询参数中的 eventId
+        const eventId = urlObj.searchParams.get('eventId');
+        return eventId;
+    } catch (error) {
+        console.error("Invalid URL:", error);
+        return null;
+    }
+}
