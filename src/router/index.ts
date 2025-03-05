@@ -26,35 +26,35 @@ const routes: RouteRecordRaw[] = [
         },
         component: async () => await import(/* webpackChunkName: "homePage" */ '@/pages/homePage/index.vue')
       },
-      {
-        path: '/home',
-        name: 'Home',
-        meta: {
-          title: '',
-          requireAuth: false // 是否需要登录校验
-        },
-        component: async () => await import(/* webpackChunkName: "home" */ '@/pages/home/index.vue')
-      },
-      {
-        path: '/home2',
-        name: 'Home2',
-        meta: {
-          title: '',
-          requireAuth: false // 是否需要登录校验
-        },
-        component: async () => await import(/* webpackChunkName: "home2" */ '@/pages/home2/index.vue')
-      }
+      // {
+      //   path: '/home',
+      //   name: 'Home',
+      //   meta: {
+      //     title: '',
+      //     requireAuth: false // 是否需要登录校验
+      //   },
+      //   component: async () => await import(/* webpackChunkName: "home" */ '@/pages/home/index.vue')
+      // },
+      // {
+      //   path: '/home2',
+      //   name: 'Home2',
+      //   meta: {
+      //     title: '',
+      //     requireAuth: false // 是否需要登录校验
+      //   },
+      //   component: async () => await import(/* webpackChunkName: "home2" */ '@/pages/home2/index.vue')
+      // }
     ]
   },
-  {
-    path: '/login',
-    name: 'Login',
-    meta: {
-      title: '',
-      requireAuth: false // 是否需要登录校验
-    },
-    component: async () => await import(/* webpackChunkName: "login" */ '@/pages/login/index.vue')
-  },
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   meta: {
+  //     title: '',
+  //     requireAuth: false // 是否需要登录校验
+  //   },
+  //   component: async () => await import(/* webpackChunkName: "login" */ '@/pages/login/index.vue')
+  // },
   {
     path: '/:notFoundPath',
     redirect: '/404'

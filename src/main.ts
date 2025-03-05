@@ -18,16 +18,16 @@ declare module 'vue' {
 declare global {
   interface Window {
     $api: any
-    px2rem: any
+    // px2rem: any
   }
 }
-function px2rem(px){
-  if(/%/ig.test(px)){ // 有百分号%，特殊处理，表述pc是一个有百分号的数，比如：90%
-    return px
-  }else{
-    return (parseFloat(px) / 37.5) + 'rem'
-  }
-}
+// function px2rem(px){
+//   if(/%/ig.test(px)){ // 有百分号%，特殊处理，表述pc是一个有百分号的数，比如：90%
+//     return px
+//   }else{
+//     return (parseFloat(px) / 37.5) + 'rem'
+//   }
+// }
 
 const store = createPinia().use(piniaPluginPersist)
 const app = createApp(App)

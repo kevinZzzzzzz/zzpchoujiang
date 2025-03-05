@@ -515,28 +515,23 @@ var ACT = {
       const arr = [{
         name: '钥匙',
         quantity: 1,
-        operationName: "购买钥匙",
-        countType: 1
+        price: 1
       }, {
         name: '钥匙',
         quantity: 10,
-        operationName: "购买钥匙",
-        countType: 1
+        price: 100
       }, {
         name: '钥匙',
         quantity: 50,
-        operationName: "购买钥匙",
-        countType: 1
+        price: 500
       }, {
         name: '钥匙',
         quantity: 1,
-        operationName: "购买钥匙",
-        countType: 1
+        price: 10
       }, {
         name: '钥匙',
         quantity: 10,
-        operationName: "购买钥匙",
-        countType: 1
+        price: 100
       }]
         // 检测用户状态
         if (!checkUserStatus()) return false;
@@ -596,7 +591,11 @@ var ACT = {
         }
         if (item == 2) {
             // 暂存箱
-            request(`${getTankListsApi}/${eventId}`, 'get', null, pageIndex != 1).then(res => {
+            request(`${getTankListsApi}`, 'post', {
+                "eventId": eventId,
+                "pageSize": 8,
+                "pageNum": 1
+            }, pageIndex != 1).then(res => {
                 if (res.code == 0) {
                     // const { lists, totalPages } = res.data
                     const lists = res.data || []
