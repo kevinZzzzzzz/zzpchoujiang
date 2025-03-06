@@ -17,12 +17,36 @@
   <script>
     console.log(window, '环境变量')
     window.isDev = true; // 是否是开发环境
+    function isMobiles() {
+        const userAgentInfo = navigator.userAgent;
+        const mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+        const mobileFlag = mobileAgents.some((mobileAgent) => {
+            return userAgentInfo.indexOf(mobileAgent) > 0;
+        });
+
+        return mobileFlag;
+    }
+console.log(isMobiles(), '是否是移动端')
+    if (isMobiles()) {
+        // 加载移动端样式
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './css/game1/m.css';
+        document.head.appendChild(link);
+    } else {
+        // 加载桌面端样式
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = './css/game1/pc.css';
+        document.head.appendChild(link);
+    }
     //屏幕适应
     (function (win, doc) {
       if (!win.addEventListener) return;
       var html = document.documentElement;
 
       function setFont() {
+        if (!isMobiles()) return false
         var html = document.documentElement;
         var k = 750;
         html.style.fontSize = html.clientWidth / k * 100 + "px";
@@ -37,7 +61,7 @@
       win.addEventListener('load', setFont, false);
     })(window, document);
   </script>
-  <link rel="stylesheet" type="text/css" href="./css/game1/m.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./css/game1/m.css"> -->
   <link rel="shortcut icon" href="./images/djc.ico" />
   <link rel="stylesheet" type="text/css" href="./css/game1/global.css" />
   <link rel="stylesheet" type="text/css" href="./css/game1/login-dialog.css" />
@@ -1113,6 +1137,8 @@
   <script src="./plugins/jquery-1.11.3.min.js"></script>
   <script src="./plugins/layer/layer.js"></script>
   <script src="./plugins/game1/utils.js"></script>
+  <!-- <script src="./js/dj_header_v2.js"></script>
+  <script src="//game.gtimg.cn/images/js/2018foot/foot.js"></script> -->
 
   <script src="./js/zepto.js"></script>
   <script src="./js/milo.js"></script>

@@ -97,8 +97,27 @@ isParam = {
             "属性变更券x1"
         ]
     },
-    xydMap: {},
-    cddhMap: {},
+    xydMap: {
+        "3712780": [
+            10, '游戏内王者夺宝红宝石x1'
+        ],
+        "3712791": [
+            10, '游戏内王者轮回蓝宝石x1'
+        ],
+        "3712792": [
+            10, '游戏内王者许愿黄宝石x1'
+        ],
+        "3712793": [
+            10, '本活动抽奖钥匙x1'
+        ],
+    },
+    cddhMap: {
+        "3712762": [108, '星际战将'],
+        "3712763": [108, '幻神-星耀 皮肤'],
+        "3712764": [88, '毁灭-星耀 皮肤'],
+        "3712765": [68, '屠龙-星耀 皮肤'],
+        "3712766": [48, '道聚城通用代金券x50'],
+    },
     // 里程碑奖励
     // msNum:[0,200,450,600,900,1300],
     share: {
@@ -515,23 +534,23 @@ var ACT = {
       const arr = [{
         name: '钥匙',
         quantity: 1,
-        price: 1
+        // price: 1
       }, {
         name: '钥匙',
-        quantity: 10,
-        price: 100
+        quantity: 11,
+        // price: 100
       }, {
         name: '钥匙',
-        quantity: 50,
-        price: 500
+        quantity: 55,
+        // price: 500
       }, {
         name: '钥匙',
         quantity: 1,
-        price: 10
+        // price: 10
       }, {
         name: '钥匙',
         quantity: 10,
-        price: 100
+        // price: 100
       }]
         // 检测用户状态
         if (!checkUserStatus()) return false;
@@ -594,12 +613,10 @@ var ACT = {
             request(`${getTankListsApi}`, 'post', {
                 "eventId": eventId,
                 "pageSize": 8,
-                "pageNum": 1
+                "pageNum": pageIndex
             }, pageIndex != 1).then(res => {
                 if (res.code == 0) {
-                    // const { lists, totalPages } = res.data
-                    const lists = res.data || []
-                    const totalPage = res.data.length;
+                    const { temporaryBox, total, totalPages } = res.data
                     if (totalPage == 0) {
                         pageIndex = 0;
                     }
@@ -610,7 +627,7 @@ var ACT = {
                     if (res.data.length == 0) {
                         html += `<tr><td colspan="3" style="text-align: center;">您尚未获取任何礼包</td></tr>`;
                     } else {
-                        lists.forEach(item => {
+                        temporaryBox.forEach(item => {
                             if (item.status == 0) {
                                 html += `
                                 <tr>
@@ -684,14 +701,15 @@ var ACT = {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         var dhConfig = isParam.dhMap[groupId];
-        const [consumableNum, consumableName] = dhConfig
-        var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】到【" + isParam.userInfo.areaName + "】吗？"
+        const [consumableNum, eventItemName] = dhConfig
+        // var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】到【" + isParam.userInfo.areaName + "】吗？"
+        var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】吗？"
         confirm('本次兑换操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(exchangeApi, 'post', { eventId, consumableNum, consumableName }).then(res => {
+                request(exchangeApi, 'post', { eventId, consumableNum, eventItemName, consumableName: "星辰币" }).then(res => {
                     if (res.code == 0) {
                         getInfo()
-                        alert("恭喜您获得了礼包：" + consumableName + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
+                        alert("恭喜您获得了礼包：" + eventItemName + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
                     } else {
                         alert(res.msg)
                     }
@@ -755,30 +773,67 @@ var ACT = {
     hasPropGift: function (item) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+
+        var msg = "您确定领取星耀值×5"+ "到 【" + isParam.userInfo.areaName + "】 吗？"
+        confirm(msg, function () {
+            Milo.emit(flow_1017607);
+        })
     },
     // 年度万能碎片兑换
     wnExchangeGift: function (item) {
         closeDialog();
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+
+        var _config = isParam.xydMap[item]
+        var msg = "您确定消耗"+ _config[0] +"个万能碎片兑换【"+ _config[1] +"】吗？"
+        confirm(msg, function () {
+            request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "万能碎片" }).then(res => {
+                if (res.code == 0) {
+                    getInfo()
+                    // alert("恭喜您获得了礼包：" + _config[1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
+                    alert(res.msg)
+                } else {
+                    alert(res.msg)
+                }
+            })
+        })
     },
     // 星耀值兑换
     cdExchangeGift: function (item) {
         closeDialog();
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+        
+        var _config = isParam.cddhMap[item]
+        var msg = "您确定消耗"+ _config[0] +"星耀值兑换【"+ _config[1] +"】吗？"
+        // var msg = "您确定消耗"+ _config[0] +"星耀值兑换【"+ _config[1] +"】到 【" + isParam.userInfo.areaName + "】 吗？"
+
+        confirm('本次兑换操作不可逆，无法撤回，请确认是否操作',function(){
+            confirm(msg, function () {
+                request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "星耀值" }).then(res => {
+                    if (res.code == 0) {
+                        getInfo()
+                        // alert("恭喜您获得了礼包：" + _config[1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
+                        alert(res.msg)
+                    } else {
+                        alert(res.msg)
+                    }
+                })
+            },3)
+        })
     },
     showStarBoxExchange: function () {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
-        // $("#popzix .popbtnxe").removeClass('on')
-        // $('#popzix  .popget1').attr('href', "javascript:alert('请先选取奖励');")
-        // $('#popzix  .popget5').attr('href', "javascript:alert('请先选取奖励');")
-        // TGDialogS('popzix')
+        // notSupported()
+        $("#popzix .popbtnxe").removeClass('on')
+        $('#popzix  .popget1').attr('href', "javascript:alert('请先选取奖励');")
+        $('#popzix  .popget5').attr('href', "javascript:alert('请先选取奖励');")
+        TGDialogS('popzix')
     },
     // 星耀宝箱自选奖励
     getCdBoxGift: function (item, num) {
@@ -946,6 +1001,8 @@ function getInfo() {
     queryConsumableQuantity('钥匙', $('._chou_num'))
     queryConsumableQuantity('星辰币', $('.dhNum'))
     queryConsumableQuantity('星耀宝箱', $('.cdBoxNum'))
+    queryConsumableQuantity('星耀值', $('.cdNum'))
+    queryConsumableQuantity('万能碎片', $('.wnCoinNum'))
     // request(getInfoApi, 'get', {}, false).then(res => {
     //     if (res.code == 200) {
     //         const data = res.data
@@ -1007,7 +1064,7 @@ function question() {
     })
 }
 
-if (!isMobile()) location.href = `/${ctrlName}/index`;
+// if (!isMobile()) location.href = `/${ctrlName}/index`;
 function getEventIdFromUrl(url) {
     try {
         // 使用 URL 对象解析 URL
