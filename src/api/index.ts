@@ -10,8 +10,8 @@ export default {
   /*
     for example：
   */
-  async xxx (data: any = {}): Promise<AxiosResponse<any, any>> {
-    return await http.post(setProxy('/xxx'), { data }, true, true)
+  async loginApi (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/user/login'), { data }, false, false)
   },
   /**
    * 活动列表
@@ -19,6 +19,12 @@ export default {
    * @returns 
    */
   async getEventList (data: any = {}): Promise<AxiosResponse<any, any>> {
-    return await http.get(setProxy('/event/list'), true, true)
+    return await http.post(setProxy('/event/list'), null, false, false)
+  },
+  /**
+   * 充值 支付
+   */
+  async recharge (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/pay/getPayUrl'), null, false, false)
   }
 }

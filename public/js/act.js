@@ -561,9 +561,9 @@ var ACT = {
           eventId: eventId,
           ...arr[index]
         }
-        console.log(buyKeysApi, params)
+
         request(buyKeysApi, 'post', params).then(res => {
-            if (res.code == 0) getInfo();
+            if (res.code == 200) getInfo();
             alert(res.msg)
         })
     },
@@ -578,7 +578,7 @@ var ACT = {
           consumableName: "钥匙",
           consumableQuantity: num
         }).then(res => {
-            if (res.code == 0) {
+            if (res.code == 200) {
                 const arr = res.data
                 if (arr.length == 1) {
                     $('#poplot2 .p_txt2').empty().html(`<p style="letter-spacing: 1px">${res.data[0].name}${res.data[0].quantity > 1 ? 'x' + res.data[0].quantity : ''}</p>`)
@@ -615,7 +615,7 @@ var ACT = {
                 "pageSize": 8,
                 "pageNum": pageIndex
             }, pageIndex != 1).then(res => {
-                if (res.code == 0) {
+                if (res.code == 200) {
                     const { temporaryBox, total, totalPages } = res.data
                     if (totalPage == 0) {
                         pageIndex = 0;
@@ -664,7 +664,7 @@ var ACT = {
         } else {
             // 礼包记录
             request(getPackListApi, 'get', { page: pageIndex, limit: 8 }, pageIndex != 1).then(res => {
-                if (res.code == 0) {
+                if (res.code == 200) {
                     // const { lists, totalPages } = res.data
                     const lists = res.data || []
                     const totalPage = res.data.length;
@@ -791,7 +791,7 @@ var ACT = {
         var msg = "您确定消耗"+ _config[0] +"个万能碎片兑换【"+ _config[1] +"】吗？"
         confirm(msg, function () {
             request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "万能碎片" }).then(res => {
-                if (res.code == 0) {
+                if (res.code == 200) {
                     getInfo()
                     // alert("恭喜您获得了礼包：" + _config[1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
                     alert(res.msg)
@@ -815,7 +815,7 @@ var ACT = {
         confirm('本次兑换操作不可逆，无法撤回，请确认是否操作',function(){
             confirm(msg, function () {
                 request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "星耀值" }).then(res => {
-                    if (res.code == 0) {
+                    if (res.code == 200) {
                         getInfo()
                         // alert("恭喜您获得了礼包：" + _config[1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
                         alert(res.msg)
@@ -943,7 +943,7 @@ function getManySelect(order, diffItem) {
 // 查询剩余积分或者钥匙数量
 function queryConsumableQuantity(name, ele) {
   request(getConsumableQuantityApi, 'post', {eventId, name}).then(res => {
-    if (res.code == 0) {
+    if (res.code == 200) {
       // 抽奖钥匙
       ele.text(res.data)
     }

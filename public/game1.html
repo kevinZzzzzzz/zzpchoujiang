@@ -26,7 +26,6 @@
 
         return mobileFlag;
     }
-console.log(isMobiles(), '是否是移动端')
     if (isMobiles()) {
         // 加载移动端样式
         const link = document.createElement('link');
@@ -60,6 +59,7 @@ console.log(isMobiles(), '是否是移动端')
       win.addEventListener('resize', setFont, false);
       win.addEventListener('load', setFont, false);
     })(window, document);
+    
   </script>
   <!-- <link rel="stylesheet" type="text/css" href="./css/game1/m.css"> -->
   <link rel="shortcut icon" href="./images/djc.ico" />
@@ -1070,6 +1070,14 @@ console.log(isMobiles(), '是否是移动端')
       </div>
     </div>
   </div>
+  <div class="btnkfbx">
+	<div class="boxkf1230">
+		<img src="//game.gtimg.cn/images/actdaoju/cp/a20250116cfstar/code.jpg" class="cfcode" alt="" />
+		<!--				<p class="fcfltxt">登录掌上道聚城购买<br />可额外获得1把钥匙</p>-->
+		<a class="btnkf" href="https://kf.qq.com/touch/kfgames/A1109/v2/PCweb/conf/index.html?scene_id=CSCE20250205101746ABGFxOLC" target="_blank"></a>
+	</div>
+	<span class="kfclosevid popsp db" title="关闭">&times;</span>
+</div>
   <!-- 登录窗口 end -->
   <!-- 绑定大区 -->
   <div class="region-dialog" style="display: none;">
@@ -1146,8 +1154,17 @@ console.log(isMobiles(), '是否是移动端')
   <script src="./js/comm.js"></script>
   <script src="./js/act.js"></script>
   <script>
+    $(window).scroll(function() {
+        if($(document).scrollTop() < 800) {
+            $('.btnkfbx').css('display', 'none');
+
+        } else {
+            $('.btnkfbx').css('display', 'block');
+
+        }
+    })
     $('.bgibximg').attr('src', '//game.gtimg.cn/images/actdaoju/cp/a20250116cfstar/m/bgibx.png');
-    $('.btnkfbx').remove();
+    // $('.btnkfbx').remove();
     $('#pop1').remove();
   </script>
 </body>

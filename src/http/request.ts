@@ -40,7 +40,7 @@ class HttpRequest {
         return new Promise((resolve, reject) => {
           if (status === 200) {
             switch(+data.code) {
-              case 0:
+              case 200:
                 resolve(data);
                 break;
               default: // 其余异常
@@ -59,6 +59,10 @@ class HttpRequest {
         // if (status === 403) {
         //   window.location.hash = '#/home'
         // }
+        if (status === 401) {
+          sessionStorage.removeItem('isLogin')
+          sessionStorage.removeItem('login')
+        }
         return new Promise((resolve, reject) => {
           reject(error);
         })

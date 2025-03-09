@@ -106,7 +106,7 @@ function request(api, type = "get", data = {}, isShowLoading = true) {
       },
       error(err) {
         const {responseJSON} = err
-        if (responseJSON.code + '' == '-1') {
+        if (responseJSON.code + '' == '401') {
           alert(responseJSON.msg, () => {
             sessionStorage.removeItem('isLogin')
             sessionStorage.removeItem('login')
@@ -209,7 +209,7 @@ function login() {
     password,
     loginType: 1,
   }).then((res) => {
-    if (+res.code == 0) {
+    if (+res.code == 200) {
       $("input[name='is_login']").val(1);
       sessionStorage.setItem("login", JSON.stringify(res.data));
       sessionStorage.setItem("isLogin", 1)
