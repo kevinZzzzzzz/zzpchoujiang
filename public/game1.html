@@ -88,6 +88,21 @@
           <a id="dologin" href="javascript:showLoginDialog()" title="登录">【登录】</a>
         </div>
         <!--登录前状态 End-->
+                <!--登录后状态 Start-->
+        <div class="login" id="logined" style="display: none;  ">
+            欢迎您，<span id="userinfo"></span>，
+            <span id="spanNotBind">
+                    <a href="javascript:commitBindArea();">【绑定大区】</a>
+                </span>
+            <span id="spanBind" style="display:none">
+                    <span id="area_info"></span>
+                    <span id="role_info"></span>
+                    <a href="javascript:commitBindArea();">【更改绑定】</a>
+                    <a href="javascript:amsHistoryList(1);">【礼包记录】</a>
+                    </span>
+            <a href="javascript:void(0)" id="dologout">【注销】</a>
+        </div>
+        <!--登录后状态 End-->
       </div>
 
       <div class="p2bxbtnbuy">

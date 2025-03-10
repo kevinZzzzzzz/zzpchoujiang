@@ -161,10 +161,33 @@ function isRole() {
  * 获取登录状态 true|false 已登录|未登录
  */
 function isLogin() {
+    const roleMap = {
+        0: '管理员',
+        1: '普通用户',
+        2: '普通会员',
+        3: '超级会员',
+    }
   if (sessionStorage.getItem("isLogin")) {
+    const loginInfo = JSON.parse(sessionStorage.getItem("login"));
+    console.log(loginInfo, 'loginInfo')
+    loginInfo.username && $('#userinfo').text(loginInfo.mobileNumber + ' ' + loginInfo.username)
+    loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
+    if (loginInfo.qqGameArea) {
+        loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
+        $('#spanNotBind').hide()
+    }
+    //  else {
+    //     $('#spanNotBind').show()
+    // }
+    $('#role_info').text(roleMap[loginInfo.type])
+
+    $('#spanBind').show();
     $('#unlogin').hide();
+    $('#logined').show();
     return true
   }
+  $('#unlogin').show();
+  $('#logined').hide();
   return false;
 }
 
