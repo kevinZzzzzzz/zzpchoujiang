@@ -3449,3 +3449,44 @@ display: none !important;
 .fcbox2 .dia-close{
   right: -0.45rem;
 }
+
+.bxfl1 {
+	position: fixed;
+	right: 29px;
+	top: 175px;
+	background: url(//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/fl1.png) no-repeat;
+	width: 256px;
+	height: 262px;
+	/* display: flex; */
+	flex-direction: column;
+	align-items: center;
+	z-index: 10;
+    display: none;
+}
+
+.bxfl1>p {
+    display: none;
+	position: absolute;
+	bottom: 60px;
+	font-size: 20px;
+	color: #fff;
+	text-align: center;
+}
+
+.bxfl1>p span {
+    display: none;
+	color: #ffea98;
+}
+
+.bxfl1 img {
+    display: none;
+	width: 110px;
+	height: 110px;
+	margin-top: 30px;
+}
+
+.bxfl1.on {
+    display: none;
+	opacity: 0;
+	pointer-events: none;
+}

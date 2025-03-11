@@ -10,7 +10,12 @@ const exchangeApi = window.isDev ? `/api/event/redeemEventItem` : `/event/redeem
 const feedbackApi = `/y2025.${ctrlName}/feedback`; // 填写体验问卷
 const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
 const getConsumableQuantityApi = window.isDev ? `/api/event/getConsumableQuantity` : `/event/getConsumableQuantity`; // 查询剩余积分或者钥匙数量
+const doubleGachaApi = window.isDev ? `/api/event/doubleGacha` : `/event/doubleGacha`; // 抽奖(带集卡)
+const steamListApi = window.isDev ? `/api/steam/list` : `/steam/list`; // 拼团信息，（消耗xx积分并创建拼团/消耗xx积分加入拼团）接口
 const eventId = getEventIdFromUrl(window.location.href) || '1894775959430959106'
+
+var pageIndex = 1;
+var totalPage = 0;
 
 milo.ready(function () {
     Milo.aParams = {
@@ -155,35 +160,48 @@ var Hx = {
     pop1: function () {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+
+        $("#pop4 .iframe").html(`<div class="dia water" id="showMyGiftContent" style="left:3%;top:24px;">
+    <!--<h3 class="hide">春节特卖会获奖记录</h3>-->
+    <table class="table3" id="tb">
+        <tr>
+            <th style="width:200px">时间</th>
+            <th>获取或消耗</th>
+            <th>余额</th>
+        </tr>
+    </table>
+    <div class="page4">
+        <a href="javascript:;" id="firstpage">上一页</a>
+        <p class="page-num"><em id="currpage">1</em>/<em id="allpage">1</em></p>
+        <a href="javascript:;" id="nextpage">下一页</a>
+    </div>
+    <!--<a class="dia-close3" href="javascript:closeDialog();" title="关闭">×</a>-->
+</div>`);
+        TGDialogS("pop4");
     },
     // 购买钥匙
     buyKey(sid) {
         const arr = [{
-          name: '复活币',
+          name: '钥匙',
           quantity: 1,
-          operationName: "购买复活币",
-          countType: 1
+          // price: 1
         }, {
-          name: '复活币',
-          quantity: 10,
-          operationName: "购买复活币",
-          countType: 1
+          name: '钥匙',
+          quantity: 11,
+          // price: 100
         }, {
-          name: '复活币',
-          quantity: 50,
-          operationName: "购买复活币",
-          countType: 1
+          name: '钥匙',
+          quantity: 55,
+          // price: 500
         }, {
-          name: '复活币',
+          name: '钥匙',
           quantity: 1,
-          operationName: "购买复活币",
-          countType: 1
+          // price: 10
         }, {
-          name: '复活币',
+          name: '钥匙',
           quantity: 10,
-          operationName: "购买复活币",
-          countType: 1
+          // price: 100
         }]
         // 检测用户状态
         if (!checkUserStatus()) return false;
@@ -197,7 +215,7 @@ var Hx = {
           ...arr[index]
         }
         request(buyKeysApi, 'post', params).then(res => {
-            if (res.code == 0) getInfo();
+            if (res.code == 200) getInfo();
             alert(res.msg)
         })
     },
@@ -217,7 +235,7 @@ var Hx = {
             consumableName: "钥匙",
             consumableQuantity: num
           }).then(res => {
-            if (res.code == 0) {
+            if (res.code == 200) {
                 const arr = res.data
                 if (arr.length == 1) {
                     $("#jlname").html("");
@@ -280,18 +298,33 @@ var Hx = {
     zcx(page) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        if (page == "0") return;
-        request(`${getTankListsApi}/${eventId}`, 'get',  null).then(res => {
-            if (res.code == 0) {
-                // const { lists, totalPages } = res.data
-                const lists = res.data || []
+        if (pageIndex > totalPage) {
+            pageIndex = totalPage;
+            if (pageIndex != 0) return;
+        }
+        if (pageIndex < 1) {
+            pageIndex = 1;
+        }
+        // 暂存箱
+        request(`${getTankListsApi}`, 'post', {
+            "eventId": eventId,
+            "pageSize": 8,
+            "pageNum": pageIndex
+        }, pageIndex != 1).then(res => {
+            if (res.code == 200) {
+                const { temporaryBox } = res.data
                 const totalPages = res.data.length;
+                if (totalPage == 0) {
+                    pageIndex = 0;
+                }
+                $('.now_page').text(pageIndex);
+                $('.total_page').text(totalPage);
                 // 渲染数据
                 let html = ''
                 if (totalPages == 0) {
                     html += `<tr><td colspan="3" style="text-align: center;">您尚未获取任何礼包</td></tr>`;
                 } else {
-                    lists.forEach(item => {
+                    temporaryBox.forEach(item => {
                         if (item.status == 0) {
                             html += `
                             <tr>
@@ -395,7 +428,7 @@ var Hx = {
                     eventItemName: name,
                     consumableName: "积分"
                 }).then(res => {
-                    if (res.code == 0) {
+                    if (res.code == 200) {
                         getInfo()
                         alert("兑换成功<br>恭喜获得" + name);
                     } else {
@@ -409,7 +442,9 @@ var Hx = {
     hecard: function (num) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+        var jf = $(".jf_6995").html();
+
     },
     //套卡兑换
     dhcard: function (item) {
@@ -420,7 +455,22 @@ var Hx = {
     /**************************************************************组团部分*************************************************************************************************** */
     team_jfnum: 20,//建团/加团消耗积分数
     //查询团队信息
-    teaminit: function () {
+    teaminit: function (data) {
+        console.log(data)
+        if (data.length == 0) {
+            $('#teamlist').html('')
+        } else {
+            var _html = ''
+            $.each(data, function (k, v) {
+                _html += '<li>\n' +
+                    '         <p>' + v.qq + '</p>\n' +
+                    '         <p>' + decodeURIComponent(v.nickname) + '</p>\n' +
+                    '         <p>' + v.reward + '</p>\n' +
+                    '     </li>'
+            })
+            $('#teamlist').html(_html)
+        }
+        getInfo()
     },
     //查询推荐团
     teamresh: function () {
@@ -448,7 +498,25 @@ var Hx = {
     teamcreate: function () {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        var jf = $(".jf_6996").html();
+        if (jf < Hx.team_jfnum) {
+            alert("抱歉，积分不足。");
+            return;
+        }
+        // notSupported()
+        request(steamListApi, 'post', {
+            "eventId": eventId,
+            "point": 20
+        }).then(res => {
+            if (res.code == 200) {
+                const {steamNackCdk,extraReward, steamPtList} = res.data
+                if (steamNackCdk) {
+                    $('#my_teamid').val(steamNackCdk)
+                }
+                Hx.teaminit(steamPtList)
+            }
+        })
+
     },
     //加入团队
     teamjoin: function (teamid) {
@@ -493,7 +561,7 @@ function notSupported(msg = '抱歉，模拟器不支持该功能') {
 // 查询剩余积分或者钥匙数量
 function queryConsumableQuantity(name, ele) {
     request(getConsumableQuantityApi, 'post', {eventId, name}).then(res => {
-      if (res.code == 0) {
+      if (res.code == 200) {
         // 抽奖钥匙
         ele.text(res.data)
       }
@@ -505,7 +573,8 @@ function getInfo(first = false) {
     // 检测用户状态
     if (!checkUserStatus()) return false;
     queryConsumableQuantity('钥匙', $('.jf_6995'))
-    queryConsumableQuantity('积分', $('.jf_69962'))
+    queryConsumableQuantity('积分', $('.jf_6996'))
+    queryConsumableQuantity('通用代金券', $('.jf_2327'))
     // queryConsumableQuantity('星耀宝箱', $('.cdBoxNum'))
     // request(getInfoApi, 'get', {}, false).then(res => {
     //     if (res.code == 200) {
@@ -560,7 +629,7 @@ function getAwardLists() {
 }
 getAwardLists();
 
-if (!isMobile()) location.href = `/${ctrlName}/index`;
+// if (!isMobile()) location.href = `/${ctrlName}/index`;
 function getEventIdFromUrl(url) {
     try {
         // 使用 URL 对象解析 URL

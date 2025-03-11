@@ -3,67 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover"
-      name="viewport">
-    <meta content="telephone=no" name="format-detection">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="all" name="robots">
+    <meta content="Tencent-CP" name="author">
+    <meta content="Tencent" name="Copyright">
+    <meta content="IE=edge" http-equiv="x-ua-compatible">
     <title>荣耀世冠白鲨-穿越火线官方网站-腾讯游戏</title>
-    <script>
-        console.log(window, '环境变量')
-        window.isDev = true; // 是否是开发环境
-    function isMobiles() {
-        const userAgentInfo = navigator.userAgent;
-        const mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-        const mobileFlag = mobileAgents.some((mobileAgent) => {
-            return userAgentInfo.indexOf(mobileAgent) > 0;
-        });
-
-        return mobileFlag;
-    }
-    if (isMobiles()) {
-        // 加载移动端样式
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = './css/game4/index.css';
-        document.head.appendChild(link);
-    } else {
-        // 加载桌面端样式
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = './css/game4/pc.css';
-        document.head.appendChild(link);
-    }
-    (function (win, doc, mode) {
-        if (/(iPhone|iPad|iPod|iOS|Android|Windows Phone|BlackBerry|SymbianOS)/i.test(navigator.userAgent)) {
-            var h = document.getElementsByTagName("head")[0];
-            h.insertAdjacentHTML('beforeEnd', '<meta name="apple-mobile-web-app-capable" content="yes">');
-            h.insertAdjacentHTML('beforeEnd', '<meta name="apple-mobile-web-app-status-bar-style" content="black">');
-            h.insertAdjacentHTML('beforeEnd', '<meta name="format-detection" content="telephone=no">');
-            h.insertAdjacentHTML('beforeEnd', '<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />');
-            var docEl = doc.documentElement,
-                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-                recalc = function () {
-                    var clientWidth = docEl.clientWidth;
-                    if (!clientWidth) return;
-                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
-                };
-            if (!doc.addEventListener) return;
-            recalc();
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-        }
-    })(window, document);
-</script>
-    <link href="./css/game4/swiper.css" rel="stylesheet" type="text/css">
-    <!-- <link href="./css/game4/index.css" rel="stylesheet" type="text/css"> -->
-    <link rel="shortcut icon" href="./images/djc.ico" />
-    <link rel="stylesheet" type="text/css" href="http://oss.itqaq.top/index/css/global.css" />
-    <link rel="stylesheet" type="text/css" href="./css/game1/login-dialog.css" />
-    <link rel="stylesheet" type="text/css" href="http://oss.itqaq.top/index/css/mobile/region-dialog.css" />
+    <meta name="aweme:image" content="https://game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/share.jpg">
+    <link rel="preload" href="//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/bg1_02_inner.jpg" as="image"
+        fetchpriority="high">
+    <link href="http://oss.itqaq.top/index/2025/shark2502/pc/css/index.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="http://oss.itqaq.top/index/images/ico/djc.ico" />
+    <link href="http://oss.itqaq.top/index/css/global.css" rel="stylesheet">
+    <link href="http://oss.itqaq.top/index/css/pc/region-dialog.css" rel="stylesheet">
+    <link href="http://oss.itqaq.top/index/css/pc/login-dialog.css" rel="stylesheet">
 </head>
 
 <body>
@@ -81,25 +33,12 @@
         亲爱的玩家，请：
         <a id="dologin" href="javascript:showLoginDialog();">【登录】</a>
     </div>
-    <div id="logined" class="login" style="display: none">
-      <span id="userinfo"></span>
-      <span id="milo-binded" style="display: none">
-        <span id="milo-areaName"></span>
-        <span id="milo-roleName"> </span>
-        <a id="milo-changeArea" href="javascript:Hx.bind()" class="txtblue">【更改绑定】</a>
-        <a class="txtblue" href="javascript:Hx.gift(1);">【获奖记录】</a>
-      </span>
-      <span id="milo-unbind">
-        <a id="milo-commitArea" href="javascript:Hx.bind()" class="txtblue">【绑定大区】</a>
-      </span>
-      <a id="dologout" href="javascript:Milo.tologout();" title="" class="txtblue">【注销】</a>
-    </div>
     </div>
             </div>
         </div>
     </div>
     <div class="wrap wraptab">
-        <div class="wrapcint wrapcint1">
+        <div class="wrapcint wrapcint1 active">
             <div class="container">
                 <div class="p1-box2">
                     <h2 class="p1-tit2 sp db">主奖池</h2>
@@ -115,34 +54,34 @@
                         </li>
                         <li><a class="p1-btnbuy5 sp db" href="javascript:Hx.buyKey(4);">立即购买</a></li>
                     </ul>
-                    <p class="p1-box2ts">本活动抽奖钥匙，与抽到的积分，卡牌等均绑定到当前大区，<br>请<span>谨慎选择</span>参与活动的<span>账号大区</span></p>
+                    <p class="p1-box2ts">本活动抽奖钥匙，与抽到的积分，卡牌等均绑定到当前大区，请<span>谨慎选择</span>参与活动的<span>账号大区</span></p>
                     <div class="p1-boxlottery">
                         <ul class="p1-listlot">
                             <li class="p1-lilt1">
                                 <div class="tag tag_skin">皮肤</div>
-                                <div class="tag tag_warn2">不可交易</div>
+                                <div class="tag tag_warn">不可交易</div>
                                 <div class="tag tag_first">全新首发</div>
                                 <p>幻神-荣耀世冠白鲨<br>2023</p>
                             </li>
                             <li class="p1-lilt2">
                                 <div class="tag tag_vvip">VVIP武器</div>
                                 <div class="tag tag_first">全新首发</div>
-                                <p>柯尔特-荣耀世冠<br>白鲨2023</p>
+                                <p>柯尔特-荣耀世冠白鲨<br>2023</p>
                             </li>
                             <li class="p1-lilt3">
                                 <div class="tag tag_skin">皮肤</div>
-                                <div class="tag tag_warn2">不可交易</div>
+                                <div class="tag tag_warn">不可交易</div>
                                 <div class="tag tag_first">全新首发</div>
                                 <p>炽芒蝶刃-<br>荣耀世冠白鲨2023</p>
                             </li>
                             <li class="p1-lilt4">
                                 <div class="tag tag_first">全新首发</div>
-                                <p>烟雾弹-荣耀世冠<br>白鲨2023</p>
+                                <p>烟雾弹-荣耀世冠白鲨<br>2023</p>
                             </li>
                             <li class="p1-lilt5">
                                 <div class="tag tag_skin">皮肤</div>
                                 <div class="tag tag_warn">不可交易</div>
-                                <p>雷神-白鲨-<br>CFPLS14冠军</p>
+                                <p>雷神-白鲨-CFPLS14冠军</p>
                             </li>
                             <li class="p1-lilt6">
                                 <div class="tag tag_only">唯一性道具</div>
@@ -163,7 +102,7 @@
                             <li class="p1-lilt9">
                                 <div class="tag tag_skin">皮肤</div>
                                 <div class="tag tag_warn">不可交易</div>
-                                <p>AWM-天龙-<br>传奇白鲨</p>
+                                <p>AWM-天龙-传奇白鲨</p>
                             </li>
                             <li class="p1-lilt10">
                                 <div class="tag tag_only">唯一性道具</div>
@@ -189,12 +128,11 @@
                             </li>
                         </ul>
                         <div class="p1-bxtxtlot">
-                            <!-- <p>剩余钥匙：<span class="jf_6995">0</span></p> -->
                             <a href="javascript:Hx.pop1();">代金券记录</a>
                         </div>
                         <div class="p1-lotbtnwobtn">
-                            <a class="p1-lotbtn1 db" href="javascript:Hx.lottery(1);">抽1次</a>
-                            <a class="p1-lotbtn2 db" href="javascript:Hx.lottery(10);">抽10次</a>
+                            <a class="p1-lotbtn1 btnbg" href="javascript:Hx.lottery(1)">抽1次</a>
+                            <a class="p1-lotbtn2 btnbg" href="javascript:Hx.lottery(10)">抽10次</a>
                         </div>
                         <p class="p1-txt3">剩余钥匙：<span class="jf_6995">0</span></p>
                     </div>
@@ -203,24 +141,18 @@
                     <div class="p1-boxzcdm">
                         <div class="p1-bxzcx">
                             <p class="p1-text5">抽奖获得可分解道具进入暂存箱，其余道具直接发往游戏仓库。</p>
-                            <!-- <p class="p1-text5">1.分解道具获得钥匙<br />2.将暂存箱道具发送至游戏内仓库</p> -->
                             <a class="sp" href="javascript:Hx.zcx(1)">暂存箱</a>
                         </div>
-                        <div class="p1-bxhjmd p1-listmd">
+                        <div class="p1-bxhjmd">
                             <div id="milo-broadcast" class="milo-broadcast">
                                 <ul id="milo-broadcast-container" class="milo-broadcast-container">
                                 </ul>
                             </div>
                         </div>
-                        <script id="milo-broadcast-tpl" type="text/html">
-                {@ for(var i = 0; i < data.length; i++) { @}
-                <li>
-                    <div>恭喜玩家<span>{{data[i].iUin ? data[i].iUin :'xxxx'}}</span>获得了<span> {{data[i].sPackageName ? data[i].sPackageName : ''}} </span></div>
-                </li>
-                {@ } @}
-            </script>
                     </div>
                 </div>
+
+
                 <div class="p1-box3">
                     <h2 class="p1-tit3 sp db">奖励兑换</h2>
                     <p class="p1-txt1 p1-txt6  p1-txt7">我的积分：<span class="jf_6996">0</span></p>
@@ -258,7 +190,7 @@
                             <a id="item_3747262" class="p1-btndh1 btnbg" href="javascript:Hx.dhlq(3747262);">150积分兑换</a>
                         </li>
                         <li>
-                            <p>M200-幻神-荣耀<br>世冠白鲨</p>
+                            <p>M200-幻神-荣耀世冠<br>白鲨</p>
                             <div class="tipp_xl">单大区限1</div>
                             <div class="tag tag_skin">皮肤</div>
                             <div class="tag tag_warn">不可交易</div>
@@ -274,7 +206,7 @@
                                 href="javascript:Hx.dhlq(3765236);">1700积分兑换</a>
                         </li>
                         <li>
-                            <p>麒麟刺-荣耀世冠<br>白鲨</p>
+                            <p>麒麟刺-荣耀世冠白鲨</p>
                             <div class="tipp_xl">单大区限1</div>
                             <div class="tag tag_skin">皮肤</div>
                             <div class="tag tag_warn">不可交易</div>
@@ -282,6 +214,7 @@
                         </li>
                         <li>
                             <p>雷神-白鲨-<br>CFPLS14冠军</p>
+                            <div class="tipp_xl">单大区限1</div>
                             <div class="tag tag_skin">皮肤</div>
                             <div class="tag tag_warn">不可交易</div>
                             <a id="item_3747263" class="p1-btndh1 btnbg" href="javascript:Hx.dhlq(3747263);">600积分兑换</a>
@@ -308,7 +241,7 @@
                             <a id="item_3747269" class="p1-btndh1 btnbg" href="javascript:Hx.dhlq(3747269);">150积分兑换</a>
                         </li>
                         <li>
-                            <p>AWM-天龙-传奇<br>白鲨</p>
+                            <p>AWM-天龙-传奇白鲨</p>
                             <div class="tipp_xl">单大区限1</div>
                             <div class="tag tag_skin">皮肤</div>
                             <div class="tag tag_warn">不可交易</div>
@@ -332,31 +265,31 @@
 
                     <div class="p1-tit3-add sp">集卡模块</div>
                     <div class="p1-listdhjd-tip">
-                        每次抽奖可额外获得一张卡牌，共有（出征卡、地点卡、外景卡、地图卡和冠军卡）5种卡牌，在该活动中，冠军卡的基础获取概率为1%，同时每100次抽取必定可以获取1张冠军卡，该结果不影响奖池内卡片抽取概率。
+                        每次抽奖可额外获得一张卡牌，共有（出征卡、地点卡、外景卡、地图卡和冠军卡）5种卡牌，<br>在该活动中，冠军卡的基础获取概率为1%，同时每100次抽取必定可以获取1张冠军卡，该结果不影响奖池内卡片抽取概率。
                     </div>
                     <ol class="p1-listdhjd-add">
                         <li>
-                            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/card-prop1.png" alt="props">
+                            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/card-prop1.png" alt="props">
                             <p>出征卡</p>
                             <div class="p1-listdhjd-count">当前卡牌数量：<span class="jf_6998">0</span></div>
                         </li>
                         <li>
-                            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/card-prop2.png" alt="props">
+                            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/card-prop2.png" alt="props">
                             <p>地点卡</p>
                             <div class="p1-listdhjd-count">当前卡牌数量：<span class="jf_7000">0</span></div>
                         </li>
                         <li>
-                            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/card-prop3.png" alt="props">
+                            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/card-prop3.png" alt="props">
                             <p>外景卡</p>
                             <div class="p1-listdhjd-count">当前卡牌数量：<span class="jf_7001">0</span></div>
                         </li>
                         <li>
-                            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/card-prop4.png" alt="props">
+                            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/card-prop4.png" alt="props">
                             <p>地图卡</p>
                             <div class="p1-listdhjd-count">当前卡牌数量：<span class="jf_7002">0</span></div>
                         </li>
                         <li class="last">
-                            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/card-prop5.png" alt="props">
+                            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/card-prop5.png" alt="props">
                             <p>冠军卡</p>
                             <div class="p1-listdhjd-count">当前卡牌数量：<span class="jf_7003">0</span></div>
                         </li>
@@ -406,7 +339,6 @@
                 <div class="p1-box4">
                     <h2 class="p1-tit4 sp db">xxx</h2>
                     <p class="p1-txt1">消耗20积分创建或加入拼团，5人团，团里每人可获得下列拼团配置中1个奖品<br>未领取拼团奖励无法参与下一次拼团，建团后3小时未开团自动退团，并返还积分</p>
-                    <!-- <p class="p1-txt1">每人投入15积分即可参与拼团，满6人即时开团，未领取拼团奖励无法参与下一次拼团，建团后3小时未开团自动退团，并返还积分</p> -->
                     <ul class="p1-listdhjd p1-listdhjd-1">
                         <li>
                             <p>属性变更券×5</p>
@@ -417,20 +349,15 @@
                         <li>
                             <p>幻影道具卡×5</p>
                         </li>
-                        <li class="p1-imgfc0">
-                            <p>白鲨荣耀世冠<br>2023礼盒×1</p>
-                            <i class="p1-fc1">
-                                <a class="p1-fcbtn sp db" href="javascript:$('.p1-fc1').hide();">x</a>
-                            </i>
-                        </li>
                         <li class="p1-imgfc1">
+                            <p>白鲨荣耀世冠<br>2023礼盒×1</p>
+                            <i class="p1-fc2"></i>
+                        </li>
+                        <li class="p1-imgfc2">
                             <p>白鲨荣耀世冠<br>2022礼盒×1</p>
-                            <i class="p1-fc2">
-                                <a class="p1-fcbtn sp db" href="javascript:$('.p1-fc2').hide();">x</a>
-                            </i>
+                            <i class="p1-fc3"></i>
                         </li>
                     </ul>
-
                     <div class="p1-boxkait">
                         <div class="p1-boxkait-1">
                             <div class="p1-boxkait-1th">我要发起成团</div>
@@ -609,21 +536,18 @@
             src="//player.bilibili.com/player.html?aid=279042855&bvid=BV1Ec411Q7Cj&cid=1347960035&p=1"></iframe>
 
     </div>
-    <div class="boxdown">
-        <div class="boxdownrig">
-            <a class="downbtn2" href="javascript:Hx.gift(1);">查看礼包记录</a>
-        </div>
-    </div>
 
 
     <!--代金券记录S-->
     <div class="pop pop1" id="pop4">
         <div class="iframe">
-            <iframe class="iframe1" frameborder="0" height="800px" src="" width="810px"></iframe>
+            <!-- <iframe class="iframe1" frameborder="0" height="800px" src="//act.daoju.qq.com/act/a20190301yqrh/pop.html?sorce=pc" width="810px"></iframe> -->
         </div>
         <a class="dia-close popsp db" href="javascript:closeDialog()" title="关闭">×</a>
     </div>
     <!--代金券记录E-->
+
+
     <!-- 获奖记录start -->
     <div class="pop pop3" id="showMyGiftContent1">
         <div class="pop3sub_title">礼包记录</div>
@@ -639,16 +563,60 @@
                 <tbody id="getGiftContent1">
                 </tbody>
             </table>
-        </div>
-        <div class="page_box milo-paginator" id="milo-paginator1">
-            <a href="javascript:;" class="btn_prev">上一页</a>
-            <span class="now_page">1/1</span>
-            <a href="javascript:;" class="btn_next">下一页</a>
+
+            <div class="page_box milo-paginator" id="milo-paginator1">
+                <a href="javascript:;" class="btn_prev">上一页</a>
+                <span class="now_page">1/1</span>
+                <a href="javascript:;" class="btn_next">下一页</a>
+            </div>
         </div>
         <p class="tip1">温馨提示：虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持！</p>
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
     </div>
     <!-- 获奖记录end -->
+
+    <!-- 我的拼团记录 start -->
+    <div class="pop pop16" id="showMyGiftContent3">
+        <div class="table_con">
+            <table class="table table5">
+                <thead>
+                    <tr>
+                        <th>拼团时间</th>
+                        <th class="thhjsj">拼团ID</th>
+                        <th>操作类型</th>
+                    </tr>
+                </thead>
+                <tbody id="getGiftContent3"></tbody>
+            </table>
+        </div>
+        <div class="page_box milo-paginator" id="milo-paginator3">
+            <a href="javascript:;" class="btn_prev">上一页</a>
+            <span class="now_page">1/1</span>
+            <a href="javascript:;" class="btn_next">下一页</a>
+        </div>
+        <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
+    </div>
+
+    <script id="getGiftTemplate3" type="text/html">
+    {@ if(data.length == 0){@}
+    <tr>
+        <td colspan="3" align="center">暂未获取更多礼包</td>
+    </tr>
+    {@}else{@}
+    {@ for(var i = 0; i < data.length; i++) { @}
+    <tr>
+        <td>{{ data[i].dtGetPackageTime }}</td>
+        <td>{{ data[i].sExtend4 }}</td>
+        {@ if(data[i].sExtend5 == 'create'){@}
+        <td>创建团</td>
+        {@}else{@}
+        <td>加团</td>
+        {@ } @}
+    </tr>
+    {@ } @}
+    {@}@}
+</script>
+    <!-- 我的拼团记录end -->
 
     <!-- 暂存箱start -->
     <div class="pop pop12" id="showMyGiftContent2">
@@ -664,19 +632,16 @@
                                 <th class="wd124">分解钥匙</th>
                             </tr>
                         </thead>
-                        <tbody id="getGiftContent2">
-
-                        </tbody>
+                        <tbody id="getGiftContent2"></tbody>
                     </table>
-                </div>
-                <div class="TabHost milo-paginator" id="milo-paginator2">
-                    <a href="javascript:;" class="btn_prev">上一页</a>
-                    <span class="now_page">1/1</span>
-                    <a href="javascript:;" class="btn_next">下一页</a>
+                    <div class="TabHost milo-paginator" id="milo-paginator2">
+                        <a href="javascript:;" class="btn_prev">上一页</a>
+                        <span class="now_page">1/1</span>
+                        <a href="javascript:;" class="btn_next">下一页</a>
+                    </div>
                 </div>
             </div>
             <div class="dia-conr">
-                <h3 class="pop_tit2 popsp db">道具分解表</h3>
                 <div class="table2">
                     <h4><span>道具名称</span><span>分解所获钥匙</span></h4>
                     <div id="fjmap" class="table_con2">
@@ -697,14 +662,13 @@
         <p class="tip1">温馨提示：虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持！</p>
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
     </div>
-    <!--暂存箱end-->
 
     <!--中奖记录start 10连 start-->
     <div class="pop pop4" id="popJl">
-        <h2 class="pop_tit4 popsp db">中奖信息</h2>
+        <h2 class="pop_tit4 db">中奖信息</h2>
         <p class="p_tips">抽奖过程中请勿刷新页面或中断，请以实际礼包记录为准。</p>
         <div class="zj_info" id="choulist">
-            <!-- <p>xxxxxxxxxxxxxxxxx</p> -->
+            <!--        <p>xxxxxxxxxxxxxxxxx</p>-->
         </div>
         <p class="tip1">
             温馨提示:<br>1：可分解道具奖励将发往暂存箱（具体请点击暂存箱查看）；<br>2：其余道具奖励将在24小时内发往游戏内；<br>3：积分等非游戏内道具在本页面查看。谢谢您的理解与支持.由于数据量巨大，奖励道具显示将有所延迟，或可能存在不展示的情况。
@@ -726,6 +690,8 @@
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
     </div>
     <!--中奖记录start 单抽 end-->
+
+
 
     <!--奖池概率 start-->
     <div class="pop pop6" id="popgl">
@@ -810,8 +776,7 @@
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
     </div>
 
-
-    <div class="pop pop3 pop8" id="popgl-1">
+    <div class="pop pop8" id="popgl-1">
         <h3 class="pop_tit6"></h3>
         <div class="poptabgl">
             <table class="tablegl tablegl1 ">
@@ -928,11 +893,11 @@
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
     </div>
 
-    <div class="pop pop3 pop9" id="popgl-2">
+    <div class="pop pop2" id="popgl-2">
         <div class="pop2-title"></div>
         <div class="popgvnav">
-            <a class="on" href="javascript:;">白鲨荣耀世冠2023礼盒</a>
-            <a class="" href="javascript:;">白鲨荣耀世冠2022礼盒</a>
+            <a class="sp on" href="javascript:;">白鲨荣耀世冠2023礼盒</a>
+            <a class="sp" href="javascript:;">白鲨荣耀世冠2022礼盒</a>
         </div>
         <div class="poptabgl poptabgl-1">
             <table class="tablegl tablegl1 tablegl1-1">
@@ -1049,9 +1014,10 @@
         <p class="msg">你暂时未收集齐xx</p>
     </div>
 
-    <div class="pop pop10 pop11" id="pop11">
+
+    <div class="pop pop11" id="pop11">
         <a class="dia-close db popsp" href="javascript:closeDialog();" title="关闭">×</a>
-        <p>领取成功<br>恭喜获得xx！</p>
+        <p>领取成功<br>xxxx兑换券！</p>
     </div>
     <!-- 提示 end-->
 
@@ -1091,26 +1057,338 @@
     <!-- 二次确认 倒计时 end -->
 
     <!-- 周边活动 -->
-    <div class="fcbox2">
+    <div id="fcbox2" class="fcbox2">
         <a href="javascript:$('.fcbox2').hide();" class="dia-close"></a>
-        <a href="https://mall.qq.com/cp/a20250220cfdjf2/m.html" target="_blank" class="fcimg">
-            <img src="http://oss.itqaq.top/index/2025/shark2502/mobile/picture/fcbox2.png" alt="prop">
+        <a href="https://mall.qq.com/cp/a20250220cfdjf2/index.html" target="_blank" class="fcimg">
+            <img src="http://oss.itqaq.top/index/2025/shark2502/pc/picture/fcbox2.png" alt="prop">
         </a>
     </div>
+
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    ul {
+        list-style: none
+    }
+
+    a,
+    a img {
+        border: 0;
+        outline: none
+    }
+
+    .ost_box,
+    .ost_djlogo,
+    .ost_yearlogo,
+    .ost_game .game_menu,
+    .i_centerdown {
+        background: url(//ossweb-img.qq.com/images/daoju/act/common/djtb.png) no-repeat 0 -9999px
+    }
+
+    .ost_logo,
+    .ost_ul li.ost_line {
+        text-indent: -9999px;
+        overflow: hidden
+    }
+
+    .ost_box {
+        width: 100%;
+        min-width: 980px;
+        background-position: 0 0;
+        background-repeat: repeat-x;
+        background-color: #ffffff;
+        height: 43px;
+        border: 1px solid #c9c9c9;
+        border-width: 1px 0;
+        -webkit-text-size-adjust: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10000
+    }
+
+    .ost_inner {
+        width: 980px;
+        height: 43px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 100;
+        font-size: 12px;
+        line-height: 43px;
+        color: #666
+    }
+
+    .ost_inner a {
+        color: #666
+    }
+
+    .ost_inner a:hover {
+        color: #f74a4a
+    }
+
+    .ost_logo {
+        float: left;
+        margin-top: 2px;
+        height: 39px;
+        overflow: hidden
+    }
+
+    .ost_djlogo {
+        background-position: 0 -46px;
+        width: 140px;
+        height: 39px;
+        display: block
+    }
+
+    .ost_yearlogo {
+        background-position: -138px -46px;
+        width: 100px;
+        height: 39px;
+        display: block
+    }
+
+    .ost_ad {
+        float: left
+    }
+
+    .ost_ad .img {
+        display: block;
+        height: 43px
+    }
+
+    .ost_ul {
+        background-position: 0 -100px;
+        width: 355px;
+        height: 20px;
+        padding: 5px 0 0 18px;
+        _height: 18px;
+        _padding: 7px 0 0 18px;
+        display: block;
+        overflow: hidden;
+        position: absolute;
+        top: 9px;
+        left: 215px;
+        zoom: 1
+    }
+
+    .ost_ul:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden
+    }
+
+    .ost_game {
+        float: right;
+        width: 80px;
+        height: 30px;
+        margin-top: 7px;
+        position: relative;
+        margin-left: 10px
+    }
+
+    .ost_game .game_menu {
+        display: block;
+        width: 72px;
+        height: 21px;
+        line-height: 20px;
+        margin-top: 5px;
+        padding-left: 8px;
+        background-position: 0 -89px;
+        color: #666
+    }
+
+    .ost_game .game_menu:hover {
+        text-decoration: none;
+        color: #666
+    }
+
+    .ost_pop {
+        width: 724px;
+        height: 332px;
+        position: absolute;
+        top: 28px;
+        right: 0;
+        display: none;
+        z-index: 9000
+    }
+
+    .ost_game_hide .ost_pop,
+    .ost_ad_hide .ost_big,
+    .ost_wx_hide .img {
+        display: none !important
+    }
+
+    .ost_game_show .ost_pop,
+    .ost_ad_show .ost_big,
+    .ost_wx_show .img {
+        display: block !important
+    }
+
+    .ost_fr {
+        float: right;
+        margin-left: 10px
+    }
+
+    .ost_fr i {
+        font-style: normal;
+        color: #e7e7e7;
+        margin-left: 10px
+    }
+
+    .ost_fr i.fr {
+        float: right
+    }
+
+    .ost_big {
+        width: 980px;
+        height: 147px;
+        background: #fff;
+        overflow: hidden;
+        position: absolute;
+        top: 44px;
+        left: 50%;
+        margin: 0 0 0 -490px;
+        z-index: 50;
+        display: none
+    }
+
+    .ost_wx {
+        position: relative
+    }
+
+    .ost_wx .img {
+        display: none;
+        position: absolute;
+        top: 41px;
+        left: -44px
+    }
+
+    .i_centerdown {
+        display: inline-block;
+        width: 17px;
+        height: 10px;
+        overflow: hidden;
+        background-position: -58px -94px
+    }
+
+    .ost_center {
+        position: relative
+    }
+
+    .ost_center_list {
+        display: none;
+        position: absolute;
+        top: 7px;
+        _top: -7px;
+        left: -11px;
+        border: 1px solid #e7e7e7;
+        width: 85px;
+        background: #fff;
+        padding-bottom: 5px
+    }
+
+    .ost_center_list a {
+        display: block;
+        float: none;
+        padding-left: 10px;
+        line-height: 26px;
+        height: 26px
+    }
+
+    .ost_center_show .ost_center_list {
+        display: block
+    }
+
+    .tlogin {
+        float: right
+    }
+
+    .djmobile {
+        background: url(//js02.daoju.qq.com/common/images/icon.png) no-repeat;
+        float: left;
+        position: relative;
+        left: -10px;
+        top: 12px;
+        width: 11px;
+        height: 16px;
+        background-position: 0 0;
+        margin: 2px -4px 0 8px;
+    }
+
+    .djcode {
+        background: url(//js02.daoju.qq.com/common/images/mall/djfsc.png) no-repeat;
+        background-position: 0 0;
+        width: 133px;
+        height: 133px;
+        position: absolute;
+        top: 33px;
+        left: 750px;
+        z-index: 2;
+        display: none;
+    }
+
+    .ost_inner li a.djm:hover .djcode {
+        display: block;
+    }
+</style>
+
+<div class="ost_box">
+    <ul class="ost_inner">
+        <li class="ost_logo"><a href="//daoju.qq.com" class="ost_djlogo" target="_blank" title="道聚城">道聚城</a></li>
+        <li class="ost_ad" onmouseout="this.className='ost_ad ost_ad_hide'"
+            onmouseover="this.className='ost_ad ost_ad_show'"><img id="dj_header_small_img" class="img">
+            <div id="ost_d" class="ost_big"><a id="dj_header_big_link" target="_blank"><img id="dj_header_big_img"
+                        class="ost_nb"></a></div>
+        </li>
+        <li class="ost_game" onmouseout="this.className='ost_game ost_game_hide'"
+            onmouseover="this.className='ost_game ost_game_show'"><a title="游戏导航" id="game_menu" href="javascript:;"
+                class="game_menu">游戏导航</a><iframe id="game_area_list" scrolling="no" frameborder="0" class="ost_pop"
+                allowtransparency="true" src="//daoju.qq.com/mall/game_area.htm"></iframe></li>
+        <li class="ost_fr"><a class="djm" href="//daoju.qq.com/malldownload/index.html" target="_blank"><s
+                    class="djmobile"></s>手机版<span class="djcode"></span></a><i>|</i></li>
+        <li class="ost_fr ost_center" onmouseout="this.className='ost_fr ost_center ost_center_hide'"
+            onmouseover="this.className='ost_fr ost_center ost_center_show'"><a href="javascript:void(0)"
+                title="我的订单">我的订单<s class="i_centerdown"></s></a>
+            <div class="ost_center_list"><a title="我的订单" target="_blank" href="//daoju.qq.com/mall/trade2.shtml"
+                    class="active">我的订单<s class="i_centerdown"></s></a><a title="个人中心" target="_blank"
+                    href="//daoju.qq.com/mall/center.shtml">个人中心</a><a title="我的购物点" target="_blank"
+                    href="//daoju.qq.com/mall/ticket.shtml">我的购物点</a><a title="我的优惠券" target="_blank"
+                    href="//daoju.qq.com/mall/coupon.shtml">我的优惠券</a><a title="我的关注" target="_blank"
+                    href="//daoju.qq.com/mall/attention.shtml">我的关注</a><a title="我的魅力值" target="_blank"
+                    href="//daoju.qq.com/mall/charm.shtml">我的魅力值</a><a title="我的消息" target="_blank"
+                    href="//daoju.qq.com/mall/message.shtml">我的消息</a></div><i>|</i>
+        </li>
+        <li class="ost_fr"><a href="//daoju.qq.com/mall/tao.shtml" target="_blank" title="折扣道具">折扣道具</a><i>|</i></li>
+        <li class="ost_fr"><a href="//daoju.qq.com/mall/actcenter.shtml" target="_blank" title="精彩活动">精彩活动</a><i>|</i>
+        </li>
+        <li class="ost_fr"><i class="fr">|</i>
+            <span class="tlogin">
+                                <span id="tunlogin">
+                    您还未登录，请<a href="javascript:showLoginDialog();" title="登录">登录</a>
+                </span>
+                            </span>
+        </li>
+    </ul>
+</div>
 
     <!-- 登录窗口 -->
 <div class="login-dialog">
     <div class="y-dialog"></div>
     <div class="y-login">
         <div class="y-login-close"><span onclick="hideLoginDialog()">X</span></div>
-        <div class="y-login-title">用户登录</div>
+        <div class="y-login-title">密码登录</div>
         <div class="y-login-body">
             <form action="">
                 <div><input type="text" class="y-login-account" placeholder="用户名/手机号" autocomplete="off"></div>
                 <div><input type="password" class="y-login-password" placeholder="请输入登录密码" autocomplete="off"></div>
                 <div class="y-login-error" style="visibility: hidden;">
                     <span class="y-login-error-logo"
-                        style="background-image: url('http://oss.itqaq.top/index/images/error_icon.png');"></span>
+                        style="background: url('http://oss.itqaq.top/index/images/error_icon.png') no-repeat;background-size: contain;"></span>
                     <span class="y-login-error-message"></span>
                 </div>
                 <div><button type="button" class="y-login-submit" onclick="login()">登 录</button></div>
@@ -1133,16 +1411,16 @@
             type: 2,
             title: '注册账号',
             content: "http://cf.itqaq.com/mobile/docs.html",
-            area: ['90%', '280px'], //宽高
+            area: ['600px', '280px'], //宽高
         });
     }
 </script>
     <!-- 绑定大区 -->
-<!-- <div class="region-dialog" style="display: none;">
+<div class="region-dialog" style="display: none;">
     <div class="y-dialog"></div>
     <div class="y-region">
         <div class="y-region-header">
-            <div class="y-region-title">请选择大区</div>
+            <div>请选择大区</div>
             <div class="y-region-close" onclick="hideRegionDialog()">X</div>
         </div>
         <div class="y-region-body">
@@ -1196,28 +1474,29 @@
             <button type="button" class="y-region-submit" onclick="bindRegion()">确 定</button>
         </div>
     </div>
-</div> -->
+</div>
 <!-- 绑定大区 end -->
     <input type="hidden" name="is_role" value="0">
     <input type="hidden" name="is_login" value="0">
-    <script src="./plugins/jquery-1.11.3.min.js"></script>
-    <script src="./plugins/layer/layer.js"></script>
-    <script src="./plugins/game4/utils.js"></script>
-    <!-- <script src="./js/dj_header_v2.js"></script>
-    <script src="//game.gtimg.cn/images/js/2018foot/foot.js"></script> -->
-  
+    <script src="http://oss.itqaq.top/index/plugins/jquery-1.11.3.min.js"></script>
+    <script src="http://oss.itqaq.top/index/plugins/layer/layer.js"></script>
+    <script src="http://oss.itqaq.top/index/plugins/utils.js"></script>
 
-    <script src="./js/milo.js"></script>
-    <script src="./js/milo.gbk.min.js"></script>
-    <script src="./js/game4/act.js"></script>
+    <script type="text/javascript" src="http://oss.itqaq.top/index/2025/shark2502/pc/js/milo.js"></script>
+    <script src="http://oss.itqaq.top/index/2025/shark2502/pc/js/milo.gbk.min.js"></script>
+    <script src="http://oss.itqaq.top/index/2025/shark2502/pc/js/index.js"></script>
 
     <script>
+    if (milo.request('wegame') == 1) {
+        $('#fcbox2').hide();
+    }
+
     function TGDialogS(e) {
         need("biz.dialog", function (Dialog) {
             Dialog.show({
                 id: e,
                 bgcolor: "#000",
-                opacity: 60
+                opacity: 60,
             });
         });
     }
@@ -1228,21 +1507,60 @@
         });
     }
 
-    //礼盒浮窗
-    $('.p1-imgfc0').click(function () {
-        $('.p1-fc2,.p1-fc3').hide()
-        $(this).find('i').show();
+    $('.flcolsed1').click(function () {
+        $('.bxfl1').addClass('on')
+        $('.bxfl1').css('display', 'none');
     })
-    $('.p1-imgfc1').click(function () {
-        $('.p1-fc1,.p1-fc3').hide()
-        $(this).find('i').show();
+
+    // $('.video-start').click(function () {
+    //     $('.pop15 iframe').attr('src', '//player.bilibili.com/player.html?aid=279042855&bvid=BV1Ec411Q7Cj&cid=1347960035&p=1');
+    // })
+    // $('.video-close').click(function () {
+    //     $('.pop15 iframe').attr('src', '');
+    // })
+
+    //  top
+    $('.top').click(function () {
+        $('html,body').animate({ scrollTop: 0 }, 1000)
+    })
+
+    $(window).scroll(function () {
+        if ($(document).scrollTop() < 800) {
+            $('.bxbtlot').css('display', 'none');
+
+            $('.bxfl1').css('display', 'none');
+        } else {
+            $('.bxbtlot').css('display', 'block');
+            $('.bxfl1').css('display', 'flex');
+        }
+
+        var score = $(document).scrollTop();
+
+        if (typeof DJC_ANCHOR != 'undefined' && typeof DJC_ANCHOR.oBaseInfo != 'undefined' && typeof DJC_ANCHOR.oBaseInfo.data != 'undefined' && typeof DJC_ANCHOR.oBaseInfo.data._is_anchor != 'undefined') {
+            if (DJC_ANCHOR.oBaseInfo.data._is_anchor) {
+                var dom = $(".anchor-fixedbar2")
+            } else {
+                var dom = $(".anchor-fixedbar1")
+            }
+        }
+        if (score < 800) {
+            if (typeof dom != 'undefined') {
+                dom.css('display', 'none')
+            }
+        } else {
+            if (typeof dom != 'undefined') {
+                dom.css('display', 'block')
+            }
+        }
     })
 
 
-    //10选1
-    $('.p1-box6-list-bag a').click(function () {
-        $(this).find('i').show();
-    })
+    setTimeout(function () {
+        var score = $(document).scrollTop();
+        if (score < 800) {
+            $(".anchor-fixedbar").hide();
+        }
+    }, 1500)
 
     //概率礼盒
     $('.popgvnav a').each(function (i) {

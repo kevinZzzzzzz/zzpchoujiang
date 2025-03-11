@@ -555,8 +555,8 @@ var ACT = {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         const index = parseInt(type) - 1
-        // if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
-        console.log(type, index)
+        if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
+        // console.log(type, index)
         const params = {
           eventId: eventId,
           ...arr[index]
@@ -706,8 +706,8 @@ var ACT = {
         var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】吗？"
         confirm('本次兑换操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(exchangeApi, 'post', { eventId, consumableNum, eventItemName, consumableName: "星辰币" }).then(res => {
-                    if (res.code == 0) {
+                request(exchangeApi, 'post', { eventId, consumableNum, eventItemName, consumableName: "积分" }).then(res => {
+                    if (res.code == 200) {
                         getInfo()
                         alert("恭喜您获得了礼包：" + eventItemName + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
                     } else {
