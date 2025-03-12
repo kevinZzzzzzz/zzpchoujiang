@@ -666,6 +666,18 @@
         </div>
 
         <script>
+
+        function isMobiles() {
+            const userAgentInfo = navigator.userAgent;
+            const mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+            const mobileFlag = mobileAgents.some((mobileAgent) => {
+                return userAgentInfo.indexOf(mobileAgent) > 0;
+            });
+
+            return mobileFlag;
+        }
+        var isMob = isMobiles()
+
             /*******************************************
              *   全局变量                              *
              *******************************************/

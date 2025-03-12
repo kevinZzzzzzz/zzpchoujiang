@@ -167,19 +167,19 @@ function isLogin() {
         2: '普通会员',
         3: '超级会员',
     }
-  if (sessionStorage.getItem("isLogin")) {
+  if (+sessionStorage.getItem("isLogin")) {
     const loginInfo = JSON.parse(sessionStorage.getItem("login"));
     console.log(loginInfo, 'loginInfo')
-    loginInfo.username && $('#userinfo').text(loginInfo.mobileNumber + ' ' + loginInfo.username)
-    loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
+    loginInfo.username && $('#userinfo').text(`${loginInfo.qq ? loginInfo.qq : ''} ${loginInfo.username}`)
+    // loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
     if (loginInfo.qqGameArea) {
-        loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
+        // loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
         $('#spanNotBind').hide()
     }
     //  else {
     //     $('#spanNotBind').show()
     // }
-    $('#role_info').text(roleMap[loginInfo.type])
+    // $('#role_info').text(roleMap[loginInfo.type])
 
     $('#spanBind').show();
     $('#unlogin').hide();
@@ -245,9 +245,11 @@ function login() {
 }
 // 退出登录
 function logout() {
-  request(logoutApi).then((res) => {
+  request(logoutApi,'post', null).then((res) => {
     if (res.code == 200) {
       alert("退出成功，将在2秒后自动刷新页面");
+      sessionStorage.setItem("login", null);
+      sessionStorage.setItem("isLogin", null)
       setTimeout(() => location.reload(), 2000);
     }
   });

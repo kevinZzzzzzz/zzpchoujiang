@@ -3,13 +3,15 @@ const getInfoApi = `/y2025.${ctrlName}/getInfo` // 活动信息
 const buyKeysApi = window.isDev ? `/api/event/addConsumableRecord` : `/event/addConsumableRecord` // 购买钥匙
 const drawLotteryApi = window.isDev ? `/api/event/gachaItem` : `/event/gachaItem` // 抽奖接口
 const getTankListsApi = window.isDev ? '/api/event/getTemporaryBoxRecord'  : `/event/getTemporaryBoxRecord`; // 暂存箱
-const tankHandleApi = `/y2025.${ctrlName}/tankHandle`; // 暂存箱操作
+const tankHandleApi = window.isDev ?  `/api/event/claimTemporaryBoxItem` : `/event/claimTemporaryBoxItem`; // 暂存箱领取操作
+const tankHandleFJApi = window.isDev ?  `/api/event/disassembleTemporaryBoxItem` : `/event/disassembleTemporaryBoxItem`; // 暂存箱分解操作
 const getPackListApi = `/y2025.${ctrlName}/getPackList`; // 礼包记录
 const getAwardListsApi = `/json/getAwardLists.json`; // 获奖名单
 const exchangeApi = window.isDev ? `/api/event/redeemEventItem` : `/event/redeemEventItem`; // 道具兑换
 const feedbackApi = `/y2025.${ctrlName}/feedback`; // 填写体验问卷
 const receiveApi = `/y2025.${ctrlName}/receive`; // 领取体验问卷奖励
 const getConsumableQuantityApi = window.isDev ? `/api/event/getConsumableQuantity` : `/event/getConsumableQuantity`; // 查询剩余积分或者钥匙数量
+const getClaimApi = window.isDev ? `/api/reward/claim` : `/reward/claim`; // 设置道具领取状态接口
 
 var pointData = {}
 const eventId = getEventIdFromUrl(window.location.href) || '1894775959430959106'
@@ -555,7 +557,7 @@ var ACT = {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         const index = parseInt(type) - 1
-        if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
+        // if (index > 2) return alert('抱歉，不支持使用代金券购买钥匙');
         // console.log(type, index)
         const params = {
           eventId: eventId,
@@ -617,11 +619,11 @@ var ACT = {
             }, pageIndex != 1).then(res => {
                 if (res.code == 200) {
                     const { temporaryBox, total, totalPages } = res.data
-                    if (totalPage == 0) {
+                    if (totalPages == 0) {
                         pageIndex = 0;
                     }
                     $('.now_page').text(pageIndex);
-                    $('.total_page').text(totalPage);
+                    $('.total_page').text(totalPages);
                     // 渲染数据
                     let html = ''
                     if (res.data.length == 0) {
@@ -631,12 +633,12 @@ var ACT = {
                             if (item.status == 0) {
                                 html += `
                                 <tr>
-                                    <td>${item.name}</td>
+                                    <td>${item.eventItemName}</td>
                                     <td>
-                                        <a class="btn-lq" href="javascript:ACT.amsZanQu(${item.id}, '${item.name}')" style="background-color:red;color:#fff;padding: 4px;">[领取]</a>
+                                        <a class="btn-lq" href="javascript:ACT.amsZanQu(${item.id}, '${item.eventItemName}')" style="background-color:red;color:#fff;padding: 4px;">[领取]</a>
                                     </td>
                                     <td>
-                                        <a class="btn-split-item" href="javascript:ACT.amsZanFen(${item.id}, '${item.name}', ${item.change})" style="background-color:red;color:#fff;padding: 4px;">[分解]</a>
+                                        <a class="btn-split-item" href="javascript:ACT.amsZanFen(${item.id}, '${item.eventItemName}')" style="background-color:red;color:#fff;padding: 4px;">[分解]</a>
                                     </td>
                                 </tr>
                                 `
@@ -706,7 +708,7 @@ var ACT = {
         var msg = "您确定消耗【星辰币×" + dhConfig[0] + "】兑换【" + dhConfig[1] + "】吗？"
         confirm('本次兑换操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(exchangeApi, 'post', { eventId, consumableNum, eventItemName, consumableName: "积分" }).then(res => {
+                request(exchangeApi, 'post', { eventId, consumableNum, eventItemName, consumableName: "星辰币" }).then(res => {
                     if (res.code == 200) {
                         getInfo()
                         alert("恭喜您获得了礼包：" + eventItemName + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
@@ -727,11 +729,13 @@ var ACT = {
     amsZanQu(rid, name) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        var msg = '您确定领取【' + name + '】到【' + isParam.userInfo.areaName + '】下的【' + isParam.userInfo.roleName + '】吗？唯一性道具在同一大区内，游戏仓库无法重复到账，请谨慎选择'
+        const loginInfo = JSON.parse(sessionStorage.getItem("login"));
+        var msg = '您确定领取【' + name + '】到【' + loginInfo.username + '】下的【' + loginInfo.qqGameArea + '】吗？唯一性道具在同一大区内，游戏仓库无法重复到账，请谨慎选择'
         confirm('本次领取操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(tankHandleApi, 'post', { opt: 1, rid }).then(res => {
+                request(tankHandleApi, 'post', {temporaryBoxId: rid}).then(res => {
                     if (res.code == 200) {
+                        getInfo()
                         alert(`恭喜您获得了礼包：${name}，请注意：游戏虚拟道貝奖品将会在24小时内到账`, function () {
                             ACT.queryLotteryRecord(2);
                         });
@@ -743,16 +747,27 @@ var ACT = {
         })
     },
     // 暂存箱分解
-    amsZanFen(rid, name, count) {
+    amsZanFen(rid, name) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        var msg = "您确定分解【" + name + "】 获得 【抽奖钥匙x" + count + "】 吗？"
+        const countMap = {
+            'Kar98K-星神': 12,
+            '幻神-星耀 皮肤': 10,
+            '星际战将': 10,
+            'Kar98K-星神音效卡': 8,
+            '毁灭-星耀 皮肤': 8,
+            '屠龙-星耀 皮肤': 6,
+            'AK12-天启': 3,
+            '炼狱-星空': 2,
+            '羊驼玩偶': 1,
+        }
+        var msg = "您确定分解【" + name + "】 获得 【抽奖钥匙x" + countMap[name] + "】 吗？"
         confirm('本次分解操作不可逆，无法撤回，请确认是否操作', function () {
             confirm(msg, function () {
-                request(tankHandleApi, 'post', { opt: 2, rid }).then(res => {
+                request(tankHandleFJApi, 'post',{temporaryBoxId: rid}).then(res => {
                     if (res.code == 200) {
                         getInfo()
-                        alert("恭喜您获得了礼包：抽奖钥匙x" + count, function () {
+                        alert("恭喜您获得了礼包：抽奖钥匙x" + countMap[name], function () {
                             ACT.queryLotteryRecord(2);
                         });
                     } else {
@@ -767,17 +782,28 @@ var ACT = {
         closeDialog();
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+        alert('已完全收集全部道具')
     },
     // 星耀值回馈
     hasPropGift: function (item) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
         // notSupported()
+        const loginInfo = JSON.parse(sessionStorage.getItem("login"));
 
-        var msg = "您确定领取星耀值×5"+ "到 【" + isParam.userInfo.areaName + "】 吗？"
+        var msg = "您确定领取星耀值×5"+ "到 【" + loginInfo.qqGameArea + "】 吗？"
         confirm(msg, function () {
-            Milo.emit(flow_1017607);
+            const params = {
+                eventId,
+                name: '星耀值',
+                quantity: 5
+            }
+            request(buyKeysApi, 'post', params).then(res => {
+                if (res.code == 200) getInfo();
+                getInfo()
+                alert(res.msg)
+            })
         })
     },
     // 年度万能碎片兑换
@@ -790,7 +816,7 @@ var ACT = {
         var _config = isParam.xydMap[item]
         var msg = "您确定消耗"+ _config[0] +"个万能碎片兑换【"+ _config[1] +"】吗？"
         confirm(msg, function () {
-            request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "万能碎片" }).then(res => {
+            request(exchangeApi, 'post', { eventId, consumableNum: _config[0], eventItemName: _config[1], consumableName: "2025万能碎片" }).then(res => {
                 if (res.code == 200) {
                     getInfo()
                     // alert("恭喜您获得了礼包：" + _config[1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
@@ -839,16 +865,39 @@ var ACT = {
     getCdBoxGift: function (item, num) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        notSupported()
+        // notSupported()
+        const arr = [['星耀值', 3], ['王者之石', 1], ['2025万能碎片', 3]]
+        if (item == 2) {
+            alert('恭喜您获得了礼包：' + arr[item][0] + '×' + arr[item][1] + '，请注意：游戏虚拟道貝奖品将会在24小时内到账')
+        } else {
+            const params = {
+              eventId: eventId,
+              name: arr[item][0],
+              quantity: arr[item][1],
+            }
+            request(buyKeysApi, 'post', params).then(res => {
+                if (res.code == 200) getInfo();
+                alert(res.msg)
+            })
+        }
     },
     // 【玩家反馈】领取
     amsSayLq: function () {
         // 检测用户状态
         if (!checkUserStatus()) return false;
-        request(receiveApi).then(res => {
+        const params = {
+            eventId,
+            name: '星辰币',
+            quantity: 7
+        }
+        request(buyKeysApi, 'post', params).then(res => {
             if (res.code == 200) getInfo();
             alert(res.msg)
         })
+        // request(receiveApi).then(res => {
+        //     if (res.code == 200) getInfo();
+        //     alert(res.msg)
+        // })
     }
 };
 
@@ -856,6 +905,7 @@ var ACT = {
  * @param item  1-5 【5星选择】
  */
 function select_question1(order, item) {
+    return false
     var width = [8, 29, 50, 75, 100][item - 1];
     $('.question' + order + '_progress').css('width', width + '%');
     $('.question' + order + '_btn').removeClass('on');
@@ -993,6 +1043,16 @@ function tenResult(iPackageIdCnt, sPackageName) {
 function notSupported(msg = '抱歉，模拟器不支持该功能') {
     alert(msg)
 }
+function getClaim() {
+    request(getClaimApi, 'post', {
+        "eventId": eventId,
+        "itemName": "领取积分"
+    }, false).then(res => {
+        if (res.code == -1) {
+            $(".p2bx7btn2").addClass("gray");
+        }
+    })
+}
 
 // 活动信息
 function getInfo() {
@@ -1002,7 +1062,8 @@ function getInfo() {
     queryConsumableQuantity('星辰币', $('.dhNum'))
     queryConsumableQuantity('星耀宝箱', $('.cdBoxNum'))
     queryConsumableQuantity('星耀值', $('.cdNum'))
-    queryConsumableQuantity('万能碎片', $('.wnCoinNum'))
+    queryConsumableQuantity('2025万能碎片', $('.wnCoinNum'))
+    getClaim()
     // request(getInfoApi, 'get', {}, false).then(res => {
     //     if (res.code == 200) {
     //         const data = res.data

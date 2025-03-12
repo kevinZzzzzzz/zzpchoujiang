@@ -1166,6 +1166,7 @@ a {
 
 .p2bx7btn1 {
     background-position: -1404px -1195px;
+    filter: grayscale(1);
 }
 
 .p2bx7btn2 {
@@ -1174,6 +1175,7 @@ a {
 
 .p2bx7btn2.gray {
     background-position: -1399px -1451px;
+    filter: grayscale(1);
 }
 
 .p2_box8 {
