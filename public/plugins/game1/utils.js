@@ -170,7 +170,7 @@ function isLogin() {
   if (+sessionStorage.getItem("isLogin")) {
     const loginInfo = JSON.parse(sessionStorage.getItem("login"));
     console.log(loginInfo, 'loginInfo')
-    loginInfo.username && $('#userinfo').text(`${loginInfo.qq ? loginInfo.qq : ''} ${loginInfo.qqGameArea ? loginInfo.qqGameArea : ''} ${loginInfo.qqGameName}`)
+    loginInfo.qqGameName && $('#userinfo').text(`${loginInfo.qq ? loginInfo.qq : ''} ${loginInfo.qqGameArea ? loginInfo.qqGameArea : ''} ${loginInfo.qqGameName}`)
     // loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
     if (loginInfo.qqGameArea) {
         // loginInfo.qqGameArea && $('#area_info').text(loginInfo.qqGameArea)
