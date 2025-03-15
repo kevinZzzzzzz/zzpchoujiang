@@ -107,7 +107,7 @@ function request(api, type = "get", data = {}, isShowLoading = true) {
       error(err) {
         const {responseJSON} = err
         console.log(responseJSON, "err")
-        if (responseJSON.code + '' == '-1') {
+        if (responseJSON.code + '' == '401') {
           alert(responseJSON.msg, () => {
             sessionStorage.removeItem('isLogin')
             sessionStorage.removeItem('login')
@@ -170,17 +170,16 @@ function isLogin() {
     }
   if (sessionStorage.getItem("isLogin")) {
     const loginInfo = JSON.parse(sessionStorage.getItem("login"));
-    console.log(loginInfo, 'loginInfo')
-    loginInfo.username && $('#userinfo').text(loginInfo.mobileNumber + ' ' + loginInfo.username)
-    loginInfo.qqGameArea && $('#milo-areaName').text(loginInfo.qqGameArea)
+    loginInfo.username && $('#userinfo').text(`${loginInfo.qq ? loginInfo.qq : ''} ${loginInfo.qqGameArea ? loginInfo.qqGameArea : ''} ${loginInfo.qqGameName}`)
+    // loginInfo.qqGameArea && $('#milo-areaName').text(loginInfo.qqGameArea)
     if (loginInfo.qqGameArea) {
-        loginInfo.qqGameArea && $('#milo-areaName').text(loginInfo.qqGameArea)
+        // loginInfo.qqGameArea && $('#milo-areaName').text(loginInfo.qqGameArea)
         $('#spanNotBind').hide()
     }
     //  else {
     //     $('#spanNotBind').show()
     // }
-    $('#milo-roleName').text(roleMap[loginInfo.type])
+    // $('#milo-roleName').text(roleMap[loginInfo.type])
 
     $('#spanBind').show();
     $('#unlogin').hide();

@@ -379,6 +379,12 @@ footer {
   position: relative;
 }
 
+#bxtnsPc {
+    display: none;
+}
+#bxtnsMobile {
+    display: flex !important;
+}
 .p1-bxtn-opentime{
   color: #3d1e01;
   font-size: 0.2rem;
@@ -885,15 +891,18 @@ background: url('//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/btn-one.png
 background: url('//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/btn-ten.png') no-repeat 0 0/100% 100%;
 }
 
-.p1-txt3 {
+.p1-txt3InMobile {
 font-size: 0.24rem;
 color: #ffffff;
 line-height: 1;
 width: 100%;
 text-align: center;
-margin-top: 0.18rem;
+/* margin-top: 0.18rem; */
+display: block;
 }
-
+.p1-txt3 {
+display: none;
+}
 .p1-txt4 {
 margin-top: 0.08rem;
 }
@@ -2019,6 +2028,9 @@ line-height: 0.42rem;
 padding-top: 0.22rem;
 }
 
+.duanidlist li p {
+    font-size: 0.15rem;
+    }
 .btn_jt {
 width: 1rem;
 height: 0.3rem;
@@ -2282,7 +2294,7 @@ background: url(//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/m/popsp2.png
 background-size: 9rem auto;
 } */
 
-/*.pop1{background: url(//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/m/popbg1.png) no-repeat;width: 1000px;height: 742px;}
+/* .pop1{background: url(//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/m/popbg1.png) no-repeat;width: 1000px;height: 742px;}
 .iframe1{width: 780px;height: 763px;display: block;border: none;position: absolute;top: 50%;left: 50%;;transform: translate(-50%,-50%) scale(0.9);transform-origin: 50% 50;}*/
 .dia-close {
 background: url(//game.gtimg.cn/images/actdaoju/act/a20250217rysgbs/close.png) 0 0/100% 100%;

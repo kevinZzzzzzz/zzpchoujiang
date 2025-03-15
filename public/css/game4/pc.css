@@ -708,7 +708,9 @@ left: 44.7%;
 	top: 715px;
 	font-weight: bold;
 }
-
+.p1-txt3InMobile {
+    display: none;
+}
 .p1-txt4 {
 	top: 633px;
 }
@@ -1707,7 +1709,12 @@ margin-right: 38px;
   align-content: flex-start;
   position: relative;
 }
-
+#bxtnsPc {
+    display: flex;
+}
+#bxtnsMobile {
+    display: none;
+}
 .p1-bxtns li{
   position: relative;
 }

@@ -24,6 +24,7 @@
 
         return mobileFlag;
     }
+
     if (isMobiles()) {
         // 加载移动端样式
         const link = document.createElement('link');
@@ -103,7 +104,7 @@
             <div class="container">
                 <div class="p1-box2">
                     <h2 class="p1-tit2 sp db">主奖池</h2>
-                    <ul class="p1-bxtns">
+                    <ul class="p1-bxtns" id="bxtnsPc">
                         <div class="p1-bxtn-opentime" style="display: none;">活动页面购买于2月28日0点开放</div>
                         <li><a class="p1-btnbuy1 sp db" href="javascript:Hx.buyKey(1);">立即购买</a></li>
                         <li class="flex-margin"><a class="p1-btnbuy2 sp db" href="javascript:Hx.buyKey(2);">立即购买</a>
@@ -115,6 +116,16 @@
                         </li>
                         <li><a class="p1-btnbuy5 sp db" href="javascript:Hx.buyKey(4);">立即购买</a></li>
                     </ul>
+                    
+                    <p id="bxtnsMobile" class="voucher">我的通用代金券：<span class="jf_2327">0</span></p>
+                    <div id="bxtnsMobile" class="p1-bxtns">
+                        <div class="p1-bxtn-opentime">活动页面购买于<br />2月28日0点开放</div>
+                        <a class="p1-btnbuy1 sp db" href="javascript:Hx.buyKey(1);">立即购买</a>
+                        <a class="p1-btnbuy2 sp db" href="javascript:Hx.buyKey(2);">立即购买</a>
+                        <a class="p1-btnbuy4 sp db" href="javascript:Hx.buyKey(5);">立即购买</a>
+                        <a class="p1-btnbuy3 sp db" href="javascript:Hx.buyKey(3);">立即购买</a>
+                        <a class="p1-btnbuy5 sp db" href="javascript:Hx.buyKey(4);">立即购买</a>
+                    </div>
                     <p class="p1-box2ts">本活动抽奖钥匙，与抽到的积分，卡牌等均绑定到当前大区，<br>请<span>谨慎选择</span>参与活动的<span>账号大区</span></p>
                     <div class="p1-boxlottery">
                         <ul class="p1-listlot">
@@ -189,7 +200,7 @@
                             </li>
                         </ul>
                         <div class="p1-bxtxtlot">
-                            <!-- <p>剩余钥匙：<span class="jf_6995">0</span></p> -->
+                            <p class="p1-txt3InMobile">剩余钥匙：<span class="jf_6995">0</span></p>
                             <a href="javascript:Hx.pop1();">代金券记录</a>
                         </div>
                         <div class="p1-lotbtnwobtn">
@@ -619,7 +630,7 @@
     <!--代金券记录S-->
     <div class="pop pop1" id="pop4">
         <div class="iframe">
-            <iframe class="iframe1" frameborder="0" height="800px" src="" width="810px"></iframe>
+            <!-- <iframe class="iframe1" frameborder="0" height="800px" src="" width="810px"></iframe> -->
         </div>
         <a class="dia-close popsp db" href="javascript:closeDialog()" title="关闭">×</a>
     </div>
