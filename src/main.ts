@@ -5,6 +5,11 @@ import piniaPluginPersist from 'pinia-plugin-persist'
 import router from './router/index'
 import api from '@/api'
 import App from './App.vue'
+import 'element-plus/dist/index.css';
+import ElementPlus from 'element-plus';
+import 'swiper/css'; // 导入Swiper核心样式
+import { Swiper, SwiperSlide } from 'swiper/vue'; // 导入Swiper Vue组件
+import { Navigation } from 'swiper/modules'; // 导入Navigation模块
 // 2. 引入组件样式
 import 'vant/lib/index.css';
 
@@ -37,5 +42,5 @@ window.$api = { ...api }
 app.config.errorHandler = (err, vm, info) => {
   console.error()
 }
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(ElementPlus).mount('#app')
 

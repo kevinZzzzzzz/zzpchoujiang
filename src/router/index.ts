@@ -26,6 +26,14 @@ const routes: RouteRecordRaw[] = [
         },
         component: async () => await import(/* webpackChunkName: "homePage" */ '@/pages/homePage/index.vue')
       },
+      {
+        path: '/game5',
+        name: 'Game5',
+        meta: {
+          title: '',
+        },
+        component: async () => await import(/* webpackChunkName: "Game5" */ '@/pages/game5/index.vue')
+      },
       // {
       //   path: '/home',
       //   name: 'Home',
