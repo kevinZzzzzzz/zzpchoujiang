@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>星辰所向 耀芒航道</title>
+        <style>
+            /* 默认样式（大屏幕） */
+            body {
+                font-family: sans-serif;
+                text-align: center;
+                margin: 0 auto;
+                /* max-width: 1200px; */
+                padding: 20px;
+            }
+
+
+            /* 通用按钮样式 */
+            .blue-btn {
+                background: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 14px;
+                margin: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .blue-btn:hover {
+                opacity: 0.9;
+            }
+
+            .green-btn {
+                background: #dd7a2a;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 8px 14px;
+                margin: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .green-btn:hover {
+                opacity: 0.9;
+            }
+
+            .red-btn {
+                background: #ff0000;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 4px 8px;
+                margin: 0 2px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            .red-btn:hover {
+                opacity: 0.9;
+            }
+
+            .small-btn {
+                padding: 4px 8px;
+                margin: 0 5px;
+                font-size: 14px;
+                background: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            /* 统计信息 */
+            .stats {
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #f0f8ff;
+                border: 2px solid #007bff;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                font-size: 18px;
+                color: #333;
+            }
+            .stats span {
+                margin: 0 10px;
+            }
+            .stats strong {
+                color: #007bff;
+                font-size: 20px;
+            }
+
+            /* 主奖池容器 + 道具 */
+            .prize-container {
+                /* width: 80%; */
+                margin: 20px auto;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            .prize-item {
+                position: relative; /* 用于放置左上角标签 */
+                width: 225px;
+                height: 70px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 5px;
+                font-size: 16px;
+                background: #fafafa;
+                overflow: hidden;
+            }
+            /* 左上角标签容器（横向排列） */
+            .label-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 4px;
+                display: flex;
+                flex-direction: row;
+                gap: 4px;
+                flex-wrap: wrap; /* 若标签过多可自动换行 */
+            }
+            .item-label {
+                background: #007bff;
+                color: #fff;
+                border-radius: 3px;
+                padding: 2px 6px;
+                font-size: 12px;
+                line-height: 1.2;
+            }
+
+            /* 暂存箱 */
+            .stash-container {
+                /* width: 80%; */
+                margin: 20px auto;
+                text-align: center;
+            }
+            .stash-container h3 {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+            .stash-table {
+                width: 80%;
+                margin: 0 auto;
+                table-layout: fixed;
+                border-collapse: collapse;
+            }
+            .stash-table th,
+            .stash-table td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .stash-table th {
+                background: #f5f5f5;
+            }
+            .stash-pagination {
+                margin: 10px;
+            }
+
+            /* 星耀宝箱自选区域 */
+            .star-box-section {
+                /* width: 50%; */
+                margin: 20px auto;
+                text-align: center;
+                border: 1px solid #ccc;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            .star-box-section h4 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            .options-container {
+                display: flex;
+                justify-content: center;
+                /* gap: 30px; */
+                margin: 10px 0;
+            }
+            .option-box {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 14px;
+            }
+            .option-box input {
+                transform: scale(1.2);
+            }
+
+            /* 星耀值兑换区域（5个在一行） */
+            .star-value-section {
+                /* width: 100%; */
+                margin: 20px auto;
+                text-align: center;
+
+                padding: 15px;
+                border-radius: 8px;
+            }
+            .star-value-section h4 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            .exchange-grid {
+                display: flex;
+                 flex-wrap: nowrap; /*不换行 */
+                justify-content: center;
+                gap: 20px;
+                /* display: grid;
+                grid-template-columns: repeat(5, 1fr); */
+                /* 若宽度不足可横向滚动 */
+                margin-top: 10px;
+            }
+            .exchange-item {
+                position: relative;
+                /* width: 180px; */
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 28px;
+                background: #fefefe;
+                text-align: center;
+                flex: 0 0 auto; /* 不压缩 */
+            }
+            .exchange-item .label-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 4px;
+                display: flex;
+                flex-direction: row;
+                gap: 4px;
+                flex-wrap: wrap;
+            }
+            .exchange-item .item-label {
+                background: #007bff;
+                color: #fff;
+                border-radius: 3px;
+                padding: 2px 6px;
+                font-size: 12px;
+                line-height: 1.2;
+            }
+            .exchange-item .item-name {
+                margin-top: 20px;
+                font-size: 14px;
+                min-height: 40px;
+            }
+            .exchange-item .cost-btn {
+                margin-top: 5px;
+                font-size: 14px;
+            }
+
+            /* 礼包记录表格(美观处理) */
+            .history-table {
+                width: 80%;
+                margin: 0 auto;
+                table-layout: fixed;
+                border-collapse: collapse;
+                border: 1px solid #ccc;
+            }
+            .history-table th,
+            .history-table td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 14px;
+            }
+            .history-table th {
+                background: #f5f5f5;
+                font-weight: bold;
+            }
+            .history-pagination {
+                margin: 10px;
+            }
+
+            /* 弹窗公共样式(兼容PC/手机) */
+            .modal-bg {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: 600px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                padding: 20px;
+                text-align: center;
+            }
+            .modal-header {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .modal-content {
+                font-size: 16px;
+                line-height: 1.8;
+                overflow: visible;
+            }
+            .modal-footer {
+                margin-top: 10px;
+            }
+            .prize-card-line {
+                margin: 6px 0;
+            }
+            .highlight {
+                color: red;
+                font-weight: bold;
+            }
+
+            /* 小屏幕（平板） */
+            @media (max-width: 768px) {
+                body {
+                    padding: 10px;
+                }
+
+                .prize-container {
+                    /* width: 90%; */
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 10px;
+                }
+
+                .prize-item {
+                    width: 150px;
+                    height: auto;
+                    padding: 10px;
+                }
+
+                .stats {
+                    font-size: 14px;
+                }
+
+                .exchange-item {
+                    padding: 10px;
+                }
+
+                .exchange-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 10px;
+                    /* 若宽度不足可横向滚动 */
+                    margin-top: 10px;
+                }
+            }
+
+            /* 更小的屏幕（手机） */
+            @media (max-width: 480px) {
+                body {
+                    padding: 10px;
+                }
+
+                .prize-container {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 10px;
+                }
+
+                .prize-item {
+                    width: 120px;
+                    height: auto;
+                    padding: 8px;
+                }
+
+                .stats {
+                    font-size: 12px;
+                }
+
+                .exchange-item {
+                    padding: 8px;
+                }
+
+                .stash-table {
+                    font-size: 12px;
+                }
+
+                .history-table {
+                    font-size: 12px;
+                }
+                .exchange-grid {
+                    display: grid;
+                    grid-template-columns: repeat(1, 1fr);
+                    grid-gap: 10px;
+                    /* 若宽度不足可横向滚动 */
+                    margin-top: 10px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h2>星辰所向 耀芒航道</h2>
+
+        <!-- 购买钥匙区域 -->
+        <div>
+            <button class="blue-btn" onclick="buyKeys(1, 10)">
+                10元购买1个钥匙
+            </button>
+            <button class="blue-btn" onclick="buyKeys(11, 100)">
+                100元购买11个钥匙
+            </button>
+            <button class="blue-btn" onclick="buyKeys(55, 500)">
+                500元购买55个钥匙
+            </button>
+            <button class="blue-btn" onclick="buyKeys(220, 2000)">
+                2000元购买220个钥匙
+            </button>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats">
+            <span>消费金额: <strong id="totalMoney">0</strong></span>
+            <span>抽奖钥匙: <strong id="totalKeys">0</strong></span>
+            <span>我的积分: <strong id="totalPoints">0</strong></span>
+            <span>已抽次数: <strong id="totalDraws">0</strong></span>
+        </div>
+
+        <!-- 主奖池容器 (JS渲染) -->
+        <div class="prize-container" id="prizeContainer"></div>
+
+        <!-- 抽奖按钮 -->
+        <div>
+            <button class="green-btn" onclick="draw(1)">抽1次</button>
+            <button class="green-btn" onclick="draw(10)">抽10次</button>
+            <button class="green-btn" onclick="draw(50)">抽50次</button>
+            <button class="green-btn" onclick="draw(100)">抽100次</button>
+        </div>
+
+        <!-- 暂存箱 -->
+        <div class="stash-container">
+            <h3>暂存箱</h3>
+            <div style="margin-bottom: 15px">
+                <button class="red-btn" onclick="batchReceiveCurrentPage()">
+                    批量领取(当前页)
+                </button>
+                <button class="red-btn" onclick="batchDecomposeCurrentPage()">
+                    批量分解(当前页)
+                </button>
+                <button class="red-btn" onclick="batchReceiveAll()">
+                    全部领取(暂存箱)
+                </button>
+                <button class="red-btn" onclick="batchDecomposeAll()">
+                    全部分解(暂存箱)
+                </button>
+            </div>
+            <table class="stash-table">
+                <thead>
+                    <tr>
+                        <th>道具名称</th>
+                        <th>变为钥匙</th>
+                        <th>领取道具</th>
+                        <th>分解道具</th>
+                    </tr>
+                </thead>
+                <tbody id="stashTableBody"></tbody>
+            </table>
+            <div class="stash-pagination">
+                <button class="small-btn" onclick="stashPrevPage()">
+                    上一页
+                </button>
+                <span id="stashPageInfo">1/1</span>
+                <button class="small-btn" onclick="stashNextPage()">
+                    下一页
+                </button>
+            </div>
+        </div>
+
+        <!-- 星耀宝箱自选区域 -->
+        <div class="star-box-section">
+            <h4>星耀宝箱自选</h4>
+            <p>可开启的星耀宝箱：<span id="starBoxCount">0</span></p>
+
+            <!-- 三选一 (单选) -->
+            <div class="options-container">
+                <label class="option-box">
+                    <input type="radio" name="starBoxOption" value="xyValue" />
+                    <span>星耀值x3</span>
+                </label>
+                <label class="option-box">
+                    <input
+                        type="radio"
+                        name="starBoxOption"
+                        value="kingStone"
+                    />
+                    <span>王者之石x1</span>
+                </label>
+                <label class="option-box">
+                    <input
+                        type="radio"
+                        name="starBoxOption"
+                        value="universalFrag"
+                    />
+                    <span>2025万能碎片x3</span>
+                </label>
+            </div>
+
+            <div>
+                <button class="green-btn" onclick="openStarBox(1)">
+                    领取1次
+                </button>
+                <button class="green-btn" onclick="openStarBox(5)">
+                    领取5次
+                </button>
+            </div>
+        </div>
+
+        <!-- 星耀值兑换区域 (5个一行) -->
+        <div class="star-value-section">
+            <h4>星耀值兑换</h4>
+            <p>当前星耀值：<span id="starValue">0</span></p>
+            <div class="exchange-grid">
+                <!-- 1) 星际战将 -->
+                <div class="exchange-item">
+                    <div class="label-container">
+                        <div class="item-label">全新首发</div>
+                        <div class="item-label">唯一性角色</div>
+                        <div class="item-label">VVIP角色</div>
+                    </div>
+                    <div class="item-name">星际战将</div>
+                    <button
+                        class="blue-btn cost-btn"
+                        onclick="exchangeStarValue('星际战将',108)"
+                    >
+                        108星耀值兑换
+                    </button>
+                </div>
+
+                <!-- 2) 幻神-星耀 皮肤 -->
+                <div class="exchange-item">
+                    <div class="label-container">
+                        <div class="item-label">全新首发</div>
+                        <div class="item-label">VVIP武器皮肤</div>
+                        <div class="item-label">不可交易</div>
+                    </div>
+                    <div class="item-name">幻神-星耀 皮肤</div>
+                    <button
+                        class="blue-btn cost-btn"
+                        onclick="exchangeStarValue('幻神-星耀 皮肤',108)"
+                    >
+                        108星耀值兑换
+                    </button>
+                </div>
+
+                <!-- 3) 毁灭-星耀 皮肤 -->
+                <div class="exchange-item">
+                    <div class="label-container">
+                        <div class="item-label">全新首发</div>
+                        <div class="item-label">VVIP武器皮肤</div>
+                        <div class="item-label">不可交易</div>
+                    </div>
+                    <div class="item-name">毁灭-星耀 皮肤</div>
+                    <button
+                        class="blue-btn cost-btn"
+                        onclick="exchangeStarValue('毁灭-星耀 皮肤',88)"
+                    >
+                        88星耀值兑换
+                    </button>
+                </div>
+
+                <!-- 4) 屠龙-星耀 皮肤 -->
+                <div class="exchange-item">
+                    <div class="label-container">
+                        <div class="item-label">全新首发</div>
+                        <div class="item-label">VVIP武器皮肤</div>
+                        <div class="item-label">不可交易</div>
+                    </div>
+                    <div class="item-name">屠龙-星耀 皮肤</div>
+                    <button
+                        class="blue-btn cost-btn"
+                        onclick="exchangeStarValue('屠龙-星耀 皮肤',68)"
+                    >
+                        68星耀值兑换
+                    </button>
+                </div>
+
+                <!-- 5) 道聚城通用代金券x50 -->
+                <div class="exchange-item">
+                    <div class="item-name">道聚城通用代金券x50</div>
+                    <button
+                        class="blue-btn cost-btn"
+                        onclick="exchangeStarValue('道聚城通用代金券x50',48)"
+                    >
+                        48星耀值兑换
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 礼包记录表格 -->
+        <h3>礼包记录</h3>
+        <table class="history-table" style="margin-bottom: 10px">
+            <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>大区</th>
+                    <th>道具</th>
+                </tr>
+            </thead>
+            <tbody id="giftHistoryTableBody"></tbody>
+        </table>
+        <div class="history-pagination">
+            <button class="small-btn" onclick="prevGiftPage()">上一页</button>
+            <span id="giftPageInfo">1/1</span>
+            <button class="small-btn" onclick="nextGiftPage()">下一页</button>
+        </div>
+
+        <!-- 奖池概率按钮(最下方) -->
+        <div style="margin-top: 30px">
+            <button class="blue-btn" onclick="openPrizePoolModal()">
+                奖池概率
+            </button>
+        </div>
+
+        <!-- 奖池概率弹窗 -->
+        <div class="modal-bg" id="prizePoolModalBg"></div>
+        <div class="modal" id="prizePoolModal">
+            <div class="modal-header">信息</div>
+            <div class="modal-content" id="prizePoolModalContent"></div>
+            <div class="modal-footer">
+                <button onclick="closePrizePoolModal()">关闭</button>
+            </div>
+        </div>
+
+        <!-- 抽奖结果弹窗 -->
+        <div class="modal-bg" id="modalBg"></div>
+        <div class="modal" id="modal">
+            <div class="modal-header">中奖信息</div>
+            <div class="modal-content" id="modalContent"></div>
+            <div class="modal-footer">
+                <button onclick="closeModal()">确定</button>
+            </div>
+        </div>
+
+        <!-- 模拟器相关法律提醒 -->
+        <div
+            style="
+                margin-top: 30px;
+                padding: 10px;
+                text-align: center;
+                color: #fa0101;
+                font-size: 14px;
+                border-top: 1px solid #ccc;
+            "
+        >
+            <p>
+                本工具仅供玩家娱乐体验与测试用途，不包含真实游戏数据推送。<br />
+                请合理安排游戏时间，理性消费。如有侵权联系即删~
+            </p>
+        </div>
+
+        <script>
+
+        function isMobiles() {
+            const userAgentInfo = navigator.userAgent;
+            const mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+            const mobileFlag = mobileAgents.some((mobileAgent) => {
+                return userAgentInfo.indexOf(mobileAgent) > 0;
+            });
+
+            return mobileFlag;
+        }
+        var isMob = isMobiles()
+
+            /*******************************************
+             *   全局变量                              *
+             *******************************************/
+            let moneySpent = 0; // 消费金额
+            let totalKeys = 0; // 抽奖钥匙
+            let totalPoints = 0; // 我的积分
+            let totalDraws = 0; // 已抽次数
+
+            let starBoxCount = 0; // 星耀宝箱数量
+            let starValue = 0; // 星耀值
+
+            /* 奖池数据 */
+            const prizePool = [
+                {
+                    name: "Kar98K-星神",
+                    prob: 0.2,
+                    keyValue: 12,
+                    labels: ["稀有返场"],
+                },
+                {
+                    name: "幻神-星耀 皮肤",
+                    prob: 0.25,
+                    keyValue: 10,
+                    labels: ["全新首发", "VVIP武器皮肤", "不可交易"],
+                },
+                {
+                    name: "星际战将",
+                    prob: 0.25,
+                    keyValue: 10,
+                    labels: ["全新首发", "唯一性角色", "VVIP角色"],
+                },
+                {
+                    name: "Kar98K-星神音效卡",
+                    prob: 0.3,
+                    keyValue: 8,
+                    labels: ["不可交易"],
+                },
+                {
+                    name: "毁灭-星耀 皮肤",
+                    prob: 0.3,
+                    keyValue: 8,
+                    labels: ["全新首发", "VVIP武器皮肤", "不可交易"],
+                },
+                {
+                    name: "屠龙-星耀 皮肤",
+                    prob: 0.4,
+                    keyValue: 8,
+                    labels: ["全新首发", "VVIP武器皮肤", "不可交易"],
+                },
+                { name: "AN94-超新星", prob: 0.8, keyValue: 3, labels: [] },
+                { name: "AK12-天启", prob: 1.0, keyValue: 3, labels: [] },
+                {
+                    name: "炼狱-星空 皮肤",
+                    prob: 1.5,
+                    keyValue: 3,
+                    labels: ["不可交易"],
+                },
+                {
+                    name: "羊驼玩偶",
+                    prob: 1.5,
+                    keyValue: 1,
+                    labels: ["不可交易"],
+                },
+                { name: "星耀宝箱", prob: 2.0, keyValue: 0, labels: [] },
+                { name: "星辰币x100", prob: 5.0, keyValue: 0, labels: [] },
+                { name: "星辰币x15", prob: 7.0, keyValue: 0, labels: [] },
+                { name: "星辰币x9", prob: 8.0, keyValue: 0, labels: [] },
+                { name: "星辰币x8", prob: 9.0, keyValue: 0, labels: [] },
+                { name: "星辰币x7", prob: 10.0, keyValue: 0, labels: [] },
+            ];
+
+            /* 暂存箱记录 */
+            let stashRecords = []; // { name, keyValue, status: "normal"|"received"|"decomposed" }
+            let stashPage = 1;
+            const stashPageSize = 10;
+
+            /* 礼包记录 */
+            let giftRecords = [];
+            let giftCurrentPage = 1;
+            const giftPageSize = 10;
+
+            /*******************************************
+             *   页面初始化                            *
+             *******************************************/
+            document.addEventListener("DOMContentLoaded", function () {
+                renderPrizeContainer();
+                renderStash();
+                renderGiftRecords();
+                updateStats();
+            });
+
+            /*******************************************
+             *   渲染奖池 + 左上角标签                *
+             *******************************************/
+            function renderPrizeContainer() {
+                const container = document.getElementById("prizeContainer");
+                container.innerHTML = "";
+                prizePool.forEach((item) => {
+                    const div = document.createElement("div");
+                    div.className = "prize-item";
+
+                    // 左上角标签 (横向)
+                    let labelHTML = "";
+                    if (item.labels && item.labels.length > 0) {
+                        labelHTML = `
+        <div class="label-container">
+          ${item.labels
+              .map((lb) => `<div class="item-label">${lb}</div>`)
+              .join("")}
+        </div>
+      `;
+                    }
+                    div.innerHTML = labelHTML + item.name;
+                    container.appendChild(div);
+                });
+            }
+
+            /*******************************************
+             *   购买钥匙                              *
+             *******************************************/
+            function buyKeys(keys, price) {
+                moneySpent += price;
+                totalKeys += keys;
+                updateStats();
+                alert(`消费 ${price} 元，获得 ${keys} 个钥匙`);
+            }
+
+            /*******************************************
+             *   抽奖逻辑                              *
+             *******************************************/
+            function draw(times) {
+                if (totalKeys < times) {
+                    alert("钥匙不足，请先购买！");
+                    return;
+                }
+                totalKeys -= times;
+                totalDraws += times;
+
+                let results = [];
+                for (let i = 0; i < times; i++) {
+                    const item = pickRandomPrize();
+                    results.push(item.name);
+                    // 若抽到星耀宝箱 => starBoxCount++
+                    if (item.name === "星耀宝箱") {
+                        starBoxCount++;
+                        document.getElementById("starBoxCount").textContent =
+                            starBoxCount;
+                    }
+                    // 记录到礼包记录
+                    addGiftRecord(item.name, false);
+
+                    // 若非星辰币/星耀宝箱 && keyValue>0 => 放入暂存箱
+                    if (
+                        !item.name.includes("星辰币") &&
+                        item.name !== "星耀宝箱" &&
+                        item.keyValue > 0
+                    ) {
+                        stashRecords.unshift({
+                            name: item.name,
+                            keyValue: item.keyValue,
+                            status: "normal",
+                        });
+                    }
+                }
+
+                // 构造弹窗
+                let modalHTML = "";
+                if (times <= 10) {
+                    modalHTML = results
+                        .map((r) => {
+                            if (!r.includes("星辰币") && r !== "星耀宝箱") {
+                                return `<div class="prize-card-line"><span class="highlight">${r}</span></div>`;
+                            } else {
+                                return `<div class="prize-card-line">${r}</div>`;
+                            }
+                        })
+                        .join("");
+                } else {
+                    // 聚合
+                    let summary = {};
+                    results.forEach((r) => {
+                        summary[r] = (summary[r] || 0) + 1;
+                    });
+                    let summaryArr = Object.entries(summary).sort(
+                        (a, b) => b[1] - a[1]
+                    );
+                    if (summaryArr.length > 10)
+                        summaryArr = summaryArr.slice(0, 10);
+                    modalHTML = `<div style="text-align:center;"><strong>奖品统计：</strong></div>`;
+                    summaryArr.forEach(([n, c]) => {
+                        if (!n.includes("星辰币") && n !== "星耀宝箱") {
+                            modalHTML += `<div class="prize-card-line"><span class="highlight">${n}</span> x ${c}</div>`;
+                        } else {
+                            modalHTML += `<div class="prize-card-line">${n} x ${c}</div>`;
+                        }
+                    });
+                }
+
+                showModal(modalHTML);
+                renderStash();
+                updateStats();
+            }
+
+            /*******************************************
+             *   随机抽奖                             *
+             *******************************************/
+            function pickRandomPrize() {
+                let rand = Math.random() * 100;
+                let cumulative = 0;
+                for (let item of prizePool) {
+                    cumulative += item.prob;
+                    if (rand < cumulative) return item;
+                }
+                return prizePool[prizePool.length - 1];
+            }
+
+            /*******************************************
+             *   暂存箱                                *
+             *******************************************/
+            function renderStash() {
+                const total = stashRecords.length;
+                const totalPages = Math.ceil(total / stashPageSize) || 1;
+                stashPage = Math.min(Math.max(stashPage, 1), totalPages);
+                const startIndex = (stashPage - 1) * stashPageSize;
+                const pageData = stashRecords.slice(
+                    startIndex,
+                    startIndex + stashPageSize
+                );
+
+                let tbody = "";
+                pageData.forEach((item, idx) => {
+                    const globalIndex = startIndex + idx;
+                    let receiveTd, decomposeTd;
+                    if (item.status === "normal") {
+                        receiveTd = `<button class="red-btn" onclick="stashReceive(${globalIndex})">领取</button>`;
+                        decomposeTd = `<button class="red-btn" onclick="stashDecompose(${globalIndex})">分解</button>`;
+                    } else if (item.status === "received") {
+                        receiveTd = "已领取";
+                        decomposeTd = "x";
+                    } else {
+                        receiveTd = "x";
+                        decomposeTd = "已分解";
+                    }
+                    tbody += `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.keyValue}</td>
+        <td>${receiveTd}</td>
+        <td>${decomposeTd}</td>
+      </tr>
+    `;
+                });
+                document.getElementById("stashTableBody").innerHTML = tbody;
+                document.getElementById(
+                    "stashPageInfo"
+                ).textContent = `${stashPage}/${totalPages}`;
+            }
+            function stashPrevPage() {
+                stashPage--;
+                renderStash();
+            }
+            function stashNextPage() {
+                stashPage++;
+                renderStash();
+            }
+            function stashReceive(index) {
+                const item = stashRecords[index];
+                if (!item || item.status !== "normal") return;
+                if (!confirm(`确认将 ${item.name} 发送到仓库吗？`)) return;
+                item.status = "received";
+                openResultModal(
+                    "领取成功",
+                    `恭喜您获得了礼包：${item.name}<br>游戏虚拟道具将会在24小时内到账`
+                );
+                renderStash();
+            }
+            function stashDecompose(index) {
+                const item = stashRecords[index];
+                if (!item || item.status !== "normal") return;
+                if (
+                    !confirm(
+                        `确认将 ${item.name} 分解成 ${item.keyValue}个钥匙 吗？`
+                    )
+                )
+                    return;
+                item.status = "decomposed";
+                totalKeys += item.keyValue;
+                updateStats();
+                openResultModal(
+                    "分解成功",
+                    `分解了 ${item.name}，获得 <span class="highlight">${item.keyValue}个钥匙</span>`
+                );
+                renderStash();
+            }
+            function batchReceiveCurrentPage() {
+                const totalPages =
+                    Math.ceil(stashRecords.length / stashPageSize) || 1;
+                stashPage = Math.min(Math.max(stashPage, 1), totalPages);
+                const startIndex = (stashPage - 1) * stashPageSize;
+                const pageData = stashRecords.slice(
+                    startIndex,
+                    startIndex + stashPageSize
+                );
+
+                const canReceive = pageData.filter(
+                    (i) => i.status === "normal"
+                );
+                if (canReceive.length === 0) {
+                    alert("当前页没有可领取的道具");
+                    return;
+                }
+                if (
+                    !confirm(
+                        `确认批量领取(当前页) ${canReceive.length}个道具？`
+                    )
+                )
+                    return;
+                canReceive.forEach((item) => (item.status = "received"));
+                openResultModal(
+                    "领取成功",
+                    `已领取：共${canReceive.length}个道具`
+                );
+                renderStash();
+            }
+            function batchDecomposeCurrentPage() {
+                const totalPages =
+                    Math.ceil(stashRecords.length / stashPageSize) || 1;
+                stashPage = Math.min(Math.max(stashPage, 1), totalPages);
+                const startIndex = (stashPage - 1) * stashPageSize;
+                const pageData = stashRecords.slice(
+                    startIndex,
+                    startIndex + stashPageSize
+                );
+
+                const canDecompose = pageData.filter(
+                    (i) => i.status === "normal"
+                );
+                if (canDecompose.length === 0) {
+                    alert("当前页没有可分解的道具");
+                    return;
+                }
+                if (
+                    !confirm(
+                        `确认批量分解(当前页) ${canDecompose.length}个道具？`
+                    )
+                )
+                    return;
+                let totalGained = 0;
+                canDecompose.forEach((item) => {
+                    item.status = "decomposed";
+                    totalGained += item.keyValue;
+                });
+                totalKeys += totalGained;
+                updateStats();
+                openResultModal(
+                    "分解成功",
+                    `共${canDecompose.length}个道具，获得 <span class="highlight">${totalGained}个钥匙</span>`
+                );
+                renderStash();
+            }
+            function batchReceiveAll() {
+                const canReceive = stashRecords.filter(
+                    (i) => i.status === "normal"
+                );
+                if (canReceive.length === 0) {
+                    alert("暂存箱没有可领取的道具");
+                    return;
+                }
+                if (
+                    !confirm(
+                        `确认全部领取(暂存箱) ${canReceive.length}个道具？`
+                    )
+                )
+                    return;
+                canReceive.forEach((item) => (item.status = "received"));
+                openResultModal(
+                    "领取成功",
+                    `已领取：共${canReceive.length}个道具`
+                );
+                renderStash();
+            }
+            function batchDecomposeAll() {
+                const canDecompose = stashRecords.filter(
+                    (i) => i.status === "normal"
+                );
+                if (canDecompose.length === 0) {
+                    alert("暂存箱没有可分解的道具");
+                    return;
+                }
+                if (
+                    !confirm(
+                        `确认全部分解(暂存箱) ${canDecompose.length}个道具？`
+                    )
+                )
+                    return;
+                let totalGained = 0;
+                canDecompose.forEach((item) => {
+                    item.status = "decomposed";
+                    totalGained += item.keyValue;
+                });
+                totalKeys += totalGained;
+                updateStats();
+                openResultModal(
+                    "分解成功",
+                    `共${canDecompose.length}个道具，获得 <span class="highlight">${totalGained}个钥匙</span>`
+                );
+                renderStash();
+            }
+
+            /*******************************************
+             *   星耀宝箱自选区域                     *
+             *******************************************/
+            function openStarBox(count) {
+                // 可开启的星耀宝箱数量 starBoxCount
+                const starBoxEl = document.querySelector(
+                    'input[name="starBoxOption"]:checked'
+                );
+                if (!starBoxEl) {
+                    alert("请先选择一个自选奖励");
+                    return;
+                }
+                if (starBoxCount < count) {
+                    alert("星耀宝箱数量不足");
+                    return;
+                }
+                // 减少宝箱
+                starBoxCount -= count;
+                document.getElementById("starBoxCount").textContent =
+                    starBoxCount;
+
+                const choice = starBoxEl.value; // xyValue, kingStone, universalFrag
+                if (choice === "xyValue") {
+                    // 星耀值+3 * count
+                    starValue += 3 * count;
+                    document.getElementById("starValue").textContent =
+                        starValue;
+                    openResultModal(
+                        "开启成功",
+                        `获得 <span class="highlight">星耀值x${
+                            3 * count
+                        }</span>`
+                    );
+                } else if (choice === "kingStone") {
+                    // 王者之石x1 => 记录到礼包记录
+                    // 领取5次 => x5
+                    addGiftRecord(`王者之石x${count}`, false);
+                    openResultModal(
+                        "开启成功",
+                        `恭喜您获得了礼包：王者之石x${count}`
+                    );
+                } else {
+                    // 2025万能碎片x3 => 不增加星耀值，记录到礼包记录
+                    // 领取5次 => x15
+                    addGiftRecord(`2025万能碎片x${3 * count}`, false);
+                    openResultModal(
+                        "开启成功",
+                        `恭喜您获得了礼包：2025万能碎片x${3 * count}`
+                    );
+                }
+            }
+
+            /*******************************************
+             *   星耀值兑换区域                       *
+             *******************************************/
+            function exchangeStarValue(itemName, cost) {
+                if (starValue < cost) {
+                    alert("抱歉，星耀值不足。");
+                    return;
+                }
+                starValue -= cost;
+                document.getElementById("starValue").textContent = starValue;
+                addGiftRecord(itemName, true);
+                openResultModal(
+                    "兑换成功",
+                    `恭喜您获得了礼包：${itemName}<br>游戏虚拟道具将会在24小时内到账`
+                );
+            }
+
+            /*******************************************
+             *   礼包记录(分页)                       *
+             *******************************************/
+            function addGiftRecord(itemName, isExchange = false) {
+                const now = new Date();
+                const timeStr =
+                    now.getFullYear() +
+                    "-" +
+                    String(now.getMonth() + 1).padStart(2, "0") +
+                    "-" +
+                    String(now.getDate()).padStart(2, "0") +
+                    " " +
+                    String(now.getHours()).padStart(2, "0") +
+                    ":" +
+                    String(now.getMinutes()).padStart(2, "0") +
+                    ":" +
+                    String(now.getSeconds()).padStart(2, "0");
+                const region = "北方大区";
+                const itemStr = isExchange ? itemName + "【兑换】" : itemName;
+                giftRecords.unshift({ time: timeStr, region, item: itemStr });
+                renderGiftRecords();
+            }
+            function renderGiftRecords() {
+                const totalPages =
+                    Math.ceil(giftRecords.length / giftPageSize) || 1;
+                if (giftCurrentPage < 1) giftCurrentPage = 1;
+                if (giftCurrentPage > totalPages) giftCurrentPage = totalPages;
+                const startIndex = (giftCurrentPage - 1) * giftPageSize;
+                const pageData = giftRecords.slice(
+                    startIndex,
+                    startIndex + giftPageSize
+                );
+
+                let html = "";
+                pageData.forEach((r) => {
+                    html += `
+      <tr>
+        <td>${r.time}</td>
+        <td>${r.region}</td>
+        <td>${r.item}</td>
+      </tr>
+    `;
+                });
+                document.getElementById("giftHistoryTableBody").innerHTML =
+                    html;
+                document.getElementById(
+                    "giftPageInfo"
+                ).textContent = `${giftCurrentPage}/${totalPages}`;
+            }
+            function prevGiftPage() {
+                giftCurrentPage--;
+                renderGiftRecords();
+            }
+            function nextGiftPage() {
+                giftCurrentPage++;
+                renderGiftRecords();
+            }
+
+            /*******************************************
+             *   弹窗逻辑                              *
+             *******************************************/
+            function showModal(content) {
+                document.getElementById("modalContent").innerHTML = content;
+                document.getElementById("modalBg").style.display = "block";
+                document.getElementById("modal").style.display = "block";
+            }
+            function closeModal() {
+                document.getElementById("modalBg").style.display = "none";
+                document.getElementById("modal").style.display = "none";
+            }
+            function openResultModal(title, htmlContent) {
+                document.getElementById("modalContent").innerHTML =
+                    `<div style="font-weight:bold;margin-bottom:10px;">${title}</div>` +
+                    htmlContent;
+                document.getElementById("modalBg").style.display = "block";
+                document.getElementById("modal").style.display = "block";
+            }
+
+            /*******************************************
+             *   奖池概率弹窗                          *
+             *******************************************/
+            function openPrizePoolModal() {
+                let html = `
+    <table border="1" style="margin:0 auto;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f5f5f5;">
+          <th style="padding:8px;">道具名称</th>
+          <th style="padding:8px;">奖池概率</th>
+          <th style="padding:8px;">分解所获钥匙</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+                prizePool.forEach((item) => {
+                    html += `
+      <tr>
+        <td style="padding:8px;">${item.name}</td>
+        <td style="padding:8px;">${item.prob.toFixed(2)}%</td>
+        <td style="padding:8px;">${item.keyValue}</td>
+      </tr>
+    `;
+                });
+                html += `</tbody></table>`;
+                document.getElementById("prizePoolModalContent").innerHTML =
+                    html;
+                document.getElementById("prizePoolModalBg").style.display =
+                    "block";
+                document.getElementById("prizePoolModal").style.display =
+                    "block";
+            }
+            function closePrizePoolModal() {
+                document.getElementById("prizePoolModalBg").style.display =
+                    "none";
+                document.getElementById("prizePoolModal").style.display =
+                    "none";
+            }
+
+            /*******************************************
+             *   更新统计信息                          *
+             *******************************************/
+            function updateStats() {
+                document.getElementById("totalMoney").textContent = moneySpent;
+                document.getElementById("totalKeys").textContent = totalKeys;
+                document.getElementById("totalPoints").textContent =
+                    totalPoints;
+                document.getElementById("totalDraws").textContent = totalDraws;
+            }
+        </script>
+    </body>
+</html>

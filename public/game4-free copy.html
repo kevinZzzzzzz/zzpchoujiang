@@ -23,9 +23,6 @@
       font-size: 16px;
       cursor: pointer;
     }
-    .blue-btn-model {
-        width: 80%;
-    }
     .blue-btn:hover {
       opacity: 0.9;
     }
@@ -173,7 +170,7 @@
     }
     .exchange-item {
       position: relative;
-      /* width: 205px; */
+      width: 205px;
       min-height: 50px;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -326,7 +323,7 @@
       z-index: 1000;
       left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      width: 100%;
+      width: 600px;
       background-color: white;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -410,8 +407,7 @@
       z-index: 2000;
       left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      width: 70%;
-      margin: 0 auto;
+      width: 400px;
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -514,7 +510,7 @@
                 }
 
                 .exchange-item {
-                    padding: 15px 8px;
+                    padding: 8px;
                 }
 
                 .stash-table {
@@ -756,13 +752,13 @@
 <div class="result-modal" id="resultModal">
   <div class="result-modal-header" id="resultModalHeader"></div>
   <div class="result-modal-content" id="resultModalContent"></div>
-  <button class="blue-btn blue-btn-model" onclick="closeResultModal()">确定</button>
+  <button onclick="closeResultModal()">确定</button>
 </div>
 
 <!-- 底部的两个按钮 -->
 <div style="margin-top: 30px; text-align: center;">
-  <button class="blue-btn blue-btn-model" onclick="openPrizePoolModal()">奖池概率</button>
-  <button class="blue-btn blue-btn-model" onclick="openCardProbabilityModal()">卡牌概率</button>
+  <button class="blue-btn" onclick="openPrizePoolModal()">奖池概率</button>
+  <button class="blue-btn" onclick="openCardProbabilityModal()">卡牌概率</button>
 </div>
 
 <!-- 奖池/卡牌概率通用弹窗 -->
@@ -967,7 +963,7 @@ function batchReceiveCurrentPage() {
 
   const canReceive = pageData.filter(i => i.status === "normal");
   if (canReceive.length === 0) {
-    openResultModal("当前页没有可领取的道具");
+    alert("当前页没有可领取的道具");
     return;
   }
   if (!confirm(`确认批量领取(当前页) ${canReceive.length}个道具？`)) return;
@@ -990,7 +986,7 @@ function batchDecomposeCurrentPage() {
 
   const canDecompose = pageData.filter(i => i.status === "normal");
   if (canDecompose.length === 0) {
-    openResultModal("当前页没有可分解的道具");
+    alert("当前页没有可分解的道具");
     return;
   }
   if (!confirm(`确认批量分解(当前页) ${canDecompose.length}个道具？`)) return;
@@ -1010,7 +1006,7 @@ function batchDecomposeCurrentPage() {
 function batchReceiveAll() {
   const canReceive = stashRecords.filter(i => i.status === "normal");
   if (canReceive.length === 0) {
-    openResultModal("暂存箱没有可领取的道具");
+    alert("暂存箱没有可领取的道具");
     return;
   }
   if (!confirm(`确认全部领取(暂存箱) ${canReceive.length}个道具？`)) return;
@@ -1026,7 +1022,7 @@ function batchReceiveAll() {
 function batchDecomposeAll() {
   const canDecompose = stashRecords.filter(i => i.status === "normal");
   if (canDecompose.length === 0) {
-    openResultModal("暂存箱没有可分解的道具");
+    alert("暂存箱没有可分解的道具");
     return;
   }
   if (!confirm(`确认全部分解(暂存箱) ${canDecompose.length}个道具？`)) return;
@@ -1160,7 +1156,7 @@ function closeConfirmExchange() {
 
 function openResultModal(title, htmlContent) {
   document.getElementById("resultModalHeader").innerText = title;
-  document.getElementById("resultModalContent").innerHTML = htmlContent ? htmlContent : "";
+  document.getElementById("resultModalContent").innerHTML = htmlContent;
   document.getElementById("resultModalBg").style.display = "block";
   document.getElementById("resultModal").style.display = "block";
 }
@@ -1199,13 +1195,13 @@ function buyKeys(keys, price) {
   totalKeys += keys;
   updateStats();
   // 增加提示
-  openResultModal(`消费 ${price} 元，获得 ${keys} 个钥匙`);
+  alert(`消费 ${price} 元，获得 ${keys} 个钥匙`);
 }
 
 /** 抽奖 times 次 */
 function draw(times) {
   if (totalKeys < times) {
-    openResultModal("钥匙不足，请先购买！");
+    alert("钥匙不足，请先购买！");
     return;
   }
   totalKeys -= times;
@@ -1307,9 +1303,9 @@ function composeOneSet() {
     cardCollection["冠军卡"]--;
     totalSets++;
     updateCardUI();
-    openResultModal("成功合成 1 套！");
+    alert("成功合成 1 套！");
   } else {
-    openResultModal("合成失败：需集齐5种卡牌各≥1才能合成1套。");
+    alert("合成失败：需集齐5种卡牌各≥1才能合成1套。");
   }
 }
 
@@ -1317,7 +1313,7 @@ function composeOneSet() {
 function composeFiveSets() {
   for (let i = 0; i < 5; i++) {
     if (!checkSetEnough(5)) {
-      openResultModal("合成失败：需集齐5种卡牌各≥5才能合成5套。");
+      alert("合成失败：需集齐5种卡牌各≥5才能合成5套。");
       return;
     }
   }
@@ -1328,7 +1324,7 @@ function composeFiveSets() {
   cardCollection["冠军卡"]  -= 5;
   totalSets += 5;
   updateCardUI();
-  openResultModal("成功合成 5 套！");
+  alert("成功合成 5 套！");
 }
 
 /** 卡牌合成全部 */
@@ -1348,9 +1344,9 @@ function composeAllSets() {
     cardCollection["冠军卡"]  -= canMake;
     totalSets += canMake;
     updateCardUI();
-    openResultModal(`合成成功：共 ${canMake} 套！`);
+    alert(`合成成功：共 ${canMake} 套！`);
   } else {
-    openResultModal("合成失败：需集齐5种卡牌各≥1才能合成。");
+    alert("合成失败：需集齐5种卡牌各≥1才能合成。");
   }
 }
 
@@ -1379,9 +1375,9 @@ function redeemBySet(requiredSets, itemName) {
     totalSets -= requiredSets;
     updateCardUI();
     addRecord(itemName, true);
-    openResultModal(`兑换成功：获得 ${itemName}`);
+    alert(`兑换成功：获得 ${itemName}`);
   } else {
-    openResultModal("抱歉，卡牌不足。");
+    alert("抱歉，卡牌不足。");
   }
 }
 
