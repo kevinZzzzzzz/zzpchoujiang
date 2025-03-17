@@ -2,543 +2,1112 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>抽奖模拟器（含暂存箱、道具兑换、套数兑换、记录分页）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>荣耀世冠白鲨2023</title>
   <style>
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* 修复弹窗显示时页面内容移动问题 */
+    html {
+        width: 100%;
+        /* 始终显示滚动条，防止弹窗显示时页面抖动 */
+        overflow-y: scroll;
+    }
+    
     body {
-        font-family: sans-serif;
+        font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
         text-align: center;
         margin: 0 auto;
-        /* max-width: 1200px; */
-        padding: 20px;
-    }
-    /* 不同颜色按钮示例 */
-    .blue-btn {
-      background: #007BFF; /* 购买钥匙按钮 */
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 14px;
-      margin: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .blue-btn-model {
-        width: 80%;
-    }
-    .blue-btn:hover {
-      opacity: 0.9;
-    }
-    .pink-btn {
-      background: #ff44cc; /* 积分兑换按钮 */
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 14px;
-      margin: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .pink-btn:hover {
-      opacity: 0.9;
-    }
-    .green-btn {
-      background: #dd7a2a; /* 抽奖、套数兑换、合成按钮 */
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 14px;
-      margin: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .green-btn:hover {
-      opacity: 0.9;
-    }
-    .red-btn {
-      background: #ff0000; /* 暂存箱领取/分解按钮 */
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 8px;
-      margin: 0 2px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .red-btn:hover {
-      opacity: 0.9;
-    }
-    /* 小翻页按钮 */
-    .small-btn {
-      padding: 4px 8px;
-      margin: 0 5px;
-      font-size: 14px;
-      background: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+        padding: 20px 10px;
+        background-color: #f5f8fa;
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
     }
 
-    .stats {
-      margin-top: 20px;
-      font-size: 18px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    /* 当弹窗打开时，禁止滚动但保持页面布局不变 */
+    body.modal-open {
+        overflow: hidden;
+        /* 不添加额外的padding，避免页面移动 */
     }
-    .stats span {
-      font-weight: bold;
+
+    /* 弹窗背景固定宽度，避免页面移动 */
+    .modal-bg, .confirm-modal-bg, .result-modal-bg {
+        width: 100vw; /* 使用视口宽度单位 */
+    }
+
+    h2 {
+        color: #007BFF;
+        font-size: 28px;
+        margin: 20px 0;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+    h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: #007BFF;
+    }
+
+    /* 购买钥匙区域 */
+    .keys-buy-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 10px auto;
+        max-width: 800px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 15px;
+    }
+
+    /* 购买钥匙按钮渐变样式 */
+    .keys-buy-container .blue-btn {
+        width: 100%;
+        margin: 0;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #0062cc, #1e90ff, #00bfff);
+        background-size: 200% 200%;
+        animation: gradientAnimation 3s ease infinite;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        transition: all 0.3s ease;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    .keys-buy-container .blue-btn:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+        background-size: 150% 150%;
+    }
+    
+    .keys-buy-container .blue-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    }
+    
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    /* 抽奖按钮容器 */
+    .draw-buttons-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 10px auto;
+        max-width: 800px;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 15px;
+    }
+
+    /* 抽奖按钮渐变样式 */
+    .draw-buttons-container .green-btn {
+        width: 100%;
+        margin: 0;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        box-sizing: border-box;
+        background: linear-gradient(135deg, #dd7a2a, #e8913a, #f0a04b);
+        background-size: 200% 200%;
+        animation: gradientAnimation 3s ease infinite;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(221, 122, 42, 0.3);
+        transition: all 0.3s ease;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    .draw-buttons-container .green-btn:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(221, 122, 42, 0.4);
+        background-size: 150% 150%;
+    }
+    
+    .draw-buttons-container .green-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(221, 122, 42, 0.3);
+    }
+
+    /* 暂存箱按钮容器 */
+    .stash-buttons-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .stash-buttons-container .red-btn {
+        width: 100%;
+        margin: 0;
+        background: linear-gradient(135deg, #ff0000, #ff3333);
+        color: white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 不同颜色按钮样式优化 */
+    .blue-btn {
+        background: linear-gradient(135deg, #007BFF, #0056b3);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 16px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+    }
+    .blue-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #007BFF);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.4);
+    }
+
+    .green-btn {
+        background: linear-gradient(135deg, #dd7a2a, #e8913a);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 16px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px rgba(221, 122, 42, 0.3);
+    }
+    .green-btn:hover {
+        background: linear-gradient(135deg, #e8913a, #dd7a2a);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(221, 122, 42, 0.4);
+    }
+
+    .red-btn {
+        background: linear-gradient(135deg, #ff0000, #ff3333);
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        padding: 5px 10px;
+        margin: 0 2px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+    }
+    .red-btn:hover {
+        background: linear-gradient(135deg, #ff3333, #ff0000);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+    }
+
+    /* 小翻页按钮 */
+    .small-btn {
+        padding: 5px 12px;
+        margin: 0 5px;
+        font-size: 14px;
+        background: linear-gradient(135deg, #007BFF, #0056b3);
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+    }
+    .small-btn:hover {
+        background: linear-gradient(135deg, #0056b3, #007BFF);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
 
     /* 主奖池表格：4×4 */
     .lottery-table {
-      width: 80%;
-      margin: 20px auto;
-      border-collapse: collapse;
+        width: 90%;
+        max-width: 900px;
+        margin: 25px auto;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        table-layout: fixed;
     }
     .lottery-table td {
-      border: 1px solid #ccc;
-      padding: 10px;
-      text-align: center;
-      width: 25%;
+        border: 1px solid #e0e0e0;
+        padding: 12px 8px;
+        text-align: center;
+        width: 25%;
+        background-color: white;
+        transition: background-color 0.3s;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .lottery-table tr:nth-child(odd) td {
+        background-color: #f8f9fa;
+    }
+    .lottery-table td:hover {
+        background-color: #e8f4ff;
     }
 
     /* 暂存箱区域 */
     .stash-container {
-      /* width: 80%; */
-      margin: 10px auto;
-      text-align: center;
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .stash-container h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .stash-container h3:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #ff0000;
     }
     /* 让按钮与下方表格留出额外间距 */
     .stash-container .buttons {
-      margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     .stash-table {
-      /* width: 100%; */
-      margin: 0 auto;
-      table-layout: fixed;
-      border-collapse: collapse;
+        width: 100%;
+        margin: 0 auto;
+        table-layout: fixed;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     /* 指定列宽 */
     .stash-table colgroup col:nth-child(1) {
-      width: 300px; /* 道具名称更宽 */
+        width: 45%; /* 道具名称更宽 */
     }
     .stash-table colgroup col:nth-child(2) {
-      width: 100px;  /* 变为钥匙更窄 */
+        width: 15%;  /* 钥匙数量更窄 */
     }
     .stash-table colgroup col:nth-child(3),
     .stash-table colgroup col:nth-child(4) {
-      width: 100px;
+        width: 20%; /* 操作按钮列宽度一致 */
     }
     .stash-table th,
     .stash-table td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .stash-table th {
-      background: #f5f5f5;
+        background: #4a76b5;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .stash-table tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+    .stash-table tr:hover {
+        background-color: #f0f7ff;
     }
     .stash-pagination {
-      margin: 10px;
-    }
-
-    /* 道具兑换区域（无外边框） */
-    .exchange-container {
-      width: 80%;
-      margin: 20px auto;
-      padding: 15px;
-      text-align: center;
-    }
-    .exchange-container h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    .exchange-grid {
+        margin: 15px;
         display: flex;
-            flex-wrap: nowrap; /*不换行 */
         justify-content: center;
-        gap: 20px;
-        /* display: grid;
-        grid-template-columns: repeat(5, 1fr); */
-        /* 若宽度不足可横向滚动 */
-        margin-top: 10px;
+        align-items: center;
     }
-    .exchange-item {
-      position: relative;
-      /* width: 205px; */
-      min-height: 50px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .label-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 4px;
-      margin: 2px;
-    }
-    .item-label {
-      background: #007BFF;
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 12px;
-    }
-    .item-name {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: block;
-      width: 100%;
-      font-size: 16px;
-      margin-top: 4px;
-      margin-bottom: 8px;
+    .stash-pagination span {
+        margin: 0 10px;
+        font-weight: bold;
+        color: #333;
     }
 
     /* 世冠集卡区域 */
     .card-section {
-      margin: 20px auto;
-      padding: 15px;
-      text-align: center;
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .card-section h2 {
-      margin-bottom: 10px;
+        margin-bottom: 15px;
+        font-size: 24px;
     }
     .card-container {
-      display: flex;
-      /* flex-wrap: nowrap;
-      overflow-x: auto; */
-      gap: 20px;
-      margin-bottom: 10px;
-      justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 20px 0;
+        justify-content: center;
     }
     .card-box {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      width: 120px;
-      flex: 0 0 auto;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        width: 130px;
+        flex: 0 0 auto;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+    .card-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .card-box div:first-child {
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+    }
+    .card-box div:last-child {
+        color: #666;
+    }
+    .card-box span {
+        font-weight: bold;
+        color: #007BFF;
     }
 
     /* 套数兑换区域 */
     .set-exchange-section {
-      margin: 20px auto;
-      max-width: 800px;
-      padding: 15px;
-      text-align: center;
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .set-exchange-section h3 {
-      margin-bottom: 10px;
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .set-exchange-section h3:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #dd7a2a;
     }
     .set-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 20px;
+        justify-content: center;
     }
     .set-item {
-      width: 220px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
+        width: auto;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    .set-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        background-color: #fff;
     }
     .set-item h4 {
-      margin: 5px 0;
-      font-size: 16px;
+        margin: 5px 0 10px;
+        font-size: 16px;
+        color: #333;
+        text-align: center;
     }
     .set-item p {
-      margin: 5px 0;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        margin: 10px 0;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #666;
+        text-align: center;
+        width: 100%;
+    }
+    .set-item .green-btn {
+        margin-top: 10px;
+        min-width: 120px;
     }
 
-/* 礼包记录区域（分页） */
+    /* 礼包记录区域（分页） */
     .history-section {
-      margin: 20px auto;
-      max-width: 800px;
-      text-align: center;
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .history-section h3 {
-      margin-bottom: 10px;
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .history-section h3:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #007BFF;
     }
     .history-table {
-      /* width: 80%; */
-      margin: 0 auto;
-      table-layout: fixed; /* 固定布局 */
-      border-collapse: collapse;
+        width: 100%;
+        margin: 0 auto;
+        table-layout: fixed; /* 固定布局 */
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
     /* 指定列宽：时间、大区、道具 */
     .history-table colgroup col:nth-child(1) {
-      width: 150px; /* 时间列 */
+        width: 30%; /* 时间列 */
     }
     .history-table colgroup col:nth-child(2) {
-      width: 80px;  /* 大区列 */
+        width: 20%;  /* 大区列 */
     }
     .history-table colgroup col:nth-child(3) {
-      width: 300px; /* 道具列更宽 */
+        width: 50%; /* 道具列更宽 */
     }
     .history-table th,
     .history-table td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .history-table th {
-      background: #f5f5f5;
+        background: #4a76b5;
+        color: white;
+        font-weight: bold;
+    }
+    .history-table tr:nth-child(even) {
+        background-color: #f8f9fa;
     }
     .history-pagination {
-      margin: 10px;
+        margin: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .history-pagination span {
+        margin: 0 10px;
+        font-weight: bold;
+        color: #333;
     }
 
-    /* 通用弹窗样式 */
-    .modal-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
+    /* 底部按钮和法律提醒 */
+    .bottom-buttons {
+        margin: 30px auto;
+        text-align: center;
     }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      padding: 20px;
-      text-align: center;
+    .legal-notice {
+        margin-top: 30px;
+        padding: 15px;
+        text-align: center;
+        color: #fa0101;
+        font-size: 14px;
+        border-top: 1px solid #e0e0e0;
+        background-color: #fff8f8;
+        border-radius: 0 0 10px 10px;
     }
-    .modal-header {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
+
+    /* 小屏幕（平板） */
+    @media (max-width: 768px) {
+        body {
+            padding: 15px 10px;
+        }
+        
+        h2 {
+            font-size: 24px;
+        }
+        
+        .blue-btn, .green-btn {
+            padding: 8px 14px;
+            font-size: 14px;
+        }
+        
+        .lottery-table {
+            width: 95%;
+        }
+        
+        .lottery-table td {
+            padding: 10px 5px;
+            font-size: 14px;
+        }
+        
+        .stash-container, .card-section, .set-exchange-section, .history-section, .exchange-container {
+            width: 95%;
+            padding: 15px 10px;
+        }
+        
+        .stash-container h3, .set-exchange-section h3, .history-section h3 {
+            font-size: 20px;
+        }
+        
+        .stash-table th, .stash-table td, .history-table th, .history-table td {
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .card-box {
+            width: 110px;
+            padding: 12px;
+        }
+        
+        .set-item {
+            width: 180px;
+        }
+        
+        .stats {
+            font-size: 14px;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, auto);
+            padding: 10px;
+        }
+        
+        .stats strong {
+            font-size: 16px;
+        }
+
+        .keys-buy-container .blue-btn {
+            height: 40px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .draw-buttons-container .green-btn {
+            height: 40px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .exchange-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .set-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .set-item {
+            padding: 12px;
+        }
+        
+        .set-item h4 {
+            font-size: 15px;
+            margin: 5px 0 8px;
+        }
+        
+        .set-item p {
+            font-size: 13px;
+            margin: 8px 0;
+        }
+        
+        .set-item .green-btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            min-width: 100px;
+        }
     }
-    .modal-content {
-      font-size: 16px;
-      line-height: 1.8;
-      max-height: 400px;
-      overflow-y: auto;
-      overflow-x: auto;
+
+    /* 更小的屏幕（手机） */
+    @media (max-width: 480px) {
+        body {
+            padding: 10px 5px;
+        }
+        
+        h2 {
+            font-size: 20px;
+        }
+        
+        .blue-btn, .green-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+        
+        .red-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        
+        .lottery-table {
+            width: 100%;
+        }
+        
+        .lottery-table td {
+            padding: 8px 3px;
+            font-size: 12px;
+        }
+        
+        .stash-container, .card-section, .set-exchange-section, .history-section, .exchange-container {
+            width: 100%;
+            padding: 10px 5px;
+        }
+        
+        .stash-container h3, .set-exchange-section h3, .history-section h3 {
+            font-size: 18px;
+        }
+        
+        .stash-table th, .stash-table td, .history-table th, .history-table td {
+            padding: 6px 3px;
+            font-size: 12px;
+        }
+        
+        .card-box {
+            width: 90px;
+            padding: 10px;
+        }
+        
+        .set-item {
+            width: 100%;
+            padding: 10px;
+        }
+        
+        .set-item h4 {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .set-item p {
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        
+        .set-item .green-btn {
+            padding: 6px 10px;
+            font-size: 12px;
+            min-width: 80px;
+            margin-top: 5px;
+        }
+        
+        .stats {
+            font-size: 12px;
+            padding: 8px;
+        }
+        
+        .stats strong {
+            font-size: 14px;
+        }
+
+        .keys-buy-container {
+            gap: 8px;
+            padding: 0 10px;
+        }
+
+        .keys-buy-container .blue-btn {
+            height: 36px;
+            font-size: 12px;
+            border-radius: 4px;
+            letter-spacing: 0;
+        }
+
+        .draw-buttons-container {
+            gap: 8px;
+            padding: 0 10px;
+        }
+
+        .draw-buttons-container .green-btn {
+            height: 36px;
+            font-size: 12px;
+            border-radius: 4px;
+            letter-spacing: 0;
+        }
+
+        .stash-buttons-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+        
+        .stash-buttons-container .red-btn {
+            font-size: 11px;
+            padding: 5px 2px;
+            min-width: auto;
+        }
+
+        .exchange-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .exchange-item {
+            padding: 12px 8px;
+        }
+        
+        .exchange-item .item-name {
+            margin: 6px 0;
+            font-size: 13px;
+        }
+        
+        .pink-btn {
+            font-size: 12px;
+            padding: 5px 8px;
+            min-width: 80px;
+            margin-top: 6px;
+        }
+
+        .set-list {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
     }
+
+    /* 统计信息样式 */
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 20px auto;
+        padding: 15px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        max-width: 900px;
+    }
+    .stats span {
+        display: block;
+        text-align: center;
+        color: #555;
+    }
+    .stats strong {
+        display: block;
+        font-size: 18px;
+        color: #007BFF;
+        margin-top: 5px;
+    }
+
+    /* 道具兑换区域样式 */
+    .exchange-container {
+        width: 90%;
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .exchange-container h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #333;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .exchange-container h3:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #ff6b6b;
+    }
+    .exchange-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .exchange-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .exchange-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+    }
+    .exchange-item {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        background-color: white;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .exchange-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .item-name {
+        font-weight: bold;
+        margin: 10px 0;
+        color: #333;
+    }
+    .label-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+    .item-label {
+        background-color: #007bff;
+        color: #ffffff;
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 10px;
+    }
+    .pink-btn {
+        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+        box-shadow: 0 2px 5px rgba(255, 107, 107, 0.3);
+    }
+    .pink-btn:hover {
+        background: linear-gradient(135deg, #ff8e8e, #ff6b6b);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+    }
+
+    /* 弹窗样式 */
+    .modal-bg, .confirm-modal-bg, .result-modal-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        z-index: 9999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-bg.show, .confirm-modal-bg.show, .result-modal-bg.show {
+        opacity: 1;
+    }
+
+    .modal, .confirm-modal, .result-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        width: 80%;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+        z-index: 10000;
+        display: none;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal.show, .confirm-modal.show, .result-modal.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-header, .confirm-modal-header, .result-modal-header {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+        text-align: center;
+    }
+
+    .modal-content, .confirm-modal-content, .result-modal-content {
+        margin-bottom: 20px;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .modal-footer, .confirm-modal-footer {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .modal-footer button, .confirm-modal-footer button, .result-modal button {
+        background: linear-gradient(135deg, #007BFF, #0056b3);
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin: 0;
+        min-width: 100px;
+        box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
+    }
+
+    .modal-footer button:hover, .confirm-modal-footer button:hover, .result-modal button:hover {
+        background: linear-gradient(135deg, #0056b3, #007BFF);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+    }
+
+    .modal-footer button:active, .confirm-modal-footer button:active, .result-modal button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+    }
+
+    .confirm-modal-footer button:last-child {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        box-shadow: 0 3px 10px rgba(108, 117, 125, 0.2);
+    }
+
+    .confirm-modal-footer button:last-child:hover {
+        background: linear-gradient(135deg, #495057, #6c757d);
+        box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+    }
+
     .prize-card-line {
-      white-space: nowrap;
-      margin: 6px 0;
-      text-align: center;
+        margin: 5px 0;
+        padding: 4px;
     }
+
     .highlight {
-      color: red;
-      font-weight: bold;
-    }
-    .modal-footer {
-      margin-top: 10px;
-    }
-    .modal-footer button {
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    /* 兑换确认弹窗 */
-    .confirm-modal-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 999;
-    }
-    .confirm-modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 350px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      padding: 20px;
-    }
-    .confirm-modal-header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .confirm-modal-content {
-      font-size: 16px;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-    .confirm-modal-footer button {
-      margin: 0 5px;
-    }
-    /* 兑换结果弹窗 */
-    .result-modal-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1999;
-    }
-    .result-modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-      width: 70%;
-      margin: 0 auto;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      padding: 20px;
-    }
-    .result-modal-header {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .result-modal-content {
-      font-size: 16px;
-      line-height: 1.8;
-      margin-bottom: 20px;
+        color: #ff3366;
+        font-weight: bold;
     }
 
-  .stats {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #f0f8ff;
-    border: 2px solid #007BFF;
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: space-around;
-    align-items: center;
-    font-size: 18px;
-    color: #333;
-  }
-  .stats span {
-    margin: 0 10px;
-  }
-  .stats strong {
-    color: #007BFF;
-    font-size: 20px;
-  }
-            /* 小屏幕（平板） */
-            @media (max-width: 768px) {
-                body {
-                    padding: 10px;
-                }
-
-                .prize-container {
-                    /* width: 90%; */
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-gap: 10px;
-                }
-
-                .prize-item {
-                    width: 150px;
-                    height: auto;
-                    padding: 10px;
-                }
-
-                .stats {
-                    font-size: 14px;
-                }
-
-                .exchange-item {
-                    padding: 10px;
-                }
-
-                .exchange-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-gap: 10px;
-                    /* 若宽度不足可横向滚动 */
-                    margin-top: 10px;
-                }
-                .card-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-gap: 10px;
-                    margin-bottom: 10px;
-                    justify-content: center;
-                }
-            }
-
-            /* 更小的屏幕（手机） */
-            @media (max-width: 480px) {
-                body {
-                    padding: 10px;
-                }
-
-                .prize-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-gap: 10px;
-                }
-
-                .prize-item {
-                    width: 120px;
-                    height: auto;
-                    padding: 8px;
-                }
-
-                .stats {
-                    font-size: 12px;
-                }
-
-                .exchange-item {
-                    padding: 15px 8px;
-                }
-
-                .stash-table {
-                    font-size: 12px;
-                }
-
-                .history-table {
-                    font-size: 12px;
-                }
-                .exchange-grid {
-                    display: grid;
-                    grid-template-columns: repeat(1, 1fr);
-                    grid-gap: 10px;
-                    /* 若宽度不足可横向滚动 */
-                    margin-top: 10px;
-                }
-                .card-container {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-gap: 5px;
-                    margin-bottom: 10px;
-                    justify-content: center;
-                }
-            }
+    @media (max-width: 480px) {
+        /* 弹窗样式优化 - 手机 */
+        .modal, .confirm-modal, .result-modal {
+            padding: 15px;
+            width: 90%;
+            max-width: 320px;
+            height: auto;
+            max-height: 80vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            margin: 0;
+            border-radius: 15px;
+        }
+        
+        .modal.show, .confirm-modal.show, .result-modal.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .modal-header, .confirm-modal-header, .result-modal-header {
+            font-size: 16px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+        }
+        
+        .modal-content, .confirm-modal-content, .result-modal-content {
+            font-size: 14px;
+            line-height: 1.5;
+            max-height: 50vh;
+            padding: 5px 3px;
+            overflow-y: auto;
+        }
+        
+        .modal-footer, .confirm-modal-footer, .result-modal-footer {
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .modal-footer button, .confirm-modal-footer button, .result-modal-footer button {
+            padding: 8px 15px;
+            font-size: 14px;
+            min-width: 80px;
+        }
+    }
   </style>
 </head>
 <body>
@@ -546,7 +1115,7 @@
 <h2>荣耀世冠白鲨2023</h2>
 
 <!-- 购买钥匙区域 -->
-<div class="buttons">
+<div class="keys-buy-container">
   <button class="blue-btn" onclick="buyKeys(1, 10)">10元购买1个钥匙</button>
   <button class="blue-btn" onclick="buyKeys(11, 100)">100元购买11个钥匙</button>
   <button class="blue-btn" onclick="buyKeys(55, 500)">500元购买55个钥匙</button>
@@ -558,7 +1127,7 @@
   <tr>
     <td>幻神-荣耀世冠白鲨2023</td>
     <td>柯尔特-荣耀世冠白鲨2023</td>
-    <td>炎芒蝶刃-荣耀世冠白鲨2023</td>
+    <td>炽芒蝶刃-荣耀世冠白鲨2023</td>
     <td>烟雾弹-荣耀世冠白鲨2023</td>
   </tr>
   <tr>
@@ -582,12 +1151,11 @@
 </table>
 
 <!-- 抽奖按钮(绿色) -->
-<div class="buttons">
+<div class="draw-buttons-container">
   <button class="green-btn" onclick="draw(1)">抽1次</button>
   <button class="green-btn" onclick="draw(10)">抽10次</button>
   <button class="green-btn" onclick="draw(50)">抽50次</button>
   <button class="green-btn" onclick="draw(100)">抽100次</button>
-  <button class="green-btn" onclick="draw(500)">抽500次</button>
 </div>
 
 <!-- 统计信息 -->
@@ -596,13 +1164,14 @@
   <span>抽奖钥匙: <strong id="totalKeys">0</strong></span>
   <span>我的积分: <strong id="totalPoints">0</strong></span>
   <span>已抽次数: <strong id="totalDraws">0</strong></span>
+  <span>冠军卡保底: <strong id="championCardCounter">100</strong></span>
 </div>
 
 <!-- 暂存箱 -->
 <div class="stash-container">
   <h3>暂存箱 <span style="font-size:14px; margin-left:20px;">(抽到的指定道具会自动放入此处)</span></h3>
   <!-- 批量按钮，增加 margin-bottom -->
-  <div class="buttons" style="margin-bottom:15px;">
+  <div class="stash-buttons-container">
     <button class="red-btn" onclick="batchReceiveCurrentPage()">批量领取(当前页)</button>
     <button class="red-btn" onclick="batchDecomposeCurrentPage()">批量分解(当前页)</button>
     <button class="red-btn" onclick="batchReceiveAll()">全部领取(暂存箱)</button>
@@ -611,16 +1180,16 @@
   <table class="stash-table">
     <colgroup>
       <col><!-- 道具名称更宽 -->
-      <col><!-- 变为钥匙更窄 -->
+      <col><!-- 钥匙数量更窄 -->
       <col>
       <col>
     </colgroup>
     <thead>
       <tr>
         <th>道具名称</th>
-        <th>变为钥匙</th>
-        <th>领取道具</th>
-        <th>分解道具</th>
+        <th>钥匙数量</th>
+        <th>领取</th>
+        <th>分解</th>
       </tr>
     </thead>
     <tbody id="stashTableBody"></tbody>
@@ -756,13 +1325,15 @@
 <div class="result-modal" id="resultModal">
   <div class="result-modal-header" id="resultModalHeader"></div>
   <div class="result-modal-content" id="resultModalContent"></div>
-  <button class="blue-btn blue-btn-model" onclick="closeResultModal()">确定</button>
+  <div class="result-modal-footer">
+    <button onclick="closeResultModal()">确定</button>
+  </div>
 </div>
 
 <!-- 底部的两个按钮 -->
-<div style="margin-top: 30px; text-align: center;">
-  <button class="blue-btn blue-btn-model" onclick="openPrizePoolModal()">奖池概率</button>
-  <button class="blue-btn blue-btn-model" onclick="openCardProbabilityModal()">卡牌概率</button>
+<div class="bottom-buttons">
+  <button class="blue-btn" onclick="openPrizePoolModal()">奖池概率</button>
+  <button class="blue-btn" onclick="openCardProbabilityModal()">卡牌概率</button>
 </div>
 
 <!-- 奖池/卡牌概率通用弹窗 -->
@@ -778,7 +1349,7 @@
 </div>
 
 <!-- 模拟器相关法律提醒 -->
-<div style="margin-top: 30px; padding: 10px; text-align: center; color: #fa0101; font-size: 14px; border-top: 1px solid #ccc;">
+<div class="legal-notice">
   <p>
     本工具仅供玩家娱乐体验与测试用途，不包含真实游戏数据推送。<br>
     请合理安排游戏时间，理性消费。如有侵权联系即删~
@@ -794,6 +1365,7 @@ let totalKeys = 0;
 let totalPoints = 0;
 let totalDraws = 0;
 let totalSets = 0; // 合成的套数
+let championCardCounter = 0; // 冠军卡保底计数器，每100次必出
 
 // 卡牌库存
 let cardCollection = {
@@ -937,109 +1509,42 @@ function stashNextPage() {
 function stashReceive(index) {
   const item = stashRecords[index];
   if (!item || item.status !== "normal") return;
-  if (!confirm(`确认将 ${item.name} 发送到仓库吗？`)) return;
-  item.status = "received";
-  openResultModal("领取成功", `恭喜您获得了礼包：${item.name}<br>请注意：游戏虚拟道具奖品将会在24小时内到账`);
-  renderStash();
+  
+  // 使用确认弹窗
+  openStashConfirm('receive', index);
 }
 
 /** 单个分解 */
 function stashDecompose(index) {
   const item = stashRecords[index];
   if (!item || item.status !== "normal") return;
-  if (!confirm(`确认将 ${item.name} 分解成 ${item.keyValue}个钥匙 吗？`)) return;
-
-  item.status = "decomposed";
-  totalKeys += item.keyValue;
-  updateStats();
-  openResultModal("分解成功", `共1个道具，获得 <span style="color:red;font-weight:bold">${item.keyValue}个钥匙</span>`);
-  renderStash();
+  
+  // 使用确认弹窗
+  openStashConfirm('decompose', index);
 }
 
 /** 批量领取(当前页) */
 function batchReceiveCurrentPage() {
-  const total = stashRecords.length;
-  const totalPages = Math.ceil(total / stashPageSize) || 1;
-  if (stashPage < 1) stashPage = 1;
-  if (stashPage > totalPages) stashPage = totalPages;
-  const startIndex = (stashPage - 1) * stashPageSize;
-  const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
-
-  const canReceive = pageData.filter(i => i.status === "normal");
-  if (canReceive.length === 0) {
-    openResultModal("当前页没有可领取的道具");
-    return;
-  }
-  if (!confirm(`确认批量领取(当前页) ${canReceive.length}个道具？`)) return;
-
-  canReceive.forEach(item => {
-    item.status = "received";
-  });
-  openResultModal("领取成功", `已领取：共${canReceive.length}个道具`);
-  renderStash();
+  // 使用确认弹窗
+  openStashBatchConfirm('receiveCurrentPage');
 }
 
 /** 批量分解(当前页) */
 function batchDecomposeCurrentPage() {
-  const total = stashRecords.length;
-  const totalPages = Math.ceil(total / stashPageSize) || 1;
-  if (stashPage < 1) stashPage = 1;
-  if (stashPage > totalPages) stashPage = totalPages;
-  const startIndex = (stashPage - 1) * stashPageSize;
-  const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
-
-  const canDecompose = pageData.filter(i => i.status === "normal");
-  if (canDecompose.length === 0) {
-    openResultModal("当前页没有可分解的道具");
-    return;
-  }
-  if (!confirm(`确认批量分解(当前页) ${canDecompose.length}个道具？`)) return;
-
-  let totalGained = 0;
-  canDecompose.forEach(item => {
-    item.status = "decomposed";
-    totalGained += item.keyValue;
-  });
-  totalKeys += totalGained;
-  updateStats();
-  openResultModal("分解成功", `共${canDecompose.length}个道具，获得 <span style="color:red;font-weight:bold">${totalGained}个钥匙</span>`);
-  renderStash();
+  // 使用确认弹窗
+  openStashBatchConfirm('decomposeCurrentPage');
 }
 
 /** 全部领取(暂存箱) */
 function batchReceiveAll() {
-  const canReceive = stashRecords.filter(i => i.status === "normal");
-  if (canReceive.length === 0) {
-    openResultModal("暂存箱没有可领取的道具");
-    return;
-  }
-  if (!confirm(`确认全部领取(暂存箱) ${canReceive.length}个道具？`)) return;
-
-  canReceive.forEach(item => {
-    item.status = "received";
-  });
-  openResultModal("领取成功", `已领取：共${canReceive.length}个道具`);
-  renderStash();
+  // 使用确认弹窗
+  openStashBatchConfirm('receiveAll');
 }
 
 /** 全部分解(暂存箱) */
 function batchDecomposeAll() {
-  const canDecompose = stashRecords.filter(i => i.status === "normal");
-  if (canDecompose.length === 0) {
-    openResultModal("暂存箱没有可分解的道具");
-    return;
-  }
-  if (!confirm(`确认全部分解(暂存箱) ${canDecompose.length}个道具？`)) return;
-
-  let totalGained = 0;
-  canDecompose.forEach(item => {
-    item.status = "decomposed";
-    totalGained += item.keyValue;
-  });
-  totalKeys += totalGained;
-  updateStats();
-  openResultModal("分解成功", `共${canDecompose.length}个道具，获得 <span style="color:red;font-weight:bold">${totalGained}个钥匙</span>`);
-  renderStash();
+  // 使用确认弹窗
+  openStashBatchConfirm('decomposeAll');
 }
 
 /*****************************************
@@ -1096,6 +1601,14 @@ function nextPage() {
  *         页面初始化 & 事件绑定         *
  *****************************************/
 document.addEventListener("DOMContentLoaded", function() {
+  // 绑定确认兑换按钮事件
+  document.getElementById("confirmYesBtn").onclick = function() {
+    confirmAction();
+  };
+  document.getElementById("confirmNoBtn").onclick = function() {
+    closeConfirmExchange();
+  };
+  
   renderExchangeItems(); // 渲染道具兑换
   updateStats();
   renderRecords();       // 初始化记录分页
@@ -1143,31 +1656,300 @@ function getLabels(name) {
  *      积分兑换确认 & 结果弹窗逻辑       *
  *****************************************/
 let currentExchangeItem = null;
+// 暂存箱操作相关变量
+let currentStashAction = null; // 'receive' 或 'decompose'
+let currentStashIndex = -1;
+let currentStashBatchAction = null; // 'receiveCurrentPage', 'decomposeCurrentPage', 'receiveAll', 'decomposeAll'
 
 function openConfirmExchange(itemName, cost) {
   currentExchangeItem = { name: itemName, cost: cost };
-  document.getElementById("confirmModalContent").innerText =
-    `确定使用【${cost}】个积分兑换【${itemName}】吗？`;
+  
+  // 获取道具类型标签
+  const itemType = getItemType(itemName);
+  
+  // 使用HTML格式化提示语
+  const content = `
+    确定使用 <span style="color:#ff3366;font-weight:bold">${cost}</span> 个积分兑换 
+    <span style="color:#007BFF;font-weight:bold">${itemName}</span> 
+    ${itemType ? `<span style="color:#ff3366;font-size:14px;">[${itemType}]</span>` : ''} 吗？
+    <br><br>
+    兑换后道具将发送至您的游戏仓库，请在24小时内登录游戏查收。
+  `;
+  
+  document.getElementById("confirmModalContent").innerHTML = content;
   document.getElementById("confirmModalBg").style.display = "block";
   document.getElementById("confirmModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("confirmModalBg").classList.add("show");
+    document.getElementById("confirmModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
 }
 
 function closeConfirmExchange() {
-  document.getElementById("confirmModalBg").style.display = "none";
-  document.getElementById("confirmModal").style.display = "none";
-  currentExchangeItem = null;
+  document.getElementById("confirmModalBg").classList.remove("show");
+  document.getElementById("confirmModal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("confirmModalBg").style.display = "none";
+    document.getElementById("confirmModal").style.display = "none";
+    currentExchangeItem = null;
+    currentStashAction = null;
+    currentStashIndex = -1;
+    currentStashBatchAction = null;
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
+}
+
+// 暂存箱确认弹窗
+function openStashConfirm(action, index) {
+  const item = stashRecords[index];
+  if (!item || item.status !== "normal") return;
+  
+  currentStashAction = action;
+  currentStashIndex = index;
+  
+  // 获取道具类型标签
+  const itemType = getItemType(item.name);
+  
+  let content = "";
+  if (action === 'receive') {
+    content = `确认将 <span style="color:#007BFF;font-weight:bold">${item.name}</span> ${itemType ? `<span style="color:#ff3366;font-size:14px;">[${itemType}]</span>` : ''} 发送到仓库吗？<br><br>领取后道具将发送至您的游戏仓库，请在24小时内登录游戏查收。`;
+  } else if (action === 'decompose') {
+    content = `确认将 <span style="color:#007BFF;font-weight:bold">${item.name}</span> ${itemType ? `<span style="color:#ff3366;font-size:14px;">[${itemType}]</span>` : ''} 分解成 <span style="color:#ff3366;font-weight:bold">${item.keyValue}个钥匙</span> 吗？<br><br>分解后将无法恢复该道具，但会立即获得对应数量的钥匙。`;
+  }
+  
+  document.getElementById("confirmModalContent").innerHTML = content;
+  document.getElementById("confirmModalBg").style.display = "block";
+  document.getElementById("confirmModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("confirmModalBg").classList.add("show");
+    document.getElementById("confirmModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
+}
+
+// 获取道具类型
+function getItemType(name) {
+  if (name.includes("幻神") || name.includes("柯尔特") || name.includes("炽芒蝶刃") || name.includes("雷神") || name.includes("AWM")) {
+    return "武器皮肤";
+  } else if (name.includes("背包")) {
+    return "背包装饰";
+  } else if (name.includes("击杀图标")) {
+    return "击杀特效";
+  } else if (name.includes("对讲机")) {
+    return "道具装饰";
+  } else if (name.includes("COP")) {
+    return "掌上武器";
+  } else if (name.includes("烟雾弹")) {
+    return "投掷武器";
+  }
+  return "";
+}
+
+// 批量操作确认弹窗
+function openStashBatchConfirm(action) {
+  currentStashBatchAction = action;
+  
+  const total = stashRecords.length;
+  const totalPages = Math.ceil(total / stashPageSize) || 1;
+  if (stashPage < 1) stashPage = 1;
+  if (stashPage > totalPages) stashPage = totalPages;
+  
+  let content = "";
+  let canOperate = [];
+  
+  if (action === 'receiveCurrentPage' || action === 'decomposeCurrentPage') {
+    const startIndex = (stashPage - 1) * stashPageSize;
+    const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
+    canOperate = pageData.filter(i => i.status === "normal");
+    
+    if (canOperate.length === 0) {
+      if (action === 'receiveCurrentPage') {
+        openResultModal("提示", "当前页没有可领取的道具");
+      } else {
+        openResultModal("提示", "当前页没有可分解的道具");
+      }
+      return;
+    }
+    
+    if (action === 'receiveCurrentPage') {
+      content = `确认批量领取当前页的 <span style="color:#007BFF;font-weight:bold">${canOperate.length}</span> 个道具？<br><br>领取后道具将发送至您的游戏仓库，请在24小时内登录游戏查收。`;
+    } else {
+      // 计算总钥匙数
+      let totalKeys = 0;
+      canOperate.forEach(item => {
+        totalKeys += item.keyValue;
+      });
+      content = `确认批量分解当前页的 <span style="color:#007BFF;font-weight:bold">${canOperate.length}</span> 个道具？<br>分解后将获得 <span style="color:#ff3366;font-weight:bold">${totalKeys}</span> 个钥匙。<br><br>分解后将无法恢复这些道具，但会立即获得对应数量的钥匙。`;
+    }
+  } else {
+    canOperate = stashRecords.filter(i => i.status === "normal");
+    
+    if (canOperate.length === 0) {
+      if (action === 'receiveAll') {
+        openResultModal("提示", "暂存箱没有可领取的道具");
+      } else {
+        openResultModal("提示", "暂存箱没有可分解的道具");
+      }
+      return;
+    }
+    
+    if (action === 'receiveAll') {
+      content = `确认领取暂存箱中的全部 <span style="color:#007BFF;font-weight:bold">${canOperate.length}</span> 个道具？<br><br>领取后道具将发送至您的游戏仓库，请在24小时内登录游戏查收。`;
+    } else {
+      // 计算总钥匙数
+      let totalKeys = 0;
+      canOperate.forEach(item => {
+        totalKeys += item.keyValue;
+      });
+      content = `确认分解暂存箱中的全部 <span style="color:#007BFF;font-weight:bold">${canOperate.length}</span> 个道具？<br>分解后将获得 <span style="color:#ff3366;font-weight:bold">${totalKeys}</span> 个钥匙。<br><br>分解后将无法恢复这些道具，但会立即获得对应数量的钥匙。`;
+    }
+  }
+  
+  document.getElementById("confirmModalContent").innerHTML = content;
+  document.getElementById("confirmModalBg").style.display = "block";
+  document.getElementById("confirmModal").style.display = "block";
+  
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("confirmModalBg").classList.add("show");
+    document.getElementById("confirmModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
+}
+
+// 确认按钮处理函数
+function confirmAction() {
+  // 处理积分兑换
+  if (currentExchangeItem) {
+    // 直接在这里处理积分兑换，不再调用confirmExchange函数
+    const { name, cost } = currentExchangeItem;
+    closeConfirmExchange();
+    if (totalPoints >= cost) {
+      totalPoints -= cost;
+      addRecord(name, true);
+      openResultModal("兑换成功", `恭喜您获得了礼包：${name}<br>请注意：游戏虚拟道具奖品将在24小时内到账`);
+    } else {
+      openResultModal("兑换失败", "抱歉，您的积分不足~");
+    }
+    updateStats();
+    return;
+  }
+  
+  // 处理单个暂存箱操作
+  if (currentStashAction && currentStashIndex >= 0) {
+    const item = stashRecords[currentStashIndex];
+    if (!item || item.status !== "normal") {
+      closeConfirmExchange();
+      return;
+    }
+    
+    if (currentStashAction === 'receive') {
+      // 领取操作
+      item.status = "received";
+      openResultModal("领取成功", `恭喜您获得了礼包：${item.name}<br>请注意：游戏虚拟道具奖品将会在24小时内到账`);
+    } else if (currentStashAction === 'decompose') {
+      // 分解操作
+      item.status = "decomposed";
+      totalKeys += item.keyValue;
+      updateStats();
+      openResultModal("分解成功", `共1个道具，获得 <span style="color:#ff3366;font-weight:bold">${item.keyValue}个钥匙</span>`);
+    }
+    
+    closeConfirmExchange();
+    renderStash();
+    return;
+  }
+  
+  // 处理批量暂存箱操作
+  if (currentStashBatchAction) {
+    const total = stashRecords.length;
+    const totalPages = Math.ceil(total / stashPageSize) || 1;
+    if (stashPage < 1) stashPage = 1;
+    if (stashPage > totalPages) stashPage = totalPages;
+    
+    let canOperate = [];
+    
+    if (currentStashBatchAction === 'receiveCurrentPage' || currentStashBatchAction === 'decomposeCurrentPage') {
+      const startIndex = (stashPage - 1) * stashPageSize;
+      const pageData = stashRecords.slice(startIndex, startIndex + stashPageSize);
+      canOperate = pageData.filter(i => i.status === "normal");
+    } else {
+      canOperate = stashRecords.filter(i => i.status === "normal");
+    }
+    
+    if (canOperate.length === 0) {
+      closeConfirmExchange();
+      return;
+    }
+    
+    if (currentStashBatchAction === 'receiveCurrentPage' || currentStashBatchAction === 'receiveAll') {
+      // 批量领取
+      canOperate.forEach(item => {
+        item.status = "received";
+      });
+      openResultModal("领取成功", `已领取：共${canOperate.length}个道具`);
+    } else {
+      // 批量分解
+      let totalGained = 0;
+      canOperate.forEach(item => {
+        item.status = "decomposed";
+        totalGained += item.keyValue;
+      });
+      totalKeys += totalGained;
+      updateStats();
+      openResultModal("分解成功", `共${canOperate.length}个道具，获得 <span style="color:#ff3366;font-weight:bold">${totalGained}个钥匙</span>`);
+    }
+    
+    closeConfirmExchange();
+    renderStash();
+    return;
+  }
 }
 
 function openResultModal(title, htmlContent) {
   document.getElementById("resultModalHeader").innerText = title;
-  document.getElementById("resultModalContent").innerHTML = htmlContent ? htmlContent : "";
+  document.getElementById("resultModalContent").innerHTML = htmlContent;
   document.getElementById("resultModalBg").style.display = "block";
   document.getElementById("resultModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("resultModalBg").classList.add("show");
+    document.getElementById("resultModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
 }
 
 function closeResultModal() {
-  document.getElementById("resultModalBg").style.display = "none";
-  document.getElementById("resultModal").style.display = "none";
+  document.getElementById("resultModalBg").classList.remove("show");
+  document.getElementById("resultModal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("resultModalBg").style.display = "none";
+    document.getElementById("resultModal").style.display = "none";
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
 }
 
 /** 积分兑换确认按钮 */
@@ -1195,17 +1977,89 @@ document.getElementById("confirmNoBtn").onclick = function() {
 
 /** 购买钥匙 */
 function buyKeys(keys, price) {
-  moneySpent += price;
-  totalKeys += keys;
-  updateStats();
-  // 增加提示
-  openResultModal(`消费 ${price} 元，获得 ${keys} 个钥匙`);
+  // 直接购买，不需要确认弹窗
+  // 模拟购买成功
+  const successRate = Math.random();
+  let resultTitle, resultContent;
+  
+  if (successRate > 0.05) { // 95%成功率
+    resultTitle = "购买成功";
+    resultContent = `恭喜您成功购买了 <span style="color:#007BFF;font-weight:bold">${keys}</span> 个钥匙！`;
+    // 更新钥匙数量
+    moneySpent += price;
+    totalKeys += keys;
+    updateStats();
+  } else {
+    resultTitle = "购买失败";
+    resultContent = "很遗憾，购买失败，请稍后再试。";
+  }
+  
+  openResultModal(resultTitle, resultContent);
+}
+
+/** 显示购买钥匙确认弹窗 - 已不使用 */
+function showKeysBuyModal(keys, price) {
+  currentKeysBuy = { keys, price };
+  document.getElementById("keysBuyModalContent").innerHTML = 
+    `确定要消费 <span style="color:#ff3366;font-weight:bold">${price}</span> 元购买 <span style="color:#007BFF;font-weight:bold">${keys}</span> 个钥匙吗？`;
+  
+  document.getElementById("keysBuyModalBg").style.display = "block";
+  document.getElementById("keysBuyModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("keysBuyModalBg").classList.add("show");
+    document.getElementById("keysBuyModal").classList.add("show");
+    
+    // 禁止背景滚动
+    document.body.style.overflow = "hidden";
+  }, 10);
+}
+
+/** 关闭购买钥匙弹窗 - 已不使用 */
+function closeKeysBuyModal() {
+  document.getElementById("keysBuyModalBg").classList.remove("show");
+  document.getElementById("keysBuyModal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("keysBuyModalBg").style.display = "none";
+    document.getElementById("keysBuyModal").style.display = "none";
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
+}
+
+/** 确认购买钥匙 - 已不使用 */
+function confirmKeysBuy() {
+  if (currentKeysBuy) {
+    // 模拟购买成功
+    const successRate = Math.random();
+    let resultTitle, resultContent;
+    
+    if (successRate > 0.05) { // 95%成功率
+      resultTitle = "购买成功";
+      resultContent = `恭喜您成功购买了 <span style="color:#007BFF;font-weight:bold">${currentKeysBuy.keys}</span> 个钥匙！`;
+      // 更新钥匙数量
+      moneySpent += currentKeysBuy.price;
+      totalKeys += currentKeysBuy.keys;
+      updateStats();
+    } else {
+      resultTitle = "购买失败";
+      resultContent = "很遗憾，购买失败，请稍后再试。";
+    }
+    
+    closeKeysBuyModal();
+    openResultModal(resultTitle, resultContent);
+  }
 }
 
 /** 抽奖 times 次 */
 function draw(times) {
   if (totalKeys < times) {
-    openResultModal("钥匙不足，请先购买！");
+    // 使用自定义弹窗替代alert
+    showTipModal("钥匙不足", `当前钥匙：<span style="color:#007BFF;font-weight:bold">${totalKeys}</span>，需要：<span style="color:#ff3366;font-weight:bold">${times}</span><br><br>请先购买钥匙！`);
     return;
   }
   totalKeys -= times;
@@ -1288,11 +2142,27 @@ function pickRandomPrize() {
 }
 
 function pickRandomCard() {
+  // 冠军卡保底机制：每100次抽奖必出冠军卡
+  championCardCounter++;
+  
+  // 如果已经到达100次，直接返回冠军卡
+  if (championCardCounter >= 100) {
+    championCardCounter = 0; // 重置计数器
+    return "冠军卡";
+  }
+  
+  // 正常随机抽卡
   let rand = Math.random() * 100;
   let cumulative = 0;
   for (let item of cards) {
     cumulative += item.prob;
-    if (rand < cumulative) return item.name;
+    if (rand < cumulative) {
+      // 如果抽到了冠军卡，重置计数器
+      if (item.name === "冠军卡") {
+        championCardCounter = 0;
+      }
+      return item.name;
+    }
   }
   return cards[cards.length - 1].name;
 }
@@ -1307,9 +2177,9 @@ function composeOneSet() {
     cardCollection["冠军卡"]--;
     totalSets++;
     updateCardUI();
-    openResultModal("成功合成 1 套！");
+    showTipModal("合成成功", "成功合成 1 套！");
   } else {
-    openResultModal("合成失败：需集齐5种卡牌各≥1才能合成1套。");
+    showTipModal("合成失败", "需集齐5种卡牌各≥1才能合成1套。");
   }
 }
 
@@ -1317,7 +2187,7 @@ function composeOneSet() {
 function composeFiveSets() {
   for (let i = 0; i < 5; i++) {
     if (!checkSetEnough(5)) {
-      openResultModal("合成失败：需集齐5种卡牌各≥5才能合成5套。");
+      showTipModal("合成失败", "需集齐5种卡牌各≥5才能合成5套。");
       return;
     }
   }
@@ -1328,7 +2198,7 @@ function composeFiveSets() {
   cardCollection["冠军卡"]  -= 5;
   totalSets += 5;
   updateCardUI();
-  openResultModal("成功合成 5 套！");
+  showTipModal("合成成功", "成功合成 5 套！");
 }
 
 /** 卡牌合成全部 */
@@ -1348,9 +2218,9 @@ function composeAllSets() {
     cardCollection["冠军卡"]  -= canMake;
     totalSets += canMake;
     updateCardUI();
-    openResultModal(`合成成功：共 ${canMake} 套！`);
+    showTipModal("合成成功", `共 ${canMake} 套！`);
   } else {
-    openResultModal("合成失败：需集齐5种卡牌各≥1才能合成。");
+    showTipModal("合成失败", "需集齐5种卡牌各≥1才能合成。");
   }
 }
 
@@ -1379,9 +2249,9 @@ function redeemBySet(requiredSets, itemName) {
     totalSets -= requiredSets;
     updateCardUI();
     addRecord(itemName, true);
-    openResultModal(`兑换成功：获得 ${itemName}`);
+    showTipModal("兑换成功", `获得 ${itemName}`);
   } else {
-    openResultModal("抱歉，卡牌不足。");
+    showTipModal("兑换失败", "抱歉，卡牌不足。");
   }
 }
 
@@ -1394,6 +2264,11 @@ function updateStats() {
   document.getElementById("totalPoints").textContent = totalPoints;
   document.getElementById("totalDraws").textContent  = totalDraws;
   document.getElementById("myPointsDisplay").textContent = totalPoints;
+  
+  // 更新冠军卡保底计数器显示
+  if (document.getElementById("championCardCounter")) {
+    document.getElementById("championCardCounter").textContent = 100 - championCardCounter;
+  }
 }
 
 /*****************************************
@@ -1403,98 +2278,117 @@ function showModal(content) {
   document.getElementById("modalContent").innerHTML = content;
   document.getElementById("modalBg").style.display = "block";
   document.getElementById("modal").style.display = "block";
-}
-function closeModal() {
-  document.getElementById("modalBg").style.display = "none";
-  document.getElementById("modal").style.display = "none";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("modalBg").classList.add("show");
+    document.getElementById("modal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
 }
 
-/* 点击“奖池概率”时，弹出对应表格内容 */
+function closeModal() {
+  document.getElementById("modalBg").classList.remove("show");
+  document.getElementById("modal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("modalBg").style.display = "none";
+    document.getElementById("modal").style.display = "none";
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
+}
+
+/* 点击"奖池概率"时，弹出对应表格内容 */
 function openPrizePoolModal() {
   const tableHTML = `
-    <table border="1" style="margin: 0 auto; border-collapse: collapse;">
+    <table border="1" style="margin: 0 auto; border-collapse: collapse; width: 100%;">
       <thead>
         <tr>
-          <th style="padding: 8px;">道具名称</th>
-          <th style="padding: 8px;">奖池概率</th>
-          <th style="padding: 8px;">分解所获钥匙</th>
+          <th style="padding: 10px; background-color: #4a76b5; color: white;">道具名称</th>
+          <th style="padding: 10px; background-color: #4a76b5; color: white;">奖池概率</th>
+          <th style="padding: 10px; background-color: #4a76b5; color: white;">分解所获钥匙</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>幻神-荣耀世冠白鲨2023 皮肤</td>
-          <td>0.15%</td>
-          <td>15</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">幻神-荣耀世冠白鲨2023 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.15%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">15</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">柯尔特-荣耀世冠白鲨2023 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.25%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">10</td>
         </tr>
         <tr>
-          <td>柯尔特-荣耀世冠白鲨2023 皮肤</td>
-          <td>0.25%</td>
-          <td>10</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">炽芒蝶刃-荣耀世冠白鲨2023 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.30%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">8</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">雷神-白鲨 CFPLS14冠军 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.50%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">4</td>
         </tr>
         <tr>
-          <td>炽芒蝶刃-荣耀世冠白鲨2023 皮肤</td>
-          <td>0.30%</td>
-          <td>8</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">BS战队炫彩背包</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.60%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">3</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">COP-白鲨</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">0.60%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">3</td>
         </tr>
         <tr>
-          <td>雷神-白鲨 CFPLS14冠军 皮肤</td>
-          <td>0.50%</td>
-          <td>4</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">烟雾弹-荣耀世冠白鲨2023 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">1.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">1</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">AWM-天龙-传奇白鲨 皮肤</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">1.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">1</td>
         </tr>
         <tr>
-          <td>BS战队炫彩背包</td>
-          <td>0.60%</td>
-          <td>3</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">白鲨战队对讲机</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">1.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #007BFF; font-weight: bold;">1</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x88</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">2.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
         </tr>
         <tr>
-          <td>COP-白鲨</td>
-          <td>0.60%</td>
-          <td>3</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x66</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">3.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x23</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">6.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
         </tr>
         <tr>
-          <td>烟雾弹-荣耀世冠白鲨2023 皮肤</td>
-          <td>1.00%</td>
-          <td>1</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x20</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">9.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x12</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">35.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
         </tr>
         <tr>
-          <td>AWM-天龙-传奇白鲨 皮肤</td>
-          <td>1.00%</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>白鲨战队对讲机</td>
-          <td>1.00%</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>积分x88</td>
-          <td>2.00%</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>积分x66</td>
-          <td>3.00%</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>积分x23</td>
-          <td>6.00%</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>积分x20</td>
-          <td>9.00%</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>积分x12</td>
-          <td>35.00%</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>积分x10</td>
-          <td>38.60%</td>
-          <td>-</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">积分x10</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">38.60%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">-</td>
         </tr>
       </tbody>
     </table>
@@ -1502,38 +2396,47 @@ function openPrizePoolModal() {
   document.getElementById("probabilityModalContent").innerHTML = tableHTML;
   document.getElementById("probabilityModalBg").style.display = "block";
   document.getElementById("probabilityModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("probabilityModalBg").classList.add("show");
+    document.getElementById("probabilityModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
 }
 
-/* 点击“卡牌概率”时，弹出对应表格内容 */
+/* 点击"卡牌概率"时，弹出对应表格内容 */
 function openCardProbabilityModal() {
   const tableHTML = `
-    <table border="1" style="margin: 0 auto; border-collapse: collapse;">
+    <table border="1" style="margin: 0 auto; border-collapse: collapse; width: 100%;">
       <thead>
         <tr>
-          <th style="padding: 8px;">卡牌名称</th>
-          <th style="padding: 8px;">奖池概率</th>
+          <th style="padding: 10px; background-color: #4a76b5; color: white;">卡牌名称</th>
+          <th style="padding: 10px; background-color: #4a76b5; color: white;">奖池概率</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>出征卡</td>
-          <td>24.75%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">出征卡</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">24.75%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">地点卡</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">24.75%</td>
         </tr>
         <tr>
-          <td>地点卡</td>
-          <td>24.75%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">外景卡</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">24.75%</td>
+        </tr>
+        <tr style="background-color: #f8f9fa;">
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">地图卡</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">24.75%</td>
         </tr>
         <tr>
-          <td>外景卡</td>
-          <td>24.75%</td>
-        </tr>
-        <tr>
-          <td>地图卡</td>
-          <td>24.75%</td>
-        </tr>
-        <tr>
-          <td>冠军卡</td>
-          <td>1.00%</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0;">冠军卡</td>
+          <td style="padding: 8px; border: 1px solid #e0e0e0; color: #ff3366; font-weight: bold;">1.00%</td>
         </tr>
       </tbody>
     </table>
@@ -1541,12 +2444,100 @@ function openCardProbabilityModal() {
   document.getElementById("probabilityModalContent").innerHTML = tableHTML;
   document.getElementById("probabilityModalBg").style.display = "block";
   document.getElementById("probabilityModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("probabilityModalBg").classList.add("show");
+    document.getElementById("probabilityModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
 }
 
 /* 关闭通用弹窗 */
 function closeProbabilityModal() {
-  document.getElementById("probabilityModalBg").style.display = "none";
-  document.getElementById("probabilityModal").style.display = "none";
+  document.getElementById("probabilityModalBg").classList.remove("show");
+  document.getElementById("probabilityModal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("probabilityModalBg").style.display = "none";
+    document.getElementById("probabilityModal").style.display = "none";
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
+}
+
+/*****************************************
+ *     通用提示弹窗函数                  *
+ *****************************************/
+// 通用提示弹窗，替代原生alert
+function showTipModal(title, content, callback) {
+  // 如果弹窗元素不存在，则创建
+  if (!document.getElementById("tipModalBg")) {
+    // 创建背景
+    const bg = document.createElement("div");
+    bg.className = "modal-bg";
+    bg.id = "tipModalBg";
+    document.body.appendChild(bg);
+    
+    // 创建弹窗容器
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.id = "tipModal";
+    
+    // 创建弹窗内容
+    modal.innerHTML = `
+      <div class="modal-header" id="tipModalHeader">提示</div>
+      <div class="modal-content" id="tipModalContent"></div>
+      <div class="modal-footer">
+        <button id="tipModalBtn">确定</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // 绑定关闭事件
+    document.getElementById("tipModalBtn").onclick = function() {
+      closeTipModal();
+      if (typeof callback === 'function') {
+        callback();
+      }
+    };
+  }
+  
+  // 设置弹窗内容
+  document.getElementById("tipModalHeader").innerText = title || "提示";
+  document.getElementById("tipModalContent").innerHTML = content;
+  
+  // 显示弹窗
+  document.getElementById("tipModalBg").style.display = "block";
+  document.getElementById("tipModal").style.display = "block";
+  
+  // 添加动画效果
+  setTimeout(() => {
+    document.getElementById("tipModalBg").classList.add("show");
+    document.getElementById("tipModal").classList.add("show");
+    
+    // 禁止背景滚动并添加modal-open类
+    document.body.classList.add("modal-open");
+  }, 10);
+}
+
+// 关闭通用提示弹窗
+function closeTipModal() {
+  document.getElementById("tipModalBg").classList.remove("show");
+  document.getElementById("tipModal").classList.remove("show");
+  
+  // 等待动画完成后隐藏
+  setTimeout(() => {
+    document.getElementById("tipModalBg").style.display = "none";
+    document.getElementById("tipModal").style.display = "none";
+    
+    // 恢复背景滚动并移除modal-open类
+    document.body.classList.remove("modal-open");
+  }, 300);
 }
 </script>
 </body>

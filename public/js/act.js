@@ -626,13 +626,16 @@ var ACT = {
     queryLotteryRecord(item) {
         // 检测用户状态
         if (!checkUserStatus()) return false;
+        console.log(pageIndex,totalPage, 'pageIndex-----1');
         if (pageIndex > totalPage) {
             pageIndex = totalPage;
             if (pageIndex != 0) return;
         }
+        console.log(pageIndex, 'pageIndex-----2');
         if (pageIndex < 1) {
             pageIndex = 1;
         }
+        console.log(pageIndex, 'pageIndex-----3');
         if (item == 2) {
             // 暂存箱
             request(
@@ -646,12 +649,13 @@ var ACT = {
                 pageIndex != 1
             ).then((res) => {
                 if (res.code == 200) {
-                    const { temporaryBox, total, totalPages } = res.data;
+                    const { temporaryBox, totalPages } = res.data;
                     if (totalPages == 0) {
                         pageIndex = 0;
                     }
                     $(".now_page").text(pageIndex);
                     $(".total_page").text(totalPages);
+                    totalPage = totalPages;
                     // 渲染数据
                     let html = "";
                     if (res.data.length == 0) {

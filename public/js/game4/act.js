@@ -4,8 +4,8 @@ const buyKeysApi = window.isDev
     ? `/api/event/addConsumableRecord`
     : `/event/addConsumableRecord`; // 购买钥匙
 const drawLotteryApi = window.isDev
-    ? `/api/event/gachaItem`
-    : `/event/gachaItem`; // 抽奖接口
+    ? `/api/event/doubleGacha`
+    : `/event/doubleGacha`; // 抽奖接口
 const getTankListsApi = window.isDev
     ? "/api/event/getTemporaryBoxRecord"
     : `/event/getTemporaryBoxRecord`; // 暂存箱
@@ -221,6 +221,7 @@ var Hx = {
             eventId: eventId,
             pool: "主奖池",
             gachaCount: num,
+            "secondaryPool": "卡牌抽取",
             consumableName: "钥匙",
             consumableQuantity: num,
         }).then((res) => {
@@ -231,8 +232,8 @@ var Hx = {
                     $.each(arr, function (k, v) {
                         $("#jlname").html(
                             `<p style="letter-spacing: 1px">${v.name}${
-                                v.quantity > 1 ? "x" + v.quantity : ""
-                            }</p>`
+                                v.quantity >= 1 ? "x" + v.quantity : ""
+                            }，${v.nameVo}${v.quantity >= 1 ? "*" + v.quantity : ""}</p>`
                         );
                     });
                     TGDialogS("popdc");
@@ -240,10 +241,9 @@ var Hx = {
                     $("#choulist").html("");
                     $.each(arr, function (k, v) {
                         $("#choulist").append(
-                            '<p style="letter-spacing: 1px">' +
-                                v.name +
-                                `${v.quantity > 1 ? "x" + v.quantity : ""}` +
-                                "</p>"
+                            `<p style="letter-spacing: 1px">${v.name}${
+                                v.quantity >= 1 ? "x" + v.quantity : ""
+                            }，${v.nameVo}${v.quantity >= 1 ? "*" + v.quantity : ""}</p>`
                         );
                     });
                     TGDialogS("popJl");
