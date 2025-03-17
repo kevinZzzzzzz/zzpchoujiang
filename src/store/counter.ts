@@ -27,7 +27,7 @@ export const useCounterStore1 = defineStore('counter1', () => {
   }
   );
 export const useCounterStore = defineStore('counter', () => {
-    const counterStore1 = useCounterStore1();
+    const counterStore1: any = useCounterStore1();
     const qq_number = ref(counterStore1.qqnumber);
     const address = ref(counterStore1.address);
     const names = ref(counterStore1.names);
@@ -242,7 +242,7 @@ let gailv16 = ref(4000);
   let ka2text = ref('');
   let ka2num = ref(0);
   //暂存箱以及算法
-  let zan_cun_xiang = ref([]);
+  let zan_cun_xiang = ref<any[]>([]);
   // let zan_cun_xiang1 = reactive([]);
   watch(() => xiang_data, (newVal,oldVal) => {
     if (chou_jiang_active.value == '') {
@@ -251,7 +251,7 @@ let gailv16 = ref(4000);
     }
     if(chou_jiang_active.value=='单抽'){
       console.log("单抽执行");
-      const lastItems =  newVal[newVal.length-1];
+      const lastItems: any =  newVal[newVal.length-1];
       console.log("最后一个元素是");
       console.log(lastItems);
       if(lastItems.text=="传说辉光 无序列号版"||
@@ -266,17 +266,17 @@ let gailv16 = ref(4000);
             lastItems.text=="天使灵狐玩偶"
           ){
             // zan_cun_xiang.push(lastItems);
-            zan_cun_xiang.value.unshift(lastItems);
+            lastItems && zan_cun_xiang.value.unshift(lastItems);
           }
         //加积分的算法
         jiajifen(lastItems);
         //加宝箱的算法
         jiabaoxiang(lastItems);
-        //chou_jiang_active.value=='单抽'
-        chou_jiang_active.value==''
+        chou_jiang_active.value=='单抽'
+        // chou_jiang_active.value==''
     }else if(chou_jiang_active.value=='十抽'){
       // console.log("十抽执行"); 
-      const lastTenItems = newVal.slice(-10);
+      const lastTenItems: any = newVal.slice(-10);
         for(let i = 0;i<lastTenItems.length;i++){
           if(lastTenItems[i].text=="传说辉光 无序列号版"||
             lastTenItems[i].text=="传说夜影 无序列号版"||
@@ -348,8 +348,8 @@ let gailv16 = ref(4000);
   } 
   onMounted(()=>{
     buy_active.value = false;
-    buy_jiazai_active1 = false;
-    buy_jiazai_active2 = false;
+    buy_jiazai_active1.value= false;
+    buy_jiazai_active2.value = false;
     danchou_active.value = false;
     shichou_active.value = false;
     systems.value = false;
@@ -505,12 +505,14 @@ let gailv16 = ref(4000);
   // 温馨提示：1、虚拟道具奖品将在24小时内发到您的游戏仓库。谢谢您的理解与支持。2、由于数据量巨大，奖励道具显示将有所延迟，或可存在不展示的情况，请以礼包记录为准。
 }
 ,{
-  persist:true,
+  persist:{
+    enabled: true
+  },
 }
 );
 export const useCounterStore2 = defineStore('counter2', () => {
   const counterStore = useCounterStore();
-  let zan_cun_xiangs = ref([]);
+  let zan_cun_xiangs = ref<any[]>([]);
   onMounted(async()=>{
     await new Promise(resolve => setTimeout(resolve, 2000)); // 模拟延迟
     zan_cun_xiangs.value = counterStore.zan_cun_xiang;
