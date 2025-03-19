@@ -34,6 +34,24 @@ const routes: RouteRecordRaw[] = [
         },
         component: async () => await import(/* webpackChunkName: "Game5" */ '@/pages/game5/index.vue')
       },
+      {
+        path: '/register',
+        name: 'Register',
+        meta: {
+          title: '注册账号',
+          requireAuth: false
+        },
+        component: async () => await import(/* webpackChunkName: "register" */ '@/pages/register/index.vue')
+      },
+      {
+        path: '/forgotPassword',
+        name: 'ForgotPassword',
+        meta: {
+          title: '忘记密码',
+          requireAuth: false
+        },
+        component: async () => await import(/* webpackChunkName: "forgotPassword" */ '@/pages/forgotPassword/index.vue')
+      },
       // {
       //   path: '/home',
       //   name: 'Home',

@@ -13,6 +13,12 @@ export default {
   async loginApi (data: any = {}): Promise<AxiosResponse<any, any>> {
     return await http.post(setProxy('/user/login'), { data }, false, false)
   },
+  async registerApi (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/user/register'), { data }, false, false)
+  },
+  async sendLoginCaptchaApi (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/user/sendLoginCaptcha'), { data }, false, false)
+  },
   /**
    * 活动列表
    * @param data 
