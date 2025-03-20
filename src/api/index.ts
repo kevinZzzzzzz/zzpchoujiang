@@ -17,7 +17,13 @@ export default {
     return await http.post(setProxy('/user/register'), { data }, false, false)
   },
   async sendLoginCaptchaApi (data: any = {}): Promise<AxiosResponse<any, any>> {
-    return await http.post(setProxy('/user/sendLoginCaptcha'), { data }, false, false)
+    return await http.post(setProxy('/user/sendRegisterCaptcha'), { data }, false, false)
+  },
+  async sendResetPasswordCaptchaApi (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/user/sendResetPasswordCaptcha'), { data }, false, false)
+  },
+  async resetPasswordApi (data: any = {}): Promise<AxiosResponse<any, any>> {
+    return await http.post(setProxy('/user/resetPassword'), { data }, false, false)
   },
   /**
    * 活动列表

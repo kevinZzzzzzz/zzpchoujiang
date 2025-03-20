@@ -53,7 +53,6 @@ class HttpRequest {
         })
       },
       (error: any) => {
-        console.log(error, 'response0')
         const {
           response: { status }
         } = error

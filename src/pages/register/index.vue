@@ -161,10 +161,14 @@ const sendVerificationCode = () => {
   // 这里添加发送验证码的API调用
   console.log('发送验证码到', formData.mobileNumber);
   window.$api.sendLoginCaptchaApi({
-    "loginType": "1",
     "mobileNumber": formData.mobileNumber
   }).then((res) => {
-    console.log(res);
+    console.log(res)
+  }).catch((err) => {
+    const {code, msg} = err.data;
+    if (code == -1) {
+      errors.captcha = msg;
+    }
   })
 };
 
@@ -230,20 +234,20 @@ const validateForm = () => {
   }
   
   // 验证推荐人ID
-  if (formData.referrerId === null) {
-    errors.referrerId = '请输入推荐人ID';
-    isValid = false;
-  } else {
-    errors.referrerId = '';
-  }
+  // if (formData.referrerId === null) {
+  //   errors.referrerId = '请输入推荐人ID';
+  //   isValid = false;
+  // } else {
+  //   errors.referrerId = '';
+  // }
   
   // 验证协议勾选
-  if (!formData.agreement) {
-    errors.agreement = '请阅读并同意用户协议和隐私政策';
-    isValid = false;
-  } else {
-    errors.agreement = '';
-  }
+  // if (!formData.agreement) {
+  //   errors.agreement = '请阅读并同意用户协议和隐私政策';
+  //   isValid = false;
+  // } else {
+  //   errors.agreement = '';
+  // }
   
   return isValid;
 };
@@ -261,24 +265,29 @@ const handleRegister = () => {
     ...formData
   }).then((res) => {
     console.log(res);
+
+    // 注册成功后跳转到登录页面
+    router.push('/homePage')
+
+    // eslint-disable-next-line no-alert
+    alert('注册成功，即将跳转到登录页面');
   })
-  // 注册成功后跳转到登录页面
-  // router.push('/');
-  alert('注册成功，即将跳转到登录页面');
 };
 
 // 跳转到登录页面
 const goToLogin = () => {
-  router.push('/');
+  router.push('/homePage')
 };
 
 // 显示用户协议
 const showAgreement = () => {
+  // eslint-disable-next-line no-alert
   alert('显示用户协议');
 };
 
 // 显示隐私政策
 const showPrivacy = () => {
+  // eslint-disable-next-line no-alert
   alert('显示隐私政策');
 };
 </script>

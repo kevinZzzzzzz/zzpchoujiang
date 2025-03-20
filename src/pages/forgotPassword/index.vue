@@ -116,6 +116,18 @@ const sendVerificationCode = () => {
   
   // 这里添加发送验证码的API调用
   console.log('发送验证码到', formData.phone);
+  window.$api.sendResetPasswordCaptchaApi({
+    "resetPasswordType": "1",
+    "email": "",
+    "mobileNumber": formData.phone
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    const {code, msg} = err.data;
+    if (code == -1) {
+      errors.verificationCode = msg;
+    }
+  })
 };
 
 // 验证手机号和验证码
@@ -185,15 +197,24 @@ const resetPassword = () => {
   
   // 这里添加重置密码的API调用
   console.log('重置密码', formData);
-  
-  // 重置密码成功后跳转到登录页面
-  alert('密码重置成功，即将跳转到登录页面');
-  goToLogin();
+  window.$api.resetPasswordApi({
+    "resetPasswordType": "1",
+    "email": "",
+    "mobileNumber": formData.phone,
+    "captcha": formData.verificationCode,
+    "password": formData.newPassword
+  }).then((res) => {
+    console.log(res)
+    // 重置密码成功后跳转到登录页面
+    // eslint-disable-next-line no-alert
+    alert('密码重置成功，即将跳转到登录页面');
+    goToLogin();
+  })
 };
 
 // 跳转到登录页面
 const goToLogin = () => {
-  router.push('/');
+  router.push('/homePage');
 };
 
 // 跳转到注册页面
@@ -264,7 +285,9 @@ input[type="password"]:focus {
 .send-code-btn {
   width: 120px;
   padding: 0 10px;
-  background-color: #409eff;
+  background: linear-gradient(135deg, #0062cc, #1e90ff, #00bfff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 3s ease infinite;
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -291,7 +314,9 @@ input[type="password"]:focus {
 .reset-btn {
   width: 100%;
   padding: 12px 0;
-  background-color: #409eff;
+  background: linear-gradient(135deg, #0062cc, #1e90ff, #00bfff);
+  background-size: 200% 200%;
+  animation: gradientAnimation 3s ease infinite;
   border: none;
   border-radius: 4px;
   color: #fff;

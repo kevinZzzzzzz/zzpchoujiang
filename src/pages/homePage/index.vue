@@ -393,8 +393,8 @@
       </div>
       <div class="loginDialog_main_btn" @click="handleLogin">登录</div>
       <div class="loginDialog_main_options">
-        <span>忘记密码?</span>
-        <span>注册账号</span>
+        <span @click="handleForgetPassword">忘记密码?</span>
+        <span @click="handleRegister">注册账号</span>
       </div>
     </div>
   </div>
@@ -418,6 +418,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
+import router from "@/router";
 import { ref, computed, onMounted, watch, nextTick, reactive } from "vue";
 
 const rechargeFlag = ref(false); // 充值弹窗
@@ -661,6 +662,12 @@ const goUrl = (url, eventId, newWindow = false) => {
     window.location.href = finalUrl;
   }
 };
+const handleRegister = () => {
+  router.push("/register");
+}
+const handleForgetPassword = () => {
+  router.push("/forgotPassword");
+}
 
 const handleLogin = () => {
   if (!loginInfo.value.mobileNumber || !loginInfo.value.password) {
