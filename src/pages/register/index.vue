@@ -146,23 +146,22 @@ const sendVerificationCode = () => {
     return;
   }
   
-  // 清除错误信息
-  errors.mobileNumber = '';
-  
-  // 模拟发送验证码
-  countdown.value = 60;
-  const timer = setInterval(() => {
-    countdown.value--;
-    if (countdown.value <= 0) {
-      clearInterval(timer);
-    }
-  }, 1000);
-  
   // 这里添加发送验证码的API调用
   console.log('发送验证码到', formData.mobileNumber);
   window.$api.sendLoginCaptchaApi({
     "mobileNumber": formData.mobileNumber
   }).then((res) => {
+    // 清除错误信息
+    errors.mobileNumber = '';
+    
+    // 模拟发送验证码
+    countdown.value = 60;
+    const timer = setInterval(() => {
+      countdown.value--;
+      if (countdown.value <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
     console.log(res)
   }).catch((err) => {
     const {code, msg} = err.data;
@@ -271,6 +270,15 @@ const handleRegister = () => {
 
     // eslint-disable-next-line no-alert
     alert('注册成功，即将跳转到登录页面');
+  }).catch((err) => {
+    const {code, msg} = err.data;
+    if (code == -1) {
+      if (msg.includes('验证码')) {
+        errors.captcha = msg;
+      } else if (msg.includes('用户名')) {
+        errors.username = msg;
+      }
+    }
   })
 };
 

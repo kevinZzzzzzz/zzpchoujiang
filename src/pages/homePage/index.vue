@@ -75,7 +75,7 @@
             <p>{{ item.gameName }} {{ item.title }}</p>
             <ul>
               <li @click="goUrl(item.freeUrl, null, true)">免费</li>
-              <li @click="goUrl(item.url, item.id, true)">付费</li>
+              <li v-if="item.showIsButFlag" @click="goUrl(item.url, item.id, true)">付费</li>
               <li>活动重置</li>
             </ul>
           </div>

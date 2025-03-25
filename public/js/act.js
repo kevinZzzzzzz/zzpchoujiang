@@ -674,14 +674,14 @@ var ACT = {
                             } else if (item.status == 1) {
                                 html += `
                                 <tr>
-                                    <td>${item.name}</td>
+                                    <td>${item.eventItemName}</td>
                                     <td>已发送</td>
                                     <td>x</td>
                                 </tr>`;
                             } else if (item.status == 2) {
                                 html += `
                                 <tr>
-                                    <td>${item.name}</td>
+                                    <td>${item.eventItemName}</td>
                                     <td>x</td>
                                     <td>已分解</td>
                                 </tr>`;
